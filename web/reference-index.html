@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>API Reference </title>
+    <!-- needed for adaptive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+      body {
+        margin: 0 10 0 0;
+        padding: 0;
+        font-family: Gellix,sans-serif;
+      }
+      .document-page-title h1 {
+        font-weight: 600;
+        font-size: 44px;
+        color: rgb(51, 51, 51);
+        white-space: normal;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        padding-bottom: 11px;
+        margin-bottom: 33px;
+        border-bottom: 4px solid rgb(51, 51, 51);
+        text-overflow: ellipsis;
+        line-height: 1.15;
+      }
+      .document-page-content h2 {
+        color: #333;
+        font-weight: 600;
+        font-size: 27px;
+        line-height: 1.25;
+        padding-bottom: 0.3em;
+        margin-top: 22px;
+        margin-bottom: 5px;
+        width: 100%;
+        word-wrap: break-word;
+      }
+      .document-page-content .internal-icon {
+        margin-left: 5px;
+      }
+      .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .fa-external-link:before {
+      content: "\2606";
+      box-sizing: border-box;
+    }
+    </style>
+
+  </head>
+  <body>
+    <div title="API Reference" class="document-page-title">
+          <h1>API Reference</h1>
+    </div>
+    <div class="document-page-content">
+      <h2 id="nodeos-rpc-api-reference">
+        <a href="#TODO">
+        </a>Nodeos RPC API Reference</h2>
+        <ul>
+          <li><a href="/reference/mandel-plugins/chain_api.html" target="_self" rel="nofollow noopener noreferrer">Nodeos Chain API</a>: Provides access to the blockchain information and interaction with the blockchain</li>
+          <li><a href="/reference/mandel-plugins/producer_api.html" target="_self" rel="nofollow noopener noreferrer">Nodeos Producer API</a>: Provides access to a producer node</li>
+          <li><a href="/reference/mandel-plugins/net_api.html" target="_self" rel="nofollow noopener noreferrer">Nodeos Net API</a>: Provides access to the blockchain's network</li>
+          <li><a href="/reference/mandel-plugins/db_size_api.html" target="_self" rel="nofollow noopener noreferrer">Nodeos DB Size API</a>: Provides access to the blockchain's database</li>
+          <li><a href="/reference/mandel-plugins/trace_api.html" target="_self" rel="nofollow noopener noreferrer">Nodeos Trace API</a>: Provides access to retired actions and related metadata from a specified block</li>
+        </ul>
+
+
+        <h2 id="sdk-api-references">
+          <a href="#TODO" >
+          </a>SDK API References</h2>
+          <ul>
+            <li><a href="/eosdocs/client-side/jsdocs/" target="_self" rel="nofollow noopener noreferrer">eosjs Javascript API</a>: Provides integration with EOSIO-based blockchains using the EOSIO Nodeos RPC API</li>
+            <ul>
+              <li><a href="/reference/swiftdocs/EosioSwift/" target="_blank" rel="nofollow noopener noreferrer">Docs EosioSwift<i class="fa fa-external-link internal-icon" aria-hidden="true"></i></a>: Core Swift API</li>
+              <li><a href="/reference/swiftdocs/EosioSwiftAbieosSerializationProvider/" target="_blank" rel="nofollow noopener noreferrer">Docs EosioSwiftAbieosSerializationProvider<i class="fa fa-external-link internal-icon" aria-hidden="true"></i></a>: ABI serialization</li>
+              <li><a href="/reference/swiftdocs/EosioSwiftEcc/" target="_blank" rel="nofollow noopener noreferrer">Docs EosioSwiftEcc<i class="fa fa-external-link internal-icon" aria-hidden="true"></i></a>: </li>
+              <li><a href="/reference/swiftdocs/EosioSwiftSoftkeySignatureProvider/" target="_blank" rel="nofollow noopener noreferrer">Docs EosioSwiftSoftkeySignatureProvider<i class="fa fa-external-link internal-icon" aria-hidden="true"></i></a>: </li>
+            </ul>
+            <li><a href="/reference/javadocs/" target="_blank" rel="nofollow noopener noreferrer">eosio-java Java API<i class="fa fa-external-link internal-icon" aria-hidden="true"></i></a>: Provides integration with EOSIO-based blockchains using the EOSIO Nodeos RPC API</li>
+          </ul>
+
+
+          <h2 id="smart-contract-action-references">
+            <a href="#TODO" >
+            </a>Smart Contract Action References</h2>
+            <ul>
+              <li><a href="/reference/mandel-contracts/classeosiosystem_1_1system__contract.html" target="_self" rel="nofollow noopener noreferrer">esio.system</a>: Contract defines the structures and actions needed for blockchain's core functionality</li>
+                <ul>
+                  <li><a href="/reference/mandel-contracts/structeosiosystem_1_1exchange__state.html" target="_self" rel="nofollow noopener noreferrer">esio.system::Exchange State</a></li>
+                  <li><a href="/reference/mandel-contracts/classeosiosystem_1_1native.html" target="_self" rel="nofollow noopener noreferrer">esio.system::Native</a></li>
+                  <li><a href="/reference/mandel-contracts/classpowup__results.html" target="_self" rel="nofollow noopener noreferrer">esio.system::Powerup.Results</a></li>
+                  <li><a href="/reference/mandel-contracts/classrex__results.html" target="_self" rel="nofollow noopener noreferrer">esio.system::Rex.Results</a></li>
+                </ul>
+              <li><a href="/reference/mandel-contracts/classeosio_1_1token.html" target="_self" rel="nofollow noopener noreferrer">esio.token</a>: Contract defines the structures and actions that allow users to create, issue, and manage tokens on eosio based blockchains</li>
+              <li><a href="/reference/mandel-contracts/classeosio_1_1multisig.html" target="_self" rel="nofollow noopener noreferrer">esio.msig</a>: Contract defines the structures and actions needed to manage the proposals and approvals on blockchain</li>
+              <li><a href="/reference/mandel-contracts/classeosio_1_1wrap.html" target="_self" rel="nofollow noopener noreferrer">esio.wrap</a>: Contract simplifies Block Producer superuser actions by making them more readable and easier to audit</li>
+              <li><a href="/reference/mandel-contracts/classeosiobios_1_1bios.html" target="_self" rel="nofollow noopener noreferrer">esio.bios</a>: Contract defines the structures and actions needed for blockchain's basic core functionality</li>
+            </ul>
+
+            <h2 id="mandel-cdt-references" > <a href="/reference/mandel-cdt/">Mandel Contract Developer Toolkit</a></h2>
+
+        </div>
+  </body>
+</html>

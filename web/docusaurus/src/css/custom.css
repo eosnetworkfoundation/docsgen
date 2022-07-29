@@ -1,0 +1,157 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #858585;
+  --ifm-color-primary-dark: #787878;
+  --ifm-color-primary-darker: #717171;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #929292;
+  --ifm-color-primary-lighter: #999999;
+  --ifm-color-primary-lightest: #adadad;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-link-color: #111199;
+  --ifm-navbar-link-hover-color: var(--ifm-font-color-secondary);
+  --ifm-navbar-link-hover-color: var(--ifm-font-color-secondary);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #c2c2c2;
+  --ifm-color-primary-dark: #afafaf;
+  --ifm-color-primary-darker: #a5a5a5;
+  --ifm-color-primary-darkest: #888888;
+  --ifm-color-primary-light: #d5d5d5;
+  --ifm-color-primary-lighter: #d8d8d8;
+  --ifm-color-primary-lightest: #dddddd;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-link-color: #8d8dd3;
+}
+
+/* navbar logo */
+.navbar__logo {
+    flex: 0 0 auto;
+    height: 2rem;
+    margin-right: 0.5rem;
+    background: #ffffffaa;
+    border-radius: 0.3rem;
+}
+
+/* homepage 3 boxes more room for spacing */
+.col--4 {
+    --ifm-col-width: 30%;
+}
+/* space under button */
+.col--4 div a.button {
+    margin-bottom: 1em;
+}
+/* homepage 3 boxes */
+.container .row .col.col--4 {
+    border: 1px solid var(--ifm-color-primary);
+    margin-top: 1em;
+    margin-right: 1.5em;
+    padding: 0em;
+    padding-top: 1em;
+    padding-right: 0em;
+    padding-bottom: 0em;
+    padding-left: 0em;
+    padding-top: 1em;
+}
+
+/* Article updates: reduce title size */
+.markdown h1:first-chile {
+    --ifm-h1-font-size: 2.4rem;
+}
+
+/* Article updates: better links */
+.markdown a {
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid var(--ifm-link-color);
+}
+
+/* size of external link svg */
+.iconExternalLink_nPIU {
+    margin-left: 0.3rem;
+    width: 9px;
+}
+
+/* applies to light and dark */
+.footer--dark {
+  --ifm-footer-background-color: #222222;
+  --ifm-footer-padding-horizontal: var(--ifm-spacing-horizontal);
+  --ifm-footer-padding-vertical: var(--ifm-spacing-vertical);
+}
+
+/* smaller footer */
+.footer {
+  font-size: 0.75rem;
+  --ifm-heading-margin-bottom: 0.75rem;
+  --ifm-footer-background-color: #222222;
+  --ifm-footer-padding-horizontal: var(--ifm-spacing-horizontal);
+  --ifm-footer-padding-vertical: var(--ifm-spacing-vertical);
+}
+
+.footer__title {
+  font-size: 0.75rem;
+  --ifm-heading-margin-bottom: 0.75rem;
+}
+
+/* shorten up the long list for footer links group 2 */
+.footer__col:nth-child(2) ul {
+  columns: 2;
+}
+
+@media (max-width: 996px) {
+  .col--4 h3 {
+    font-size: 1rem;
+  }
+  .col--4 p {
+    font-size: 0.75rem;
+  }
+  .col--4 div a.button {
+    font-size: 0.75rem;
+  }
+  .button--lg {
+    --ifm-button-size-multiplier: 1;
+  }
+}
+
+/* under 500px here */
+@media all and (max-width: 500px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+  .hero__subtitle {
+    font-size: 1rem;
+  }
+  .navbar__title {
+    font-size: 0.75rem;
+  }
+  .markdown h1:first-child {
+    --ifm-h1-font-size: 1.25rem;
+  }
+  .markdown > h2 {
+    --ifm-h2-font-size: 1rem;
+  }
+  .markdown > h3 {
+    --ifm-h3-font-size: 0.75rem;
+  }
+  .col--4 h3 {
+    font-size: 0.75rem;
+  }
+  .col--4 p {
+    font-size: 0.5rem;
+  }
+  .col--4 div a.button {
+    font-size: 0.5rem;
+  }
+  .button--lg {
+    --ifm-button-size-multiplier: 0.75;
+  }
+}
