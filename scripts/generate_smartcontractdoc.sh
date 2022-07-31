@@ -134,5 +134,5 @@ GenSmartContractDoc() {
   mv tmp_index.md markdown_out/index.md
 
   # copy into serving location
-  #cp -R markdown_out/* $DOC_DIR
+  cp -R markdown_out/* $DOC_DIR
 }

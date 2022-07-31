@@ -72,10 +72,19 @@ echo "creating directories and adding templates under ${ROOT_DIR}"
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/smart-contracts" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/smart-contracts"
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/client-side" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/client-side"
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/developer-tools" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/developer-tools"
-# directory for guides, glossary, and tutorial
-[ ! -d "${ROOT_DIR}/devdocs/eosdocs/general_info" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/general_info"
-[ ! -d "${ROOT_DIR}/devdocs/eosdocs/general_info/protocol-guides" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/general_info/protocol-guides"
-[ ! -d "${ROOT_DIR}/devdocs/eosdocs/tutorials" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/tutorials"
+# welcome repo nested because they are out of date
+[ ! -d "${ROOT_DIR}/devdocs/eosdocs/welcome" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/welcome"
+# creating 7 dirs
+for d in getting-started overview eosio-blockchain-networks get-involved tutorials protocol community-developer-tools
+do
+  [ ! -d "${ROOT_DIR}/devdocs/eosdocs/welcome/${d}" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/welcome/${d}"
+done
+# creating 2 nested dirs under getting-started 
+for d in development-environment smart-contract-development
+do
+  [ ! -d "${ROOT_DIR}/devdocs/eosdocs/welcome/getting-started/${d}" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/welcome/getting-started/${d}"
+done
+
 # smart contracts
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/smart-contracts/mandel-cdt" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/smart-contracts/mandel-cdt"
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/smart-contracts/mandel-contracts" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/smart-contracts/mandel-contracts"
@@ -95,6 +104,9 @@ echo "creating directories and adding templates under ${ROOT_DIR}"
 [ ! -d "${ROOT_DIR}/devdocs/i18n/zh/docusaurus-plugin-content-docs/current" ] && mkdir "${ROOT_DIR}/devdocs/i18n/zh/docusaurus-plugin-content-docs/current"
 [ ! -d "${ROOT_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs" ] && mkdir "${ROOT_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs/"
 [ ! -d "${ROOT_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs/current" ] && mkdir "${ROOT_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs/current"
+
+# place for welcome static image files
+[ ! -d "${ROOT_DIR}/devdocs/static/welcome" ] && mkdir "${ROOT_DIR}/devdocs/static/welcome"
 
 echo "copying in static files, will not overwrite existing files"
 
