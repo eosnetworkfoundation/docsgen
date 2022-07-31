@@ -95,7 +95,7 @@ On ubuntu 22 it will prompt you to restart services. You should answer `<OK>` an
 Need to make sure python 3.4 or better is installed. It is assumed the executable is named `python3`
 
 ## EOS Documentation Scripts ##
-Clone the engineering repo and go into the developer documentation section.
+Clone the engineering repo..
 
 ```
 git clone https://github.com/eosnetworkfoundation/devdocs
