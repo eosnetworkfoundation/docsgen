@@ -66,7 +66,7 @@ The translations come in two form
 * **Static Markdown** - You will find these under source control under `i18n` directory as static markdown files
 * **React Templates** - The React template will have strings wrapped with `<Translate>` tags.
 
-The full path the to `i18n` folder. 
+The full path the to `i18n` folder.
 `engineering/developer_documentation/web/docusarus/i18n`
 
 ## Updating Content ##

@@ -98,8 +98,8 @@ Need to make sure python 3.4 or better is installed. It is assumed the executabl
 Clone the engineering repo and go into the developer documentation section.
 
 ```
-git clone https://github.com/eosnetworkfoundation/engineering
-cd engineering/developer_documentation
+git clone https://github.com/eosnetworkfoundation/devdocs
+cd devdocs
 ```
 Follow the instructions in the README.md to
 * initialize

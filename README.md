@@ -15,7 +15,6 @@ Overview of documentation folder structure:
       * client-side - code repositories for developing clients
       * smart-contracts - markdown documentation on contracts, and cdt
       * developer-tools - markdown documentation on nodeos, cleos, and DUNE
-      * general_info - glossary, guides
       * tutorial - a walk through
 * reference - static html root (*sub dirs one-2-one with git repos*)
    * mandel-contracts
@@ -38,7 +37,6 @@ Overview of documentation folder structure:
 | Nodeos | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/01_nodeos | docusarus |
 | Cleos | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/02_cleos | docusarus |
 | Mandel Install | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/00_install | docusarus |
-| General Info | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/general_info | docusarus |
 | Tutorial | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/tutorials | docusarus |
 
 ## Initialize Content Repository ##
