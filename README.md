@@ -53,19 +53,14 @@ After running you will find two directories under `/path/to/build_dir` `devdocs`
 * `reference` static html/js/css served directly by webserver, mostly the output from doxygen runs
 
 ## Generating Content ##
-There are two steps
-* **Pre-Build** - pulling the content together from various repos
-* **Static Content** - running Docusaurus `build` to generate static html, css, js
-
 Clones various git repos, extracts documentation and then copies to `/path/to/build_dir folder`. The `-u` option switches protocol to http for docs.eosnetwork.com, because https is not supported at this time. Without the `-u` option protocol reverts to https.
 ```
 cd scripts
 ./run_me_to_gen_docs.sh -u -d /path/to/build_dir
 ```
-
-This script runs the Docusaurus build command. This script also copies the `reference` directory into the static HTML directory.
-
 After running there will be many static HTML, CSS, JS files under `/path/to/build_dir/devdocs/build`.
+
+See [Generating Documents](docs/GeneratingDocuments.md) for additional details
 
 ## Last Step ##
 Last step is to copy the data to the source webroot on the desired host
@@ -80,5 +75,3 @@ unpack tar with
 cd /path/to/webroot
 tar xzf ./newbuild.tgz
 ```
-
-See [Generating Documents](docs/GeneratingDocuments.md) for additional details
