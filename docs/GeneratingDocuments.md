@@ -6,9 +6,11 @@ There are two steps to generating content
 * **Pre-Build** - clones the repositories, performs some light manipulation of files, generates javadocs, generates doxygen file
 * **Static-Content** - parses the markdown into static content
 
+The static content will need to be supported by an HTTP service. These steps only build out the content. They don't serve the content via HTTP.
+
 ## Static Index Files ##
 
-There are 4 static index files copied from the `engineering` repo.
+There are 4 static index files copied from the `devdocs` repo.
 
 | Code Repository | Pre-Build | Static Content |
 | --------------- | --------- | ------- |
@@ -66,11 +68,11 @@ The translations come in two form
 * **Static Markdown** - You will find these under source control under `i18n` directory as static markdown files
 * **React Templates** - The React template will have strings wrapped with `<Translate>` tags.
 
-The full path the to `i18n` folder. 
-`engineering/developer_documentation/web/docusarus/i18n`
+The full path the to `i18n` folder, is found under the current *devdocs* reposiory.
+`devdocs/web/docusarus/i18n`
 
 ## Updating Content ##
-When changing content under the `engineering/developer_documentation/web` folder make sure to check for localized versions. You will find those versions under `i18n/xx/docusaurus-plugin-content-docs/current`. For example when you change `api-listing.md` you must also change `i18n/zh/docusaurus-plugin-content-docs/current/api-listing.md` and change `i18n/ko/docusaurus-plugin-content-docs/current/api-listing.md`.
+When changing content under the `devdocs/web` folder make sure to check for localized versions. You will find those versions under `i18n/xx/docusaurus-plugin-content-docs/current`. For example when you change `api-listing.md` you must also change `i18n/zh/docusaurus-plugin-content-docs/current/api-listing.md` and change `i18n/ko/docusaurus-plugin-content-docs/current/api-listing.md`.
 
 ## Running local site ##
 You can run Docusaurus locally to debug. Cd to `/path/to/webroot/devdocs` and your port may differ. Note this won't pick up the files under references.
@@ -79,4 +81,4 @@ cd /path/to/webroot/devdocs
 npm run serve -- --port 39999
 ```
 
-You may need to rerun `yarn build` to generate the build directory.
+After making direct changes to files under `/path/to/webroot/devdocs` you will need to rerun `yarn build` to generate the build directory.
