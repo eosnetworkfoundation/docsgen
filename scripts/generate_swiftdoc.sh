@@ -16,7 +16,7 @@ GenSwiftDoc() {
   # location to write docs
   DEST_DIR="${WEB_ROOT}/reference/swiftdocs"
   DEST_MD_DIR="${WEB_ROOT}/devdocs/eosdocs/client-side/swiftdocs"
-  API_REF_ME="${DEST_MD_DIR}/Swift\ API\ Reference.md"
+  API_REF_ME="${DEST_MD_DIR}/Swift API Reference.md"
 
   # place to clone repo
   WORKING_DIR="${2}/../working"
