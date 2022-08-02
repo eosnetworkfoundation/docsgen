@@ -51,13 +51,13 @@ Need to reset and clean to syncronize with remote
 ```
 git checkout documentation-fixes
 git reset --hard && git clean -f -d
-git pull origin documentation-fixes
 ```
 
 ### Squash Merge
 Takes the many commits on your personal branch and squashes them into a single merge for the commit to main.
 Git commit will trigger vi, please write a nice long commit. First line is the summary. Following lines are the long description.
 ```
+git fetch origin documentation-fixes
 git merge --squash firstlast-working
 git commit
 git push origin documentation-fixes
