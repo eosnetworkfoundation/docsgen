@@ -51,10 +51,14 @@ The `mandel-contracts` is cloned and doxygen is run to generate html files.
 
 These are not markdown files so they are stored under `reference/mandel-contracts`
 
+In addition the markdown docs from `mandel-contracts` are published into the folder `smart-contracts/mandel-contracts`
+
 ## Mandel Contract Developer Toolkit ##
 The `mandel.cdt` is cloned and doxygen is run to generate html files.
 
 These are not markdown files so they are stored under `reference/mandel.cdt`
+
+In addition the markdown docs from `mandel-cdt` are published into the folder `smart-contracts/mandel-cdt`
 
 ## Setting up New Locales ##
 **Docusaurus i18n configs**

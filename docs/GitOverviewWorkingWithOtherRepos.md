@@ -18,7 +18,8 @@
 ## Commands
 
 ### Git clone
-```git clone https://github.com/eosnetworkfoundation/repo.git
+```
+git clone https://github.com/eosnetworkfoundation/repo.git
 ```
 
 ### Switch to Personal Branch
@@ -63,7 +64,7 @@ git push origin documentation-fixes
 ```
 
 ### Optionally Delete Working
-Option step delete your working branch. 
+Optional step delete your working branch.
 ```
 git -D firstlast-working
 ```

@@ -101,9 +101,13 @@ GenSwiftDoc $ROOT_DIR $SCRIPT_DIR $PROTOCOL
 # use typedoc to generate JS documenation in markdown
 source ${SCRIPT_DIR}/generate_jsdoc.sh
 GenJSDoc $ROOT_DIR $SCRIPT_DIR
-# build out smart contract documenation using doxygen
-source ${SCRIPT_DIR}/generate_smartcontractdoc.sh
-GenSmartContractDoc $ROOT_DIR $SCRIPT_DIR $PROTOCOL
+# build out system contract documenation using doxygen
+# and copy over markdown files
+source ${SCRIPT_DIR}/generate_mandel-contracts.sh
+GenSystemContractDoc $ROOT_DIR $SCRIPT_DIR $PROTOCOL
+# build out contract developer tools using docygen
+# and copy over markdown
+source ${SCRIPT_DIR}/generate_mandel-cdt.sh
 GenCDTDoc $ROOT_DIR $SCRIPT_DIR
 # build Dune docs
 source ${SCRIPT_DIR}/generate_dune.sh

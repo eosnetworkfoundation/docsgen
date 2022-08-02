@@ -40,6 +40,7 @@ Overview of documentation folder structure:
 | Tutorial | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/tutorials | docusarus |
 | Glossary | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/glossary | docusarus |
 | Protocol Guides | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/protocol-guides | docusarus |
+| System Contracts | [mandel-contracts](https://github.com/eosnetworkfoundation/mandel-contracts.git) | eosdocs/system-contracts/mandel-contracts | docusarus |
 
 ## Initialize Content Repository ##
 See [First Install Software](docs/FirstInstallSoftware.md) for all the dependancies.

@@ -55,7 +55,7 @@ GenCDTDoc() {
   # cp -R markdown_out/* $DOC_DIR
 }
 
-GenSmartContractDoc() {
+GenSystemContractDoc() {
   if [[ $# -lt 2 ]] ; then
       echo 'NOT ENOUGH ARGS: specify web root,  specify script dir'
       exit 1
@@ -69,7 +69,7 @@ GenSmartContractDoc() {
   SCRIPT_DIR=$2
   WORKING_DIR="${SCRIPT_DIR}/../working"
   # repo, use personal until pull request accepted
-  GIT_URL="https://github.com/eosnetworkfoundation/mandel-contracts"
+  GIT_URL="-b ericpassmore-working https://github.com/eosnetworkfoundation/mandel-contracts"
   # location of markdown docs inside repo
   DOC_PATH="docs"
   PROTOCOL=${3:-https}
@@ -132,6 +132,10 @@ GenSmartContractDoc() {
   REPLACE="${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/mandel-contracts\/classeosio_1_1wrap\.html"
   sed "s/${FIND}/${REPLACE}/" markdown_out/index.md > tmp_index.md
   mv tmp_index.md markdown_out/index.md
+
+  # updates the paths to avoid collisions with doc6s indexing
+  mv markdown_out/index.md markdown_out/about_system_contracts.md
+  mv markdown_out/README.md markdown_out/system_contracts.md
 
   # copy into serving location
   cp -R markdown_out/* $DOC_DIR
