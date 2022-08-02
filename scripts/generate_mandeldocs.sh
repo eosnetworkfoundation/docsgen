@@ -28,12 +28,14 @@ GenOpenAPI() {
   done
 }
 
+# protocol guides, tutorials, and command references
 GenMandelToolDoc() {
   if [[ $# -lt 2 ]] ; then
       echo 'NOT ENOUGH ARGS: specify web root,  specify script dir '
       exit 1
   fi
-  DOC_ROOT="${1}/devdocs/eosdocs/developer-tools"
+  DEVTOOL_DOC_ROOT="${1}/devdocs/eosdocs/developer-tools"
+  TUTORIAL_DOC_ROOT="${1}/devdocs/eosdocs/tutorials"
   WORKING_DIR="${2}/../working"
   GIT_URL="https://github.com/eosnetworkfoundation/mandel"
 
@@ -48,10 +50,17 @@ GenMandelToolDoc() {
   fi
 
   cd mandel
+  [ -d markdown_out ] && rm -rf markdown_out
   mkdir markdown_out
-  cp -R docs/* markdown_out/
+
+
+
   # general_info does not get copied to developer-tools
   [ -d markdown_out/general_info ] && rm -rf markdown_out/general_info
 
-  cp -R markdown_out/* $DOC_ROOT
+  # tutorial
+  cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"
+  # dev tools nodeos, cleos, keosd
+  cp -R docs/* markdown_out/
+  cp -R markdown_out/* $DEVTOOL_DOC_ROOT
 }

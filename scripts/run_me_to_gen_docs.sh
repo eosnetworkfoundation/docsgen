@@ -85,6 +85,7 @@ CopyFiles
 # welcome repo
 source ${SCRIPT_DIR}/generate_welcome.sh
 InstallGlossary $ROOT_DIR $SCRIPT_DIR
+CopyProtocol $ROOT_DIR $SCRIPT_DIR
 # mandel repo
 source ${SCRIPT_DIR}/generate_mandeldocs.sh
 # build out OpenAPI Docs from yaml
@@ -112,6 +113,7 @@ find ${ROOT_DIR}/devdocs/eosdocs/welcome -type f | xargs -I{} ${SCRIPT_DIR}/add_
 find ${ROOT_DIR}/devdocs/eosdocs/smart-contracts -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
 find ${ROOT_DIR}/devdocs/eosdocs/client-side -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
 find ${ROOT_DIR}/devdocs/eosdocs/developer-tools -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
+find ${ROOT_DIR}/devdocs/eosdocs/protocol-guides -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
 
 # localization files
 FixProtocol ${SCRIPT_DIR}/../web/docusaurus/i18n/ko/docusaurus-plugin-content-docs/current/api-listing.md $PROTOCOL

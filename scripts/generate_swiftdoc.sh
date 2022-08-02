@@ -39,7 +39,8 @@ GenSwiftDoc() {
   sed "s/https\:\/\/eosio.github.io\/eosio-swift\//${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/swiftdocs\//" index.md > tmp.md
   # cleanup some trailing junk
   sed 's/(\`.*\`)//' tmp.md > tmp2.md
-  mv tmp2.md ${API_REF_ME}
+  # yikes keep the quotes around API_REF_ME, spaces in name will break unquoted mv
+  mv tmp2.md "${API_REF_ME}"
 
   # copy files in, view framework will convert from Markdown to HTML
   cp -R * $DEST_DIR
@@ -59,5 +60,4 @@ GenSwiftDoc() {
   sed "s/EosioSwift\/EosioTransaction/${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/swiftdocs\/Sources\/EosioSwift\/EosioTransaction/g" tmp2.md > tmp3.md
   mv tmp3.md index.md
   cp index.md EXAMPLES.md $DEST_MD_DIR
-
 }

@@ -72,18 +72,11 @@ echo "creating directories and adding templates under ${ROOT_DIR}"
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/smart-contracts" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/smart-contracts"
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/client-side" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/client-side"
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/developer-tools" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/developer-tools"
-# welcome repo nested because they are out of date
-[ ! -d "${ROOT_DIR}/devdocs/eosdocs/welcome" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/welcome"
-# creating 7 dirs
-for d in getting-started overview eosio-blockchain-networks get-involved tutorials protocol community-developer-tools
-do
-  [ ! -d "${ROOT_DIR}/devdocs/eosdocs/welcome/${d}" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/welcome/${d}"
-done
-# creating 2 nested dirs under getting-started 
-for d in development-environment smart-contract-development
-do
-  [ ! -d "${ROOT_DIR}/devdocs/eosdocs/welcome/getting-started/${d}" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/welcome/getting-started/${d}"
-done
+# pull protocol guides from welcome repo
+[ ! -d "${ROOT_DIR}/devdocs/eosdocs/protocol-guides" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/protocol-guides"
+# pull tutorials from mandel
+[ ! -d "${ROOT_DIR}/devdocs/eosdocs/tutorials" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/tutorials"
+
 
 # smart contracts
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/smart-contracts/mandel-cdt" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/smart-contracts/mandel-cdt"
