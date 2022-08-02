@@ -38,6 +38,8 @@ Overview of documentation folder structure:
 | Cleos | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/02_cleos | docusarus |
 | Mandel Install | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/00_install | docusarus |
 | Tutorial | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/tutorials | docusarus |
+| Glossary | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/glossary | docusarus |
+| Protocol Guides | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/protocol-guides | docusarus |
 
 ## Initialize Content Repository ##
 See [First Install Software](docs/FirstInstallSoftware.md) for all the dependancies.
