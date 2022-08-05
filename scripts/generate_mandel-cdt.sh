@@ -19,7 +19,7 @@ GenCDTDoc() {
   SCRIPT_DIR=$2
   WORKING_DIR="${SCRIPT_DIR}/../working"
   # repo, use personal until pull request accepted
-  GIT_URL="https://github.com/eosnetworkfoundation/mandel.cdt"
+  GIT_URL="-b docs/cdt_md_fixes https://github.com/eosnetworkfoundation/mandel.cdt"
   # location of markdown docs inside repo
   DOC_PATH="docs"
 
