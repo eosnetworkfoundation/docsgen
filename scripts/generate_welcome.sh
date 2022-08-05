@@ -37,8 +37,7 @@ InstallGlossary() {
   cd welcome
 
   # Copy over glossary
-  # unfortunetly it needs to be converted to markdown first
-  ${SCRIPT_DIR}/glossary-yaml-to-markdown.py glossary.yaml > ${WEB_ROOT}/devdocs/eosdocs/glossary.md
+  cp glossary.md ${WEB_ROOT}/devdocs/eosdocs/glossary.md
 }
 
 # clones repo and copies yaml files into web root dir
@@ -52,6 +51,7 @@ CopyProtocol() {
   GIT_URL="https://github.com/eosnetworkfoundation/welcome"
   IMG_DIR="${WEB_ROOT}/devdocs/static/welcome"
   PROTOCOL_DIR="${WEB_ROOT}/devdocs/eosdocs/protocol-guides"
+  RESOURCES_DIR="${WEB_ROOT}/devdocs/eosdocs/resources"
 
   # pull from github
   # create working dir if it does not exist
@@ -72,6 +72,37 @@ CopyProtocol() {
     sed 's/(images\//(\/welcome\//g' $i > tmpP.md
     mv tmpP.md $i
   done
+
+  # update paths for action reference
+  # fix relative links
+
+  FIND="action-reference\/eosio\.bios"
+  REPLACE="${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/mandel-contracts\/classeosiobios_1_1bios\.html"
+  sed "s/${FIND}/${REPLACE}/" docs/04_protocol/index.md > tmp_index.md
+  mv tmp_index.md docs/04_protocol/index.md
+
+  FIND="action-reference\/eosio\.system"
+  REPLACE="${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/mandel-contracts\/classeosiosystem_1_1system__contract\.html"
+  sed "s/${FIND}/${REPLACE}/" docs/04_protocol/index.md > tmp_index.md
+  mv tmp_index.md docs/04_protocol/index.md
+
+  FIND="action-reference\/eosio\.msig"
+  REPLACE="${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/mandel-contracts\/classeosio_1_1multisig\.html"
+  sed "s/${FIND}/${REPLACE}/" docs/04_protocol/index.md > tmp_index.md
+  mv tmp_index.md docs/04_protocol/index.md
+
+  FIND="action-reference\/eosio\.token"
+  REPLACE="${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/mandel-contracts\/classeosio_1_1token\.html"
+  sed "s/${FIND}/${REPLACE}/" docs/04_protocol/index.md > tmp_index.md
+  mv tmp_index.md docs/04_protocol/index.md
+
+  FIND="action-reference\/eosio\.wrap"
+  REPLACE="${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/mandel-contracts\/classeosio_1_1wrap\.html"
+  sed "s/${FIND}/${REPLACE}/" docs/04_protocol/index.md > tmp_index.md
+  mv tmp_index.md docs/04_protocol/index.md
+
   cp -r docs/04_protocol/* $PROTOCOL_DIR
+
+  cp -r docs/resources/* $RESOURCES_DIR
 
 }

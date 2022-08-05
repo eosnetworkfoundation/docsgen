@@ -8,6 +8,6 @@
 from itemadapter import ItemAdapter
 
 
-class CrawlGithubMarkdownPipeline:
+class GenericCrawlPipeline:
     def process_item(self, item, spider):
         return item

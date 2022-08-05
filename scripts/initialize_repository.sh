@@ -76,7 +76,8 @@ echo "creating directories and adding templates under ${ROOT_DIR}"
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/protocol-guides" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/protocol-guides"
 # pull tutorials from mandel
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/tutorials" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/tutorials"
-
+# reasources tools, community links etc
+[ ! -d "${ROOT_DIR}/devdocs/eosdocs/resources" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/resources"
 
 # smart contracts
 [ ! -d "${ROOT_DIR}/devdocs/eosdocs/smart-contracts/mandel-cdt" ] && mkdir "${ROOT_DIR}/devdocs/eosdocs/smart-contracts/mandel-cdt"

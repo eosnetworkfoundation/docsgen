@@ -58,6 +58,7 @@ GenSwiftDoc() {
   sed 's/^# EOSIO SDK for Swift Examples/# Examples/' tmpC.md > EXAMPLES.md
   sed "s/Sources\/EosioSwift/${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/swiftdocs\/Sources\/EosioSwift/g" README.md > tmp2.md
   sed "s/EosioSwift\/EosioTransaction/${PROTOCOL}:\/\/docs.eosnetwork.com\/reference\/swiftdocs\/Sources\/EosioSwift\/EosioTransaction/g" tmp2.md > tmp3.md
-  mv tmp3.md index.md
+  sed "s/(README.md#basic-usage)/(index.md#basic-usage)/" tmp3.md > tmp4.md
+  mv tmp4.md index.md
   cp index.md EXAMPLES.md $DEST_MD_DIR
 }
