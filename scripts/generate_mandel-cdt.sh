@@ -42,15 +42,10 @@ GenCDTDoc() {
   cp -R doxygen_out/html/* $DEST_DIR
 
   mkdir markdown_out
-  mv README.md markdown_out
-  mv LICENSE markdown_out/LICENSE.md
-  # quick fix to path for License
-  sed 's/\.\/LICENSE/\/eosdocs\/smart-contracts\/mandel-cdt\/LICENSE.md/' markdown_out/README.md > tmp_README.md
-  mv tmp_README.md markdown_out/README.md
 
   # pull in markdown docs from git
   cp -R docs/* markdown_out
   # copy into serving location
   # too many issues to fix ....
-  # cp -R markdown_out/* $DOC_DIR
+  cp -R markdown_out/* $DOC_DIR
 }
