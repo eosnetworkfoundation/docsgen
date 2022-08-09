@@ -58,12 +58,12 @@ echo "change dir to ${SCRIPT_DIR}"
 
 pushd "${SCRIPT_DIR}"
 
-pwd
+printf "Currently working in: %s" $(pwd)
 
 echo "run ./initialize_repository.sh -d ${ROOT_DIR}"
 ./initialize_repository.sh -d "${ROOT_DIR}"
 
-echo "run ./run_me_to_gen_docs.sh -u -d "${ROOT_DIR}""
+echo "run ./run_me_to_gen_docs.sh -u -d ${ROOT_DIR}"
 ./run_me_to_gen_docs.sh -u -d "${ROOT_DIR}"
 
 echo "Done"
