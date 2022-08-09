@@ -19,7 +19,7 @@ GenCDTDoc() {
   SCRIPT_DIR=$2
   WORKING_DIR="${SCRIPT_DIR}/../working"
   # repo, use personal until pull request accepted
-  GIT_URL="https://github.com/eosnetworkfoundation/mandel.cdt"
+  GIT_URL="-b docs/cdt_md_fixes https://github.com/eosnetworkfoundation/mandel.cdt"
   # location of markdown docs inside repo
   DOC_PATH="docs"
 
@@ -42,15 +42,10 @@ GenCDTDoc() {
   cp -R doxygen_out/html/* $DEST_DIR
 
   mkdir markdown_out
-  mv README.md markdown_out
-  mv LICENSE markdown_out/LICENSE.md
-  # quick fix to path for License
-  sed 's/\.\/LICENSE/\/eosdocs\/smart-contracts\/mandel-cdt\/LICENSE.md/' markdown_out/README.md > tmp_README.md
-  mv tmp_README.md markdown_out/README.md
 
   # pull in markdown docs from git
   cp -R docs/* markdown_out
   # copy into serving location
   # too many issues to fix ....
-  # cp -R markdown_out/* $DOC_DIR
+  cp -R markdown_out/* $DOC_DIR
 }
