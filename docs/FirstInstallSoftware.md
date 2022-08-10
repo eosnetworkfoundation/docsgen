@@ -66,12 +66,9 @@ The path for node may have changed so exit you shell and log back in to check th
 
 
 ### `yarn` ###
-This is no `cmdtest`. So a default `apt install yarn` will not work.
+This is no `cmdtest`. Warning `apt install yarn` will not work.
 ```
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update
-sudo apt-get install yarn -y
+npm install --global yarn
 ```
 
 ### `doxygen` ###
