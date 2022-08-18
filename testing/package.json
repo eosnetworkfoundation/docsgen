@@ -1,0 +1,26 @@
+{
+  "name": "devdocs-testing",
+  "version": "0.1.0",
+  "description": "cypress tests for devdocs single page app",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "npx cypress run",
+    "cypress:open": "npx cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eosnetworkfoundation/devdocs.git"
+  },
+  "author": "ericpassmore",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eosnetworkfoundation/devdocs/issues"
+  },
+  "homepage": "https://github.com/eosnetworkfoundation/devdocs#readme",
+  "devDependencies": {
+    "cypress": "^10.6.0"
+  }
+}
