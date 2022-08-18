@@ -69,7 +69,7 @@ GenSystemContractDoc() {
   SCRIPT_DIR=$2
   WORKING_DIR="${SCRIPT_DIR}/../working"
   # repo, use personal until pull request accepted
-  GIT_URL="-b ericpassmore-working https://github.com/eosnetworkfoundation/mandel-contracts"
+  GIT_URL="https://github.com/eosnetworkfoundation/mandel-contracts"
   # location of markdown docs inside repo
   DOC_PATH="docs"
   PROTOCOL=${3:-https}

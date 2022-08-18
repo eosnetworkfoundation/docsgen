@@ -19,7 +19,7 @@ GenDuneDoc() {
   # place to clone repo
   WORKING_DIR="${2}/../working"
   # repo, use personal until pull request accepted
-  GIT_URL="-b ericpassmore-working https://github.com/eosnetworkfoundation/DUNE.git"
+  GIT_URL="https://github.com/eosnetworkfoundation/DUNE.git"
   # location of markdown docs inside repo
   DOC_PATH="docs"
 
@@ -33,7 +33,7 @@ GenDuneDoc() {
   cd $WORKING_DIR && git clone $GIT_URL && cd "DUNE"
 
   # copy over images into destination
-  # doc6s needs images in static dir 
+  # doc6s needs images in static dir
   if [ ! -d $IMG_DIR ]; then
     mkdir -p $IMG_DIR
   fi

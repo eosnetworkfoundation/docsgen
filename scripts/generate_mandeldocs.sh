@@ -10,7 +10,7 @@ GenOpenAPI() {
   fi
   WEB_ROOT=$1
   WORKING_DIR="${2}/../working"
-  GIT_URL="-b documentation-fixes https://github.com/eosnetworkfoundation/mandel"
+  GIT_URL="https://github.com/eosnetworkfoundation/mandel"
 
   # pull from github
   # create working dir if it does not exist

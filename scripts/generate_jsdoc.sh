@@ -16,8 +16,8 @@ GenJSDoc() {
   DEST_DIR="${WEB_ROOT}/devdocs/eosdocs/client-side/jsdocs"
   # place to clone repo
   WORKING_DIR="${2}/../working"
-  # repo, use personal until pull request accepted
-  GIT_URL="-b ericpassmore-working https://github.com/eosnetworkfoundation/mandel-eosjs"
+  
+  GIT_URL="https://github.com/eosnetworkfoundation/mandel-eosjs"
   # location of markdown docs inside repo
   DOC_PATH="docs"
 
