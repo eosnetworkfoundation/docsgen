@@ -32,6 +32,7 @@ logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 class Document:
     has_admonition = False
     admonition_pattern = re.compile(r"\[\[([a-z]+)\s*\|\s*([^\]]+)\]\]")
+    basic_admonition_pattern = re.compile(r"\[\[([a-z]+)\]\]")
     contents = None
 
     def __init__(self, contents):
@@ -52,6 +53,14 @@ class Document:
             meta_value = match.group(2)
             newblock = self.newblock(meta_type,meta_value)
             self.contents = re.sub(self.admonition_pattern, newblock, self.contents)
+        else:
+            basic = re.search(self.basic_admonition_pattern,self.contents)
+            if basic:
+                self.has_admonition = True
+                logging.debug('\t\t MATCH |'+basic.group(1)+'|')
+                meta_type = basic.group(1)
+                newblock = self.newblock(meta_type,"")
+                self.contents = re.sub(self.basic_admonition_pattern, newblock, self.contents)
 
 ##### END Class Document #######
 
