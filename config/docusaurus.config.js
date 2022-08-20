@@ -58,8 +58,8 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: 'eosdocs',
-          routeBasePath: 'eosdocs',
+          path: 'welcome',
+          routeBasePath: 'welcome',
           sidebarPath: require.resolve('./sidebars.js'),
         },
         theme: {
@@ -80,21 +80,10 @@ const config = {
         },
         items: [
           {
-            href: 'https://docs.eosnetwork.com/reference/mandel-contracts/annotated.html',
-            position: 'left',
-            label: 'Smart Contracts',
-          },
-          {
             type: 'doc',
-            docId: 'client-side/index',
+            docId: 'index',
             position: 'left',
-            label: 'Client Side',
-          },
-          {
-            type: 'doc',
-            docId: 'developer-tools/index',
-            position: 'left',
-            label: 'Developer Tools',
+            label: 'Welcome',
           },
           {
             type: 'localeDropdown',

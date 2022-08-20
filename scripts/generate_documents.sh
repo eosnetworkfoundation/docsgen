@@ -21,6 +21,7 @@ Help() {
   echo "-v: the version of documentation, as seen by end users, that is updated"
   echo "-i: private key for web host, needed to install files"
   echo "-h: destination host(s) where to install files"
+  echo "-f: fast, skip git clone if files less then 1 hour old"
   echo ""
   echo "example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -r 3.1 -d /path/to/build_root -i aws_identity -h hostA -h hostB"
   echo "Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1, documentation version shown to user will be 3.1. So this updates the 3.1 documentation on the documentation website using ericpassmore-working branch and the tag v3.1.1"
@@ -31,8 +32,8 @@ Help() {
 # Create Top Level Directories
 Create_Top_Level_Dir() {
   # devdocs is for docusarus , reference for non-markdown content
-  [ ! -d "${ARG_BUILD_DIR}/reference" ] && mkdir -p "${ARG_BUILD_DIR}/reference"
   [ ! -d "${ARG_BUILD_DIR}/devdocs" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs"
+    [ ! -d "${ARG_BUILD_DIR}/devdocs/welcome" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/welcome"
   # i18n directories zh and ko, english is the default and not included
   [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n"
   [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/ko" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n/ko"
@@ -64,6 +65,7 @@ Install_Docusaurus() {
   if [ -z ${semver[0]} ]; then
     npx create-docusaurus@latest "${ARG_BUILD_DIR}/devdocs" classic --typescript
   fi
+  cp "${SCRIPT_DIR}/../config/docusaurus.config.js" "${ARG_BUILD_DIR}/devdocs"
 }
 
 ####
@@ -87,7 +89,14 @@ Bootstrap_Repo() {
     exit 1
   fi
 
-  # clean out old directory if it exists
+  # if dir exists
+  #    if fast_flag and (state -f %m less date +%s < 60*60); then no op
+  #    else 
+  #       clean out old directory
+  #    fi
+  # else
+  #    make -p dir
+  # fi
   [ -d "${WORKING_DIR}/${ARG_GIT_REPO}" ] && rm -rf "${WORKING_DIR}/${ARG_GIT_REPO}"
   # create working dir if it does not exist
   [ ! -d "${WORKING_DIR}/${ARG_GIT_REPO}" ] && mkdir -p "${WORKING_DIR}/${ARG_GIT_REPO}"
@@ -115,7 +124,7 @@ Reset_Color='\033[0m' # No Color
 
 ############################################################################
 # Get the options
-while getopts "r:d:b:t:v:i:h:" option; do
+while getopts "r:d:b:t:v:i:h:f:" option; do
    case $option in
       r) # repository
         ARG_GIT_REPO=${OPTARG}
@@ -137,6 +146,9 @@ while getopts "r:d:b:t:v:i:h:" option; do
         ;;
       h) # set host
         ARG_HOST+=("${OPTARG}")
+        ;;
+      f) # set fast
+        ARG_FAST=${OPTARG}
         ;;
       :) # no args
         Help;
@@ -164,6 +176,7 @@ if [ $DEBUG ]; then
   echo "tag " $ARG_TAG
   echo "doc version " $ARG_DOC_VERSION
   echo "identity " $ARG_ID_FILE
+  echo "fast flag" $ARG_FAST
 
   echo "host "
   for val in "${ARG_HOST[@]}"; do
