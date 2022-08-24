@@ -3,7 +3,7 @@
 # Populates the following directories
 # images go into static/welcome
 #
-#  eosdocs/welcome
+#  welcome
 #     getting-started (has images)
 #     getting-started
 #            development-environment
@@ -17,59 +17,99 @@
 #  static
 #     welcome
 Install_Welcome() {
-  ARG_GIT_REPO=$1
-  ARG_BUILD_DIR=$2
-  ARG_BRANCH=$3
-  ARG_TAG=$4
-  ARG_DOC_VERSION=$5
+  SCRIPT_DIR=$1
+  ARG_GIT_REPO=$2
+  ARG_BUILD_DIR=$3
+  ARG_BRANCH=$4
+  ARG_TAG=$5
 
   IMG_DIR=${ARG_BUILD_DIR}/devdocs/static/welcome
   # place for welcome static image files
   [ ! -d $IMG_DIR ] && mkdir $IMG_DIR
 
+  # copy out to keep docs clean and process idempotent
+  [ ! -d markdown_out ] && mkdir markdown_out
+  cp -R docs/* markdown_out
+
   # setup images
-  cp -r docs/01_overview/images/* $IMG_DIR
-  # move it out of the way so it doens't get copied as doc
-  mv docs/01_overview/images ./overview-images
+  if [ -d markdown_out/01_overview/images ]; then
+     cp -r markdown_out/01_overview/images/* $IMG_DIR
+     # move it out of the way so it doens't get copied as doc
+     mv markdown_out/01_overview/images ./overview-images
+  fi
   # update image paths
-  for i in $(find docs/01_overview -type f -name "*.md"); do
+  for i in $(find markdown_out/01_overview -type f -name "*.md"); do
     sed 's/(\.\/images\//(\/welcome\//g' $i > tmpP.md
     mv tmpP.md $i
   done
 
   # setup images
-  cp -r docs/02_getting-started/images/* $IMG_DIR
-  # move it out of the way so it doens't get copied as doc
-  mv docs/02_getting-started/images ./getting-started-images
+  if [ -d markdown_out/02_getting-started/images ]; then
+     cp -r markdown_out/02_getting-started/images/* $IMG_DIR
+     # move it out of the way so it doens't get copied as doc
+     mv markdown_out/02_getting-started/images ./getting-started-images
+  fi
   # update image paths
-  for i in $(find docs/02_getting-started -type f -name "*.md"); do
+  for i in $(find markdown_out/02_getting-started -type f -name "*.md"); do
     sed 's/(\.\.\/images\//(\/welcome\//g' $i > tmpP.md
     mv tmpP.md $i
   done
 
   # setup images
-  cp -r docs/04_protocol/images/* $IMG_DIR
-  # move it out of the way so it doens't get copied as doc
-  mv docs/04_protocol/images ./protocol-images
+  if [ -d markdown_out/04_protocol/images ]; then
+      cp -r markdown_out/04_protocol/images/* $IMG_DIR
+      # move it out of the way so it doens't get copied as doc
+      mv domarkdown_outcs/04_protocol/images ./protocol-images
+  fi
   # update image paths
-  for i in $(find docs/04_protocol -type f -name "*.md"); do
+  for i in $(find markdown_out/04_protocol -type f -name "*.md"); do
     sed 's/(images\//(\/welcome\//g' $i > tmpP.md
     mv tmpP.md $i
   done
 
   # patch up files titles
-  ${SCRIPT_DIR}/add_title.py docs/index.md
-  find docs -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
-  find docs -type f | xargs -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+  ${SCRIPT_DIR}/add_title.py markdown_out/index.md
+  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
+  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+
+  # fix paths for dev tools
+  for file in $(find markdown_out -type f -name "*.md")
+  do
+    FIND="\/eosdocs\/developer-tools\/cleos\/how-to-guides\/how-to-create-a-wallet.md"
+    REPLACE="\/leap\/latest\/cleos\/how-to-guides\/how-to-create-a-wallet"
+    sed "s/${FIND}/${REPLACE}/g" $file > tempCW.md
+
+    FIND="\/eosdocs\/developer-tools\/cleos\/how-to-guides\/how-to-create-an-account.md"
+    REPLACE="\/leap\/latest\/cleos\/how-to-guides\/how-to-create-an-account"
+    sed "s/${FIND}/${REPLACE}/g" tempCW.md > tempCA.md
+
+    FIND="\/developer-tools\/02_cleos\/03_command-reference\/set\/set-account.md"
+    REPLACE="\/leap\/latest\/02_cleos\/03_command-reference\/set\/set-account"
+    sed "s/${FIND}/${REPLACE}/g" tempCA.md > tempSA.md
+
+    FIND="\/eosdocs\/developer-tools\/cleos\/command-reference\/wallet\/create.md"
+    REPLACE="\/leap\/latest\/cleos\/command-reference\/wallet\/create"
+    sed "s/${FIND}/${REPLACE}/g" tempSA.md > tempWC.md
+
+    # handles full URLs
+    FIND="\/eosdocs\/developer-tools"
+    REPLACE="\/leap\/latest"
+    sed "s/${FIND}/${REPLACE}/g" tempWC.md > tempDT.md
+
+    # fix glossary
+    sed 's/(\/glossary.md/(glossary.md/g' tempDT.md > tempG.md
+
+    mv tempG.md $file
+  done
 
   # copy in the files to build root
-  cp glossary.md $ARG_BUILD_DIR/devdocs/welcome
-  cp docs/index.md $ARG_BUILD_DIR/devdocs/welcome
+  cp glossary.md $ARG_BUILD_DIR/devdocs/eosdocs/welcome
+  cp markdown_out/index.md $ARG_BUILD_DIR/devdocs/eosdocs/welcome
   for d in 01_overview 02_getting-started 03_tutorials 04_protocol \
       05_community-developer-tools 06_eosio-blockchain-networks \
       07_migration-guides
   do
-    cp -r docs/${d} $ARG_BUILD_DIR/devdocs/welcome
+    cp -r markdown_out/${d} $ARG_BUILD_DIR/devdocs/eosdocs/welcome
   done
 
 }

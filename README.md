@@ -5,18 +5,35 @@ Scripts to generate Web Documentation Portal. Goal of this project is create a s
 * Single navigation hierarchy covering documentation
 * Consistent UI for documentation
 
+## System Design
+
+The system was keep simple. A shell script clones a git repository, and puts the content into a staging server. The staging server builds the content into the documentation you see on the website. The current system uses Docusaurus to convert markdown into HTML, power navigation, and manage versions.
+
+```mermaid
+graph LR;
+    subgraph prod1 [Production]
+    Webserver-->HTML;
+    end
+    subgraph stag1 [DocService]
+    Docusaurus-->HTML;
+    HTML-->|scp|Webserver;
+    end
+    subgraph github [GitHub]
+    Repo1-->|clone|Docusaurus;
+    Repo2-->|clone|Docusaurus;
+    Repo3-->|clone|Docusaurus;
+    end
+```
+
 In addition, tools are included to help maintain documentation in source repositories. An example is broken link crawlers, looking for bad links in .md files.
 
 ## Organization ##
-
-Overview of documentation folder structure:
-* devdocs - docusarus
-   * eosdocs - toplevel markdown folder
-      * client-side - code repositories for developing clients
-      * smart-contracts - markdown documentation on contracts, and cdt
-      * developer-tools - markdown documentation on nodeos, cleos, and DUNE
-      * tutorial - a walk through
-* reference - static html root (*sub dirs one-2-one with git repos*)
+* devdocs - root for Docusaurus project
+   * welcome - the welcome repo
+   * eos cdt - developer tools
+   * eos contracts - system contracts
+   * leap - core blockchain code
+* reference - auto generated documentation from code that is not compatible with Docusaurus
    * mandel-contracts
    * mandel-cdt
    * ...
@@ -25,56 +42,46 @@ Overview of documentation folder structure:
 
 ### `Coverage` ###
 
-|   Topic  |  Source Repository  | Top Level Path | Delivered By |
+|   Topic  |  Source Repository  | Top Level Path | Process To HTML |
 |  ------- | ------------------- | -------------- | ------------ |
-| Nodeos HTTP API | [mandel](https://github.com/eosnetworkfoundation/mandel) | reference/mandel-plugins | static html with redocly |
-| JS and Node Documentation | [mandel-eosjs](https://github.com/eosnetworkfoundation/mandel-eosjs) | eosdocs/client-side/jsdocs | docusaurus |
+| Nodeos HTTP API | [mandel](https://github.com/AntelopeIO/leap) | reference/mandel-plugins | static html with redocly |
+| JS and Node Documentation | [mandel-eosjs](https://github.com/eosnetworkfoundation/mandel-eosjs) | eosdocs/client-side/jsdocs | Docusaurus |
 | Swift Documentation | [mandel-swift](https://github.com/eosnetworkfoundation/mandel-swift) | reference/swiftdocs | static html |
 | Java Documenation | [mandel-java](https://github.com/eosnetworkfoundation/mandel-java) | reference/javadocs | static html |
-| Smart Contracts | [mandel-contracts](https://github.com/eosnetworkfoundation/mandel-contracts) | reference/mandel-contracts | static html |
-| Contract Developer Tools | [mandel.cdt](https://github.com/eosnetworkfoundation/mandel.cdt) | reference/mandel-cdt | static html |
-| DUNE -local host | [DUNE](https://github.com/eosnetworkfoundation/DUNE.git) | eosdocs/developer-tools/dune | docusarus |
-| Nodeos | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/01_nodeos | docusarus |
-| Cleos | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/02_cleos | docusarus |
-| Mandel Install | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/developer-tools/00_install | docusarus |
-| Tutorial | [Mandel](https://github.com/eosnetworkfoundation/mandel.git) | eosdocs/tutorials | docusarus |
+| EOS System Contracts | [eos-system-contracts](https://github.com/eosnetworkfoundation/eos-system-contracts) | reference/mandel-contracts | static html |
+| Contract Developer Tools | [cdt](https://github.com/AntelopeIO/cdt) | eosdocs/cdt | docusarus |
+| DUNE | [DUNE](https://github.com/AntelopeIO/DUNE.git) | eosdocs/dune | docusarus |
+| Nodeos | [Mandel](https://github.com/AntelopeIO/leap) | eosdocs/leap/01_nodeos | docusarus |
+| Cleos | [Mandel](https://github.com/AntelopeIO/leap) | eosdocs/developer-tools/02_cleos | docusarus |
+| Leap Install | [Mandel](https://github.com/AntelopeIO/leap) | eosdocs/developer-tools/00_install | docusarus |
+| Tutorial | [Mandel](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/tutorials | docusarus |
 | Glossary | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/glossary | docusarus |
-| Protocol Guides | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/protocol-guides | docusarus |
-| System Contracts | [mandel-contracts](https://github.com/eosnetworkfoundation/mandel-contracts.git) | eosdocs/system-contracts/mandel-contracts | docusarus |
+| Welcome | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | welcome | docusarus |
 
 ## Initialize Content Repository ##
 See [First Install Software](docs/FirstInstallSoftware.md) for all the dependancies.
 
-The initialization script is not destructive, copies in files and creates directories when they do not exist. If they do exist does nothing.
-```
-cd scripts
-./initialize_repository.sh -d /path/to/build_dir
-```
-
-After running you will find two directories under `/path/to/build_dir` `devdocs` and `reference`.
-* `devdocs` root for docusaurus project
-* `reference` static html/js/css served directly by webserver, mostly the output from doxygen runs
-
 ## Generating Content ##
-Clones various git repos, extracts documentation and then copies to `/path/to/build_dir folder`. The `-u` option switches protocol to http for docs.eosnetwork.com, because https is not supported at this time. Without the `-u` option protocol reverts to https.
+The script `generate_documents.sh` clones various git repos, extracts documentation and then copies to `/path/to/build_dir folder`. The scripts are designed to be called once for each git repository.
 ```
-cd scripts
-./run_me_to_gen_docs.sh -u -d /path/to/build_dir
+Creates web version of documentation pulling together documentation from several gitrepositories across the EOS Networks
+
+Syntax: generate_documents.sh [-r|d|b|t|v|i|h]
+mandatory: -r owner/rep and -d directory
+
+options:
+-r: owner/repository name of the git repository and source for documentation
+-d: specify directory for building the static HTML documentation
+-b: branch to use for git
+-t: tag to use for git
+-i: private key for web host, needed to install files
+-h: destination host(s) where to install files
+-f: fast, skip git clone if files less then 1 hour old
+
+example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h hostA -h hostB
+Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version
 ```
-After running there will be many static HTML, CSS, JS files under `/path/to/build_dir/devdocs/build`.
+
+After running there will be many static HTML, CSS, JS files under `/path/to/build_dir/devdocs/build`. The files are served as the current production version.
 
 See [Generating Documents](docs/GeneratingDocuments.md) for additional details
-
-## Last Step ##
-Last step is to copy the data to the source webroot on the desired host
-
-```
-cd /path/to/build_dir/devdocs/build
-tar czf /home/me/newbuild.tgz *
-scp /home/me/newbuild.tgz user@destination_host:/path/to/webroot
-```
-unpack tar with
-```
-cd /path/to/webroot
-tar xzf ./newbuild.tgz
-```

@@ -8,16 +8,44 @@ There are two steps to generating content
 
 The static content will need to be supported by an HTTP service. These steps only build out the content. They don't serve the content via HTTP.
 
+## Code Structure
+
+Scripts are under the `scripts` directory. `generate_documents.sh` is called providing the repository and the build directory.
+- Docusaurus is installed if it does not already exist
+- The repository passed in by name is cloned
+- The script enters into the working directory of the cloned content `cd ../working/owner/repo`
+- The script sources `install_repo.sh`. It is a naming convention.
+- The script calls the fundtion `Install_Repo`. It is a naming convention.
+
+For example
+-  Execute `generate_documents -d $HOME/build_root -r eosnetwork/welcome`
+- Sources `install_welcome.sh`
+- Function call `Install_Welcome`, see args below
+  -  SCRIPT_DIR=$1
+  -  ARG_GIT_REPO=$2
+  -  ARG_BUILD_DIR=$3
+  -  ARG_BRANCH=$4
+  -  ARG_TAG=$5
+
+### Adding a New Repo
+If you want to add a new repo do the following
+1. Create a files `install_repo.sh`
+2. Create a function in the file named `Install_Repo`
+  - copy markdown
+
+```
+mkdir $ARG_BUILD_DIR/devdocs/eosdocs/newhome
+cp -R docs/* $ARG_BUILD_DIR/devdocs/eosdocs/
+```
+
 ## Static Index Files ##
 
-There are 4 static index files copied from the `devdocs` repo.
+There are 2 static index files copied from the `devdocs` repo. These two files index the APIs and the SDKs.
 
 | Code Repository | Pre-Build | Static Content |
 | --------------- | --------- | ------- |
-| developer_documentation/web/docusaurus/src/pages/index.tsx | /devdocs/src/pages/index.tsx | index.html |
-| developer_documentation/web/api-listing.md | /devdocs/eosdocs/api-listing.md | eosdocs/api-listing.html |
-| developer_documentation/web/reference-index.html | /reference/index.html | reference/index.html |
-| developer_documentation/web/client-side/index.md | /devdocs/eosdocs/client-side/index.md | eosdocs/client-side/index.html |
+| devdocs/web/api-listing.md | /devdocs/eosdocs/api-listing.md | eosdocs/api-listing.html |
+| devdocs/web/client-side/index.md | /devdocs/eosdocs/welcome/client-side/index.md | welcome/latest/client-side/index.html |
 
 ## Mandel Open APIs ##
 These are the HTTP API documented in YAML files, and they are stored in the mandel github repository. Redocly HTML files are setup to read directly from the YAML files and parse them via javascript code loaded off a CDN. Specifically [Redocly](https://redocly.com/docs/redoc/quickstart/) is used.
@@ -25,9 +53,7 @@ These are the HTTP API documented in YAML files, and they are stored in the mand
 These are not markdown files so you will find them under `reference/mandel-plugins/`
 
 ## Nodeos Cloes and Kloes ##
-The markdown is pulled from github under the `mandel` repo. A script is run to add meta-data to the document for better viewing.
-
-These are markdown file found under `developer-tools/`
+The markdown is pulled from github under the `leap` repo. A script is run to add meta-data to the document for better viewing.
 
 ## Mandel JavaDocs ##
 The repo `mandel-java` is cloned and javadocs command is run to generate the docs.
@@ -85,4 +111,4 @@ cd /path/to/webroot/devdocs
 npm run serve -- --port 39999
 ```
 
-After making direct changes to files under `/path/to/webroot/devdocs` you will need to rerun `yarn build` to generate the build directory.
+After making direct changes to files under `/path/to/webroot/devdocs` you will need to rerun `npm run build` to generate the build directory.

@@ -58,14 +58,75 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: 'welcome',
+          // id: 'welcome', // omitted => default instance
+          lastVersion: 'current',
+          path: 'eosdocs/welcome',
           routeBasePath: 'welcome',
           sidebarPath: require.resolve('./sidebars.js'),
+          versions: {
+            current: {
+               label: 'latest',
+               path: 'latest',
+            },
+          },
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
       }),
+    ],
+  ],
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'cdt',
+        lastVersion: 'current',
+        path: 'eosdocs/cdt',
+        routeBasePath: 'cdt',
+        sidebarPath: require.resolve('./sidebarsCdt.js'),
+        versions: {
+          current: {
+             label: 'latest',
+             path: 'latest',
+          },
+        },
+        // ... other options
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'system-contracts',
+        lastVersion: 'current',
+        path: 'eosdocs/system-contracts',
+        routeBasePath: 'system-contracts',
+        sidebarPath: require.resolve('./sidebarsSystemContracts.js'),
+        versions: {
+          current: {
+             label: 'latest',
+             path: 'latest',
+          },
+        },
+        // ... other options
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'leap',
+        lastVersion: 'current',
+        path: 'eosdocs/leap',
+        routeBasePath: 'leap',
+        sidebarPath: require.resolve('./sidebarsLeap.js'),
+        versions: {
+          current: {
+             label: 'latest',
+             path: 'latest',
+          },
+        },
+        // ... other options
+      },
     ],
   ],
 
@@ -86,6 +147,42 @@ const config = {
             label: 'Welcome',
           },
           {
+            type: 'dropdown',
+            label: 'Leap',
+            position: 'left',
+            items: [
+              {
+                label: 'latest',
+                href: 'https://docs.eosnetwork.com/leap/latest/',
+              },
+              // ... more items
+            ],
+          },
+          {
+            type: 'dropdown',
+            label: 'CDT',
+            position: 'left',
+            items: [
+              {
+                label: 'latest',
+                href: 'https://docs.eosnetwork.com/cdt/latest/',
+              },
+              // ... more items
+            ],
+          },
+          {
+            type: 'dropdown',
+            label: 'EOS System Contracts',
+            position: 'left',
+            items: [
+              {
+                label: 'latest',
+                href: 'https://docs.eosnetwork.com/system-contracts/latest/',
+              },
+              // ... more items
+            ],
+          },
+          {
             type: 'localeDropdown',
             position: 'right',
           },
@@ -95,6 +192,10 @@ const config = {
             position: 'right',
           },
         ],
+      },
+      docs: {
+        /* closes sibling categories when expanding a category */
+        sidebar: { autoCollapseCategories: true, },
       },
       footer: {
         style: 'dark',
@@ -131,22 +232,6 @@ const config = {
               },
             ],
           },
-          /*
-          // ********* More links in footer
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'FOOLABLE-TBR',
-                to: '/',
-              },
-              {
-                label: 'GitHub-TBR',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-          */
         ],
         copyright: `Copyright © ${new Date().getFullYear()} EOS Network.`,
       },

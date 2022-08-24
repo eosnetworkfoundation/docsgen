@@ -10,7 +10,7 @@
 Help() {
   echo "Creates web version of documentation pulling together documentation from several gitrepositories across the EOS Networks"
   echo ""
-  echo "Syntax: generate_documents.sh [-r|d|b|t|v|i|h]"
+  echo "Syntax: generate_documents.sh [-r|d|b|t|i|h|f]"
   echo "mandatory: -r owner/rep and -d directory"
   echo ""
   echo "options:"
@@ -18,13 +18,12 @@ Help() {
   echo "-d: specify directory for building the static HTML documentation"
   echo "-b: branch to use for git"
   echo "-t: tag to use for git"
-  echo "-v: the version of documentation, as seen by end users, that is updated"
   echo "-i: private key for web host, needed to install files"
   echo "-h: destination host(s) where to install files"
   echo "-f: fast, skip git clone if files less then 1 hour old"
   echo ""
-  echo "example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -r 3.1 -d /path/to/build_root -i aws_identity -h hostA -h hostB"
-  echo "Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1, documentation version shown to user will be 3.1. So this updates the 3.1 documentation on the documentation website using ericpassmore-working branch and the tag v3.1.1"
+  echo "example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h hostA -h hostB"
+  echo "Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version"
   exit 1
 }
 
@@ -32,8 +31,11 @@ Help() {
 # Create Top Level Directories
 Create_Top_Level_Dir() {
   # devdocs is for docusarus , reference for non-markdown content
-  [ ! -d "${ARG_BUILD_DIR}/devdocs" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs"
-    [ ! -d "${ARG_BUILD_DIR}/devdocs/welcome" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/welcome"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/welcome" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs/welcome"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/cdt" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs/cdt"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/system-contracts" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs/system-contracts"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/leap" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs/leap"
   # i18n directories zh and ko, english is the default and not included
   [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n"
   [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/ko" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n/ko"
@@ -60,12 +62,25 @@ Install_Docusaurus() {
   # eat the error
   version=$(grep version ${ARG_BUILD_DIR}/devdocs/${DOC6S_CORE_PACKAGE} \
          | cut -d: -f2 | tr -d " ,\"") 2>/dev/null
-  semver=( ${version//./ } )
+  semver=( ${version//./} )
   # no version
   if [ -z ${semver[0]} ]; then
     npx create-docusaurus@latest "${ARG_BUILD_DIR}/devdocs" classic --typescript
   fi
+  # push our own config
   cp "${SCRIPT_DIR}/../config/docusaurus.config.js" "${ARG_BUILD_DIR}/devdocs"
+  # copy over side sidebars one for each seperly versioned doc-id
+  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebars.js" "${ARG_BUILD_DIR}/devdocs"
+  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsCdt.js" "${ARG_BUILD_DIR}/devdocs"
+  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsSystemContracts.js" "${ARG_BUILD_DIR}/devdocs"
+  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsLeap.js" "${ARG_BUILD_DIR}/devdocs"
+  # copy in i18n files
+  cp -r ${SCRIPT_DIR}/../web/docusaurus/i18n ${ARG_BUILD_DIR}/devdocs/
+  # Overwrite entry page for docusarus
+  cp "${SCRIPT_DIR}/../web/docusaurus/src/pages/index.tsx" "${ARG_BUILD_DIR}/devdocs/src/pages"
+  cp "${SCRIPT_DIR}/../web/docusaurus/src/components/HomepageFeature/index.tsx" "${ARG_BUILD_DIR}/devdocs/src/components/HomepageFeatures"
+  # Customer CSS for Doc6s
+  cp "${SCRIPT_DIR}/../web/docusaurus/src/css/custom.css" "${ARG_BUILD_DIR}/devdocs/src/css"
 }
 
 ####
@@ -89,32 +104,46 @@ Bootstrap_Repo() {
     exit 1
   fi
 
-  # if dir exists
-  #    if fast_flag and (state -f %m less date +%s < 60*60); then no op
-  #    else 
-  #       clean out old directory
-  #    fi
-  # else
-  #    make -p dir
-  # fi
-  [ -d "${WORKING_DIR}/${ARG_GIT_REPO}" ] && rm -rf "${WORKING_DIR}/${ARG_GIT_REPO}"
+  #### Logic to clean out working directory
+  # incl some optimization for speed up when fast_flag provided
+  if [ -d "${WORKING_DIR}/${ARG_GIT_REPO}" ]; then
+    # fast flag is faster but leaves dirty copy
+    # no flag remove dir
+    if [ -z $ARG_FAST ]; then
+      rm -rf "${WORKING_DIR}/${ARG_GIT_REPO}"
+    else
+      now=$(date +%s)
+      one_hour_earlier=$(echo $now "- 60*60" | bc)
+      last_modified=$( stat -f %m ${WORKING_DIR}/${ARG_GIT_REPO} )
+      if [ $DEBUG ]; then
+         echo "detected fast flag last modified ${last_modified} sec since epoch"
+      fi
+      # there is a fast flag, but if older then 1 hour we still remove and clean
+      [ $last_modified -lt $one_hour_earlier ] && rm -rf "${WORKING_DIR}/${ARG_GIT_REPO}"
+    fi
+  fi
+  # failed checks then directory still exists and reuse content
+  #### end Logic to clean out working directory
+
   # create working dir if it does not exist
-  [ ! -d "${WORKING_DIR}/${ARG_GIT_REPO}" ] && mkdir -p "${WORKING_DIR}/${ARG_GIT_REPO}"
-  # move to owner directory and clone
-  cd ${WORKING_DIR}/${GIT_OWNER} && git clone $GIT_URL
+  if [ ! -d "${WORKING_DIR}/${ARG_GIT_REPO}" ]; then
+    mkdir -p "${WORKING_DIR}/${ARG_GIT_REPO}"
+    # move to owner directory and clone
+    cd ${WORKING_DIR}/${GIT_OWNER} && git clone $GIT_URL
+  fi
   # move into newly cloned dir
   cd ${WORKING_DIR}/${ARG_GIT_REPO}
 
   # This weird command upper cases the first letter of GIT_BASE_REPO
   GIT_BASE_REPO="$(tr '[:lower:]' '[:upper:]' <<< ${GIT_BASE_REPO:0:1})${GIT_BASE_REPO:1}"
-  COMMAND="Install_${GIT_BASE_REPO} $ARG_GIT_REPO $ARG_BUILD_DIR $ARG_BRANCH $ARG_TAG ${ARG_DOC_VERSION:-latest}"
+  COMMAND="Install_${GIT_BASE_REPO} $SCRIPT_DIR $ARG_GIT_REPO $ARG_BUILD_DIR $ARG_BRANCH $ARG_TAG"
   $COMMAND
 }
 
 
 ############################################################################
 # Global Vars
-# Debug
+# remove next line to turn off Debug
 DEBUG=1
 # compute script dir for copying files from here to web directory
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -124,7 +153,7 @@ Reset_Color='\033[0m' # No Color
 
 ############################################################################
 # Get the options
-while getopts "r:d:b:t:v:i:h:f:" option; do
+while getopts "r:d:b:t:i:h:f" option; do
    case $option in
       r) # repository
         ARG_GIT_REPO=${OPTARG}
@@ -138,9 +167,6 @@ while getopts "r:d:b:t:v:i:h:f:" option; do
       t) # set tag
         ARG_TAG=${OPTARG}
         ;;
-      v) # set version
-        ARG_DOC_VERSION=${OPTARG}
-        ;;
       i) # set identity
         ARG_ID_FILE=${OPTARG}
         ;;
@@ -148,7 +174,7 @@ while getopts "r:d:b:t:v:i:h:f:" option; do
         ARG_HOST+=("${OPTARG}")
         ;;
       f) # set fast
-        ARG_FAST=${OPTARG}
+        ARG_FAST="True"
         ;;
       :) # no args
         Help;
@@ -174,7 +200,6 @@ if [ $DEBUG ]; then
   echo "build dir " $ARG_BUILD_DIR
   echo "branch " $ARG_BRANCH
   echo "tag " $ARG_TAG
-  echo "doc version " $ARG_DOC_VERSION
   echo "identity " $ARG_ID_FILE
   echo "fast flag" $ARG_FAST
 
@@ -189,6 +214,6 @@ Install_Docusaurus
 Install_Branding_Logos
 
 ##############################################################################
-# Main
+# Main - Calls Code Based on Arguments Passed In
 ##############################################################################
 Bootstrap_Repo
