@@ -66,6 +66,10 @@ Install_Docusaurus() {
   # no version
   if [ -z ${semver[0]} ]; then
     npx create-docusaurus@latest "${ARG_BUILD_DIR}/devdocs" classic --typescript
+    # add another module
+    pushd ${ARG_BUILD_DIR}/devdocs
+    npm i --save redocusaurus
+    popd
   fi
   # push our own config
   cp "${SCRIPT_DIR}/../config/docusaurus.config.js" "${ARG_BUILD_DIR}/devdocs"
@@ -74,6 +78,7 @@ Install_Docusaurus() {
   cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsCdt.js" "${ARG_BUILD_DIR}/devdocs"
   cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsSystemContracts.js" "${ARG_BUILD_DIR}/devdocs"
   cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsLeap.js" "${ARG_BUILD_DIR}/devdocs"
+  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsDUNE.js" "${ARG_BUILD_DIR}/devdocs"
   # copy in i18n files
   cp -r ${SCRIPT_DIR}/../web/docusaurus/i18n ${ARG_BUILD_DIR}/devdocs/
   # Overwrite entry page for docusarus
@@ -81,6 +86,12 @@ Install_Docusaurus() {
   cp "${SCRIPT_DIR}/../web/docusaurus/src/components/HomepageFeature/index.tsx" "${ARG_BUILD_DIR}/devdocs/src/components/HomepageFeatures"
   # Customer CSS for Doc6s
   cp "${SCRIPT_DIR}/../web/docusaurus/src/css/custom.css" "${ARG_BUILD_DIR}/devdocs/src/css"
+}
+
+####
+# Copy in index files like API Reference
+Install_Web_Content() {
+  cp "${SCRIPT_DIR}/../web/api-listing.md" "${ARG_BUILD_DIR}/devdocs/eosdocs/welcome/"
 }
 
 ####
@@ -211,6 +222,7 @@ fi
 
 Create_Top_Level_Dir
 Install_Docusaurus
+Install_Web_Content
 Install_Branding_Logos
 
 ##############################################################################

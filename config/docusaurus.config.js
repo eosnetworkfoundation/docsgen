@@ -75,6 +75,43 @@ const config = {
         },
       }),
     ],
+    [
+       'redocusaurus',
+       {
+         // Plugin Options for loading OpenAPI files
+         specs: [
+           {
+             spec: 'openapi/leap-plugins/chain.swagger.yaml',
+             route: '/leap-plugins/chain.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/db_size.swagger.yaml',
+             route: '/leap-plugins/db_size.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/net.swagger.yaml',
+             route: '/leap-plugins/net.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/producer.swagger.yaml',
+             route: '/leap-plugins/producer.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/test_control.swagger.yaml',
+             route: '/leap-plugins/test_control.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/trace_api.swagger.yaml',
+             route: '/leap-plugins/trace.api/',
+           },
+         ],
+         // Theme Options for modifying how redoc renders them
+         theme: {
+           // Change with your site colors
+           primaryColor: '#1890ff',
+         },
+       },
+     ],
   ],
   plugins: [
     [
@@ -128,6 +165,23 @@ const config = {
         // ... other options
       },
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'dune',
+        lastVersion: 'current',
+        path: 'eosdocs/DUNE',
+        routeBasePath: 'DUNE',
+        sidebarPath: require.resolve('./sidebarsDUNE.js'),
+        versions: {
+          current: {
+             label: 'latest',
+             path: 'latest',
+          },
+        },
+        // ... other options
+      },
+    ],
   ],
 
   themeConfig:
@@ -153,7 +207,7 @@ const config = {
             items: [
               {
                 label: 'latest',
-                href: 'https://docs.eosnetwork.com/leap/latest/',
+                href: '/leap/latest/',
               },
               // ... more items
             ],
@@ -165,7 +219,7 @@ const config = {
             items: [
               {
                 label: 'latest',
-                href: 'https://docs.eosnetwork.com/cdt/latest/',
+                href: '/cdt/latest/',
               },
               // ... more items
             ],
@@ -177,7 +231,7 @@ const config = {
             items: [
               {
                 label: 'latest',
-                href: 'https://docs.eosnetwork.com/system-contracts/latest/',
+                href: '/system-contracts/latest/',
               },
               // ... more items
             ],

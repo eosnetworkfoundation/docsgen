@@ -43,7 +43,8 @@ rm -rf ../working/*
 for gitrepo in eosnetworkfoundation/welcome \
     AntelopeIO/cdt \
     eosnetworkfoundation/eos-system-contracts \
-    AntelopeIO/leap
+    AntelopeIO/leap \
+    AntelopeIO/DUNE
 do
   echo "working on ${gitrepo}"
   # empty out var

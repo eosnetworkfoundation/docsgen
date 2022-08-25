@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Populates the following directories
-# images go into static/welcome
+# leap
 #
 
 DoxygenLeap() {
@@ -76,10 +76,10 @@ Install_Leap() {
   cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"
 
   # copy the YAML Files
-  [ ! -d ${ARG_BUILD_DIR}/reference/openapi/leap-plugins/ ] && mkdir -p ${ARG_BUILD_DIR}/reference/openapi/leap-plugins/
-  for i in $(find . -name "*.yaml")
+  [ ! -d ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/ ] && mkdir -p ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/
+  for i in $(find plugins -name "*.yaml")
   do
-    cp $i "${ARG_BUILD_DIR}/reference/openapi/leap-plugins/"
+    cp $i "${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/"
   done
 
   # Finally copy docs into place
