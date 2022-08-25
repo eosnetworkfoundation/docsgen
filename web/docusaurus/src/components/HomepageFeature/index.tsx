@@ -47,7 +47,7 @@ const FeatureList: FeatureItem[] = [
         Consult our documentation for APIs and SDKs
       </Translate>
     ),
-    link: '/welcome/latest/reference/',
+    link: '/welcome/latest/api-listing',
   },
   {
     title: <Translate>Resources</Translate>,

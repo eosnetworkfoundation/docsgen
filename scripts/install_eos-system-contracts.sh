@@ -6,8 +6,12 @@
 
 DoxygenSystemContracts() {
   BUILD_ROOT=$1
-  DOXYFILE=$2
-  LOGO=$3
+  LOGO=$2
+  CONFIG_DIR=$3
+
+  # remove this to publish License Agreement Under system-contract/reference/Pages
+  SUPRESS_EULA=1
+
   # location to write docs
   DEST_DIR="${BUILD_ROOT}/devdocs/eosdocs/system-contracts/"
 
@@ -16,7 +20,9 @@ DoxygenSystemContracts() {
   [ ! -d $DEST_DIR ] && mkdir -p $DEST_DIR
 
   # copy in doxygen config file
-  cp ${DOXYFILE} Doxyfile
+  cp $CONFIG_DIR/doxyfile/system-contracts-doxyfile Doxyfile
+  # copy in doxybook config file
+  cp $CONFIG_DIR/doxybook/system-contracts.doxybook.config.json .
   # copy in logo
   cp ${LOGO} docs
   # run doxygen
@@ -24,17 +30,43 @@ DoxygenSystemContracts() {
 
   # convert doxybook XML to Markdown
   [ ! -d reference ] && mkdir reference
-  for xml_file in $(find doxygen_out/docbook/ -type f)
+  # convert XML to Markdown
+  doxybook2 --input doxygen_out/xml --output reference --config system-contracts.doxybook.config.json
+  for i in $(find reference -type f)
   do
-    base_xml_file=$(basename $xml_file)
-    md_file=$(echo $base_xml_file | cut -d'.' -f1).md
-    echo "pandoc -f docbook -t markdown -o reference/${md_file} $xml_file"
-    pandoc -f docbook -t markdown -o reference/${md_file} $xml_file
+    echo $i
+        # fix BR tags to close properly
+    sed 's/<br>/<br\/>/g' $i > tempBR.md
+    sed 's/<T>/`<T>`/g' tempBR.md > tempT.md
+    sed 's/<int>/`<int>`/g' tempBR.md > tempT.md
+    # remove empty links
+    sed 's/\[\([a-z0-9:_-]*\)\]()/\1/g' tempT.md > tempNOLINK.md
+    mv tempNOLINK.md $i
   done
-  # copy images
-  cp doxygen_out/docbook/*.png reference
-  cp doxygen_out/docbook/*.jpg reference
-  cp doxygen_out/docbook/*.jpeg reference
+
+  # remove bad files
+  grep -R "title: @" reference | cut -d: -f1 | sort -u | xargs rm
+  # remove bad file from indexes
+  grep -v "\[@" reference/index_namespaces.md > reference/temp_namespace.md
+  mv reference/temp_namespace.md reference/index_namespaces.md
+  grep -v "\[@" reference/index_classes.md > reference/temp_classes.md
+  mv reference/temp_classes.md reference/index_classes.md
+
+  # lets fix this up a bit
+  # rm empty examples/pages , if not empty move index file in
+  rmdir reference/Examples && rm reference/index_examples.md
+  [ -f reference/index_examples.md ] && mv reference/index_examples.md reference/Examples/index.md
+  rmdir reference/Pages && rm reference/index_pages.md
+  [ -f reference/index_pages.md ] && mv reference/index_pages.md reference/Pages/index.md
+  # move index files in
+  mv reference/index_classes.md reference/Classes/index.md
+  mv reference/index_files.md reference/Files/index.md
+  mv reference/index_namespaces.md reference/Namespaces/index.md
+
+
+  if [ $SUPRESS_EULA -eq 1 ]; then
+    rm -rf reference/Pages
+  fi
 
   # copy directory
   cp -R reference $DEST_DIR
@@ -58,33 +90,33 @@ MarkdownSystemContracts() {
   cp -R docs/* markdown_out
 
   # fix relative links
-  REPLACE="https:\/\/docs.eosnetwork.com\/reference\/eos-system-contracts\/annotated.html"
+  REPLACE="\/system-contracts\/latest\/reference\/"
   FIND="contracts\/eosio\."
   sed "s/${FIND}/${REPLACE}/g" markdown_out/README.md > tmp_README.md
   mv tmp_README.md markdown_out/README.md
 
   FIND="action-reference\/eosio\.bios"
-  REPLACE="https:\/\/docs.eosnetwork.com\/reference\/eos-system-contracts\/classeosiobios_1_1bios\.html"
+  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosiobios_1_1bios"
   sed "s/${FIND}/${REPLACE}/" markdown_out/index.md > tmp_index.md
   mv tmp_index.md markdown_out/index.md
 
   FIND="action-reference\/eosio\.system"
-  REPLACE="https:\/\/docs.eosnetwork.com\/reference\/eos-system-contracts\/classeosiosystem_1_1system__contract\.html"
+  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosiosystem_1_1system__contract"
   sed "s/${FIND}/${REPLACE}/" markdown_out/index.md > tmp_index.md
   mv tmp_index.md markdown_out/index.md
 
   FIND="action-reference\/eosio\.msig"
-  REPLACE="https:\/\/docs.eosnetwork.com\/reference\/eos-system-contracts\/classeosio_1_1multisig\.html"
+  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosio_1_1multisig"
   sed "s/${FIND}/${REPLACE}/" markdown_out/index.md > tmp_index.md
   mv tmp_index.md markdown_out/index.md
 
   FIND="action-reference\/eosio\.token"
-  REPLACE="https:\/\/docs.eosnetwork.com\/reference\/eos-system-contracts\/classeosio_1_1token\.html"
+  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosio_1_1token"
   sed "s/${FIND}/${REPLACE}/" markdown_out/index.md > tmp_index.md
   mv tmp_index.md markdown_out/index.md
 
   FIND="action-reference\/eosio\.wrap"
-  REPLACE="https:\/\/docs.eosnetwork.com\/reference\/eos-system-contracts\/classeosio_1_1wrap\.html"
+  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosio_1_1wrap"
   sed "s/${FIND}/${REPLACE}/" markdown_out/index.md > tmp_index.md
   mv tmp_index.md markdown_out/index.md
 
@@ -111,6 +143,6 @@ Install_Eos-system-contracts() {
 
   # three args, build_root, doxyfile, and path to logo
   DoxygenSystemContracts $ARG_BUILD_DIR \
-     ${SCRIPT_DIR}/system-contracts-doxyfile \
-     ${SCRIPT_DIR}/../web/eosn_logo.png
+     ${SCRIPT_DIR}/../web/eosn_logo.png \
+     ${SCRIPT_DIR}/../config
 }

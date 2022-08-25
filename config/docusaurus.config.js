@@ -182,6 +182,33 @@ const config = {
         // ... other options
       },
     ],
+
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'eosjs',
+        lastVersion: 'current',
+        path: 'eosdocs/eosjs',
+        routeBasePath: 'eosjs',
+        sidebarPath: require.resolve('./sidebars_eosjs_sdk.js'),
+        versions: {
+          current: { label: 'latest', path: 'latest', },
+        },
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'swift-sdk',
+        lastVersion: 'current',
+        path: 'eosdocs/swift-sdk',
+        routeBasePath: 'swift-sdk',
+        sidebarPath: require.resolve('./sidebars_swift_sdk.js'),
+        versions: {
+          current: { label: 'latest', path: 'latest', },
+        },
+      },
+    ],
   ],
 
   themeConfig:
@@ -194,6 +221,12 @@ const config = {
           src: 'img/eosn_logo.png',
         },
         items: [
+          {
+            type: 'doc',
+            docId: 'api-listing',
+            position: 'left',
+            label: 'API Listing',
+          },
           {
             type: 'doc',
             docId: 'index',

@@ -74,11 +74,10 @@ Install_Docusaurus() {
   # push our own config
   cp "${SCRIPT_DIR}/../config/docusaurus.config.js" "${ARG_BUILD_DIR}/devdocs"
   # copy over side sidebars one for each seperly versioned doc-id
-  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebars.js" "${ARG_BUILD_DIR}/devdocs"
-  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsCdt.js" "${ARG_BUILD_DIR}/devdocs"
-  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsSystemContracts.js" "${ARG_BUILD_DIR}/devdocs"
-  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsLeap.js" "${ARG_BUILD_DIR}/devdocs"
-  cp "${SCRIPT_DIR}/../web/docusaurus/src/sidebarsDUNE.js" "${ARG_BUILD_DIR}/devdocs"
+  for sidebar in $(find ${SCRIPT_DIR}/../web/docusaurus/src/ -type f -name "sidebar*.js")
+  do
+    cp $sidebar ${ARG_BUILD_DIR}/devdocs
+  done
   # copy in i18n files
   cp -r ${SCRIPT_DIR}/../web/docusaurus/i18n ${ARG_BUILD_DIR}/devdocs/
   # Overwrite entry page for docusarus
@@ -136,14 +135,38 @@ Bootstrap_Repo() {
   # failed checks then directory still exists and reuse content
   #### end Logic to clean out working directory
 
+  ## Assemble Git Command
+  GIT_CLONE="git clone"
+  GIT_CHECKOUT=""
+  # ONLY TAG MOST LIKELY
+  if [ -z $ARG_BRANCH ] && [ ! -z $ARG_TAG ]; then
+    # hard tag
+    GIT_CLONE="${GIT_CLONE} -b $ARG_TAG"
+  fi
+  # ONLY BRANCH
+  if [ ! -z $ARG_BRANCH ] && [ -z $ARG_TAG ]; then
+    # single branch
+    GIT_CLONE="${GIT_CLONE} -b $ARG_BRANCH"
+  fi
+  # BOTH BRANCH AND TAG
+  if [ ! -z $ARG_BRANCH ] && [ ! -z $ARG_TAG ]; then
+    GIT_CLONE="${GIT_CLONE} -b $ARG_BRANCH"
+    GIT_CHECKOUT="git checkout tags/${ARG_TAG}"
+  fi
+  ## FISHISH OFF CLONE CMD
+  GIT_CLONE="${GIT_CLONE} ${GIT_URL}"
+
   # create working dir if it does not exist
   if [ ! -d "${WORKING_DIR}/${ARG_GIT_REPO}" ]; then
     mkdir -p "${WORKING_DIR}/${ARG_GIT_REPO}"
     # move to owner directory and clone
-    cd ${WORKING_DIR}/${GIT_OWNER} && git clone $GIT_URL
+    echo $GIT_CLONE
+    cd ${WORKING_DIR}/${GIT_OWNER} && $GIT_CLONE
   fi
   # move into newly cloned dir
   cd ${WORKING_DIR}/${ARG_GIT_REPO}
+  # run checkout command if needed
+  [ -z $GIT_CHECKOUT ] && $GIT_CHECKOUT
 
   # This weird command upper cases the first letter of GIT_BASE_REPO
   GIT_BASE_REPO="$(tr '[:lower:]' '[:upper:]' <<< ${GIT_BASE_REPO:0:1})${GIT_BASE_REPO:1}"

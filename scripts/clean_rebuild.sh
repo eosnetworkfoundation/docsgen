@@ -44,7 +44,10 @@ for gitrepo in eosnetworkfoundation/welcome \
     AntelopeIO/cdt \
     eosnetworkfoundation/eos-system-contracts \
     AntelopeIO/leap \
-    AntelopeIO/DUNE
+    AntelopeIO/DUNE \
+    eosnetworkfoundation/mandel-eosjs \
+    eosnetworkfoundation/mandel-java \
+    eosnetworkfoundation/mandel-swift
 do
   echo "working on ${gitrepo}"
   # empty out var

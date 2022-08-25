@@ -6,9 +6,8 @@
 
 DoxygenCDT() {
   BUILD_ROOT=$1
-  DOXYFILE=$2
-  LOGO=$3
-  CONFIG_DIR=$4
+  LOGO=$2
+  CONFIG_DIR=$3
 
   # location to write docs
   DEST_DIR="${BUILD_ROOT}/devdocs/eosdocs/cdt/"
@@ -18,21 +17,25 @@ DoxygenCDT() {
   [ ! -d $DEST_DIR ] && mkdir -p $DEST_DIR
 
   # copy in doxygen config file
-  cp ${DOXYFILE} Doxyfile
+  cp $CONFIG_DIR/doxyfile/cdt-doxyfile Doxyfile
   # copy in doxybook config file
-  cp $CONFIG_DIR/doxybook.config.json .
+  cp $CONFIG_DIR/doxybook/cdt.doxybook.config.json .
   # copy in logo
   cp ${LOGO} docs
   # run doxygen create doxybook
   doxygen 2>&1>/dev/null
 
+  [ ! -d reference ] && mkdir reference
   # convert XML to Markdown
-  doxybook2 --input doxygen_out/xml --output reference --config doxybook.config.json
-  for i in $(find reference -type f -name "*.md")
+  doxybook2 --input doxygen_out/xml --output reference --config cdt.doxybook.config.json
+  for i in $(find reference -type f)
   do
     echo $i
+    # fix BR tags to close properly
     sed 's/<br>/<br\/>/g' $i > temp.md
-    mv temp.md $i
+    # remove empty links
+    sed 's/\[\([a-z0-9:_-]*\)\]()/\1/g' temp.md > tempNOLINK.md
+    mv tempNOLINK.md $i
   done
 
   # spot fixes
@@ -52,7 +55,22 @@ DoxygenCDT() {
   mv temp.md reference/Namespaces/namespaceeosio.md
 
   # Note need to fix summary
+  sed 's/summary:\(.*\)Example:/summary:\1/' reference/Classes/structeosio_1_1action__wrapper.md > temp.md
+  mv temp.md reference/Classes/structeosio_1_1action__wrapper.md
   # reference/Classes/structeosio_1_1action__wrapper.md
+
+  # lets fix this up a bit
+  # rm empty examples/pages , if not empty move index file in
+  rmdir reference/Examples && rm reference/index_examples.md
+  [ -f reference/index_examples.md ] && mv reference/index_examples.md reference/Examples/index.md
+  rmdir reference/Pages && rm reference/index_pages.md
+  [ -f reference/index_pages.md ] && mv reference/index_pages.md reference/Pages/index.md
+  # move index files in
+  mv reference/index_classes.md reference/Classes/index.md
+  mv reference/index_files.md reference/Files/index.md
+  mv reference/index_namespaces.md reference/Namespaces/index.md
+
+
 
   # copy directory
   cp -R reference $DEST_DIR
@@ -81,7 +99,6 @@ Install_Cdt() {
 
   # three args, build_root, doxyfile, and path to logo
   DoxygenCDT $ARG_BUILD_DIR \
-     ${SCRIPT_DIR}/cdt-doxyfile \
      ${SCRIPT_DIR}/../web/eosn_logo.png \
-     ${SCRIPT_DIR}/../config/doxybook
+     ${SCRIPT_DIR}/../config
 }
