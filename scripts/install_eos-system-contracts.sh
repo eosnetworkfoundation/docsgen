@@ -9,7 +9,7 @@ DoxygenSystemContracts() {
   DOXYFILE=$2
   LOGO=$3
   # location to write docs
-  DEST_DIR="${BUILD_ROOT}/reference/eos-system-contracts"
+  DEST_DIR="${BUILD_ROOT}/devdocs/eosdocs/system-contracts/"
 
   # pull from github
   # create reference dir if it does not exist
@@ -22,8 +22,22 @@ DoxygenSystemContracts() {
   # run doxygen
   doxygen 2>&1>/dev/null
 
-  # copy files to staging area
-  cp -R doxygen_out/html/* $DEST_DIR
+  # convert doxybook XML to Markdown
+  [ ! -d reference ] && mkdir reference
+  for xml_file in $(find doxygen_out/docbook/ -type f)
+  do
+    base_xml_file=$(basename $xml_file)
+    md_file=$(echo $base_xml_file | cut -d'.' -f1).md
+    echo "pandoc -f docbook -t markdown -o reference/${md_file} $xml_file"
+    pandoc -f docbook -t markdown -o reference/${md_file} $xml_file
+  done
+  # copy images
+  cp doxygen_out/docbook/*.png reference
+  cp doxygen_out/docbook/*.jpg reference
+  cp doxygen_out/docbook/*.jpeg reference
+
+  # copy directory
+  cp -R reference $DEST_DIR
 }
 
 MarkdownSystemContracts() {
