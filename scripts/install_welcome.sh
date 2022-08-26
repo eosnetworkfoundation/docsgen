@@ -132,7 +132,7 @@ Install_Welcome() {
   cp markdown_out/index.md $ARG_BUILD_DIR/devdocs/eosdocs/welcome
   for d in 01_overview 02_getting-started 03_tutorials 04_protocol \
       05_community-developer-tools 06_eosio-blockchain-networks \
-      07_migration-guides
+      07_migration-guides resources
   do
     cp -r markdown_out/${d} $ARG_BUILD_DIR/devdocs/eosdocs/welcome
   done

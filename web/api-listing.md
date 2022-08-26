@@ -12,7 +12,7 @@ https API refereces for working with **Nodeos**
 
 ## SDK API References ##
 - [Javascript API](/eosjs/latest/): Provides integration with EOSIO-based blockchains using the EOSIO Nodeos RPC API
-- [Swift API](/swift-sdk/latest/swiftdocs): Provides integration with EOSIO-based blockchains using the EOSIO Nodeos RPC API
+- [Swift API](/swift-sdk/latest/): Provides integration with EOSIO-based blockchains using the EOSIO Nodeos RPC API
 - [Java API](https://docs.eosnetwork.com/reference/javadocs): Provides integration with EOSIO-based blockchains using the EOSIO Nodeos RPC API
 
 ## EOS System Contract Action References ##
