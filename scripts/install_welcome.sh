@@ -28,7 +28,8 @@ Install_Welcome() {
   [ ! -d $IMG_DIR ] && mkdir $IMG_DIR
 
   # copy out to keep docs clean and process idempotent
-  [ ! -d markdown_out ] && mkdir markdown_out
+  [ -d markdown_out ] && rm -rf markdown_out
+  mkdir markdown_out
   cp -R docs/* markdown_out
 
   # setup images
@@ -124,7 +125,7 @@ Install_Welcome() {
 
   FIND="action-reference\/eosio\.wrap"
   REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosio_1_1wrap"
-  sed "s/${FIND}/${REPLACE}/" markdown_out/index.md > tmp_index.md
+  sed "s/${FIND}/${REPLACE}/" markdown_out/04_protocol/index.md > tmp_index.md
   mv tmp_index.md markdown_out/04_protocol/index.md
 
   # copy in the files to build root

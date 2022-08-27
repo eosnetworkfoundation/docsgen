@@ -41,7 +41,7 @@ Install_Mandel-swift() {
   sed "s/Sources\/EosioSwift/https:\/\/docs.eosnetwork.com\/reference\/swiftdocs\/Sources\/EosioSwift/g" EXAMPLES.md > tmpA.md
   # collapse trailing slash in special case , slash added back next line
   sed 's/(README\.md\/#/(README.md#/g' tmpA.md > tmpB.md
-  sed 's/(README\.md/(\/eosdocs\/client-side\/swiftdocs\//g' tmpB.md > tmpC.md
+  sed 's/(README\.md/(\/swift-sdk\/latest\/swiftdocs\//g' tmpB.md > tmpC.md
   # update title
   sed 's/^# EOSIO SDK for Swift Examples/# Examples/' tmpC.md > EXAMPLES.md
   sed "s/Sources\/EosioSwift/https:\/\/docs.eosnetwork.com\/reference\/swiftdocs\/Sources\/EosioSwift/g" README.md > tmp2.md

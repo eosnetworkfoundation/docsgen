@@ -3,11 +3,11 @@
 ## Nodeos API Reference ##
 
 https API refereces for working with **Nodeos**
-- [Nodeos Chain API](/leap-plugins/chain.api/): Provides access to the blockchain information and interaction with the blockchain
-- [Nodeos Producer API](/leap-plugins/producer.api/): Provides access to a producer node
-- [Nodeos Net API](/leap-plugins/net.api/): Provides access to the blockchain's network
-- [Nodeos DB Size API](/leap-plugins/db_size.api/): Provides access to the blockchain's database
-- [Nodeos Trace API](/leap-plugins/trace.api/): Provides access to retired actions and related metadata from a specified block
+- [Nodeos Chain API](/leap-plugins/latest/chain.api/): Provides access to the blockchain information and interaction with the blockchain
+- [Nodeos Producer API](/leap-plugins/latest/producer.api/): Provides access to a producer node
+- [Nodeos Net API](/leap-plugins/latest/net.api/): Provides access to the blockchain's network
+- [Nodeos DB Size API](/leap-plugins/latest/db_size.api/): Provides access to the blockchain's database
+- [Nodeos Trace API](/leap-plugins/latest/trace.api/): Provides access to retired actions and related metadata from a specified block
 
 
 ## SDK API References ##

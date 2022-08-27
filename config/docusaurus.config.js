@@ -81,28 +81,28 @@ const config = {
          // Plugin Options for loading OpenAPI files
          specs: [
            {
-             spec: 'openapi/leap-plugins/chain.swagger.yaml',
-             route: '/leap-plugins/chain.api/',
+             spec: 'openapi/leap-plugins/latest/chain.swagger.yaml',
+             route: '/leap-plugins/latest/chain.api/',
            },
            {
-             spec: 'openapi/leap-plugins/db_size.swagger.yaml',
-             route: '/leap-plugins/db_size.api/',
+             spec: 'openapi/leap-plugins/latest/db_size.swagger.yaml',
+             route: '/leap-plugins/latest/db_size.api/',
            },
            {
-             spec: 'openapi/leap-plugins/net.swagger.yaml',
-             route: '/leap-plugins/net.api/',
+             spec: 'openapi/leap-plugins/latest/net.swagger.yaml',
+             route: '/leap-plugins/latest/net.api/',
            },
            {
-             spec: 'openapi/leap-plugins/producer.swagger.yaml',
-             route: '/leap-plugins/producer.api/',
+             spec: 'openapi/leap-plugins/latest/producer.swagger.yaml',
+             route: '/leap-plugins/latest/producer.api/',
            },
            {
-             spec: 'openapi/leap-plugins/test_control.swagger.yaml',
-             route: '/leap-plugins/test_control.api/',
+             spec: 'openapi/leap-plugins/latest/test_control.swagger.yaml',
+             route: '/leap-plugins/latest/test_control.api/',
            },
            {
-             spec: 'openapi/leap-plugins/trace_api.swagger.yaml',
-             route: '/leap-plugins/trace.api/',
+             spec: 'openapi/leap-plugins/latest/trace_api.swagger.yaml',
+             route: '/leap-plugins/latest/trace.api/',
            },
          ],
          // Theme Options for modifying how redoc renders them

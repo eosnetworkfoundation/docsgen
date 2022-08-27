@@ -69,17 +69,26 @@ Install_Leap() {
     sed "s/${FIND}/${REPLACE}/g" tempAP.md > tempTT.md
 
     mv tempTT.md $file
-
   done
+
+  # fix plugin reference
+  sed 's/https:\/\/docs.eosnetwork.com\/reference\/mandel-plugins\//\/leap-plugins\/latest\//g' \
+      markdown_out/01_nodeos/03_plugins/net_api_plugin/index.md > tempPlugin.md
+  mv tempPlugin.md markdown_out/01_nodeos/03_plugins/net_api_plugin/index.md
+  # fix reasource path
+  sed 's/\/resources\/index.md/\/welcome\/latest\/resources\//' \
+      02_cleos/02_how-to-guides/how-to-get-block-information.md > tempRes.md
+  mv tempRes.md 02_cleos/02_how-to-guides/how-to-get-block-information.md
+
 
   # move tutorial to welcome
   cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"
 
   # copy the YAML Files
-  [ ! -d ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/ ] && mkdir -p ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/
+  [ ! -d ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/ ] && mkdir -p ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/
   for i in $(find plugins -name "*.yaml")
   do
-    cp $i "${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/"
+    cp $i ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/
   done
 
   # Finally copy docs into place
