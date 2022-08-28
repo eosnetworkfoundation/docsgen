@@ -176,7 +176,7 @@ Bootstrap_Repo() {
   # move into newly cloned dir
   cd "${WORKING_DIR}"/"${ARG_GIT_REPO}" || exit
   # run checkout command if needed
-  [ -z "$GIT_CHECKOUT" ] && "$GIT_CHECKOUT"
+  [ -n "$GIT_CHECKOUT" ] && "$GIT_CHECKOUT"
 
   # This weird command upper cases the first letter of GIT_BASE_REPO
   GIT_BASE_REPO=$(tr '[:lower:]' '[:upper:]' <<< "${GIT_BASE_REPO:0:1}")"${GIT_BASE_REPO:1}"

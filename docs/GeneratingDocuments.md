@@ -8,6 +8,27 @@ There are two steps to generating content
 
 The static content will need to be supported by an HTTP service. These steps only build out the content. They don't serve the content via HTTP.
 
+### Quick Guide
+Very brief guide on steps to generating content from markdown to static html/css/js
+
+- copy markdown into `/path/build_root/devdocs/eosdocs`
+- run `npm run build`
+- run `npm run serve` to see local hosted version
+
+**Example:***
+Note this assumes all software is installed including Doc6s under *$ARG_BUILD_DIR/devdocs*
+```shell
+ARG_BUILD_DIR=$HOME/build_root/
+git clone https://git.github.com/enf/busio
+cd busio
+mkdir $ARG_BUILD_DIR/devdocs/eosdocs/busio
+# copy markdown
+cp -R docs/* $ARG_BUILD_DIR/devdocs/eosdocs/busio
+cd $ARG_BUILD_DIR/devdocs
+npm run build
+npm run serve
+```
+
 ## Code Structure
 
 Scripts are under the `scripts` directory. `generate_documents.sh` is called providing the repository and the build directory.
@@ -28,29 +49,35 @@ For example
   -  ARG_TAG=$5
 
 ### Adding a New Repo
-If you want to add a new repo do the following
-1. Create a files `install_repo.sh`
-2. Create a function in the file named `Install_Repo`
-  - copy markdown
+If you want to add a new repo named `busio` do the following
+1. Create a files `install_busio.sh`
+2. Create a function in the file named `Install_Busio`
+
+Inside the fuction `Install_Busio` place the following code
 
 ```
-mkdir $ARG_BUILD_DIR/devdocs/eosdocs/newhome
-cp -R docs/* $ARG_BUILD_DIR/devdocs/eosdocs/
+mkdir $ARG_BUILD_DIR/devdocs/eosdocs/busio
+cp -R docs/* $ARG_BUILD_DIR/devdocs/eosdocs/busio
 ```
 
 ## Static Index Files ##
 
-There are 2 static index files copied from the `devdocs` repo. These two files index the APIs and the SDKs.
+There is one static index files copied from the `devdocs` repo.
 
 | Code Repository | Pre-Build | Static Content |
 | --------------- | --------- | ------- |
 | devdocs/web/api-listing.md | /devdocs/eosdocs/api-listing.md | eosdocs/api-listing.html |
-| devdocs/web/client-side/index.md | /devdocs/eosdocs/welcome/client-side/index.md | welcome/latest/client-side/index.html |
 
 ## Mandel Open APIs ##
-These are the HTTP API documented in YAML files, and they are stored in the mandel github repository. Redocly HTML files are setup to read directly from the YAML files and parse them via javascript code loaded off a CDN. Specifically [Redocly](https://redocly.com/docs/redoc/quickstart/) is used.
 
-These are not markdown files so you will find them under `reference/mandel-plugins/`
+These are not markdown files so you will find them under a virtual path `/leap-plugins/`
+
+These are the HTTP APIs documented in YAML files. They are stored in the leap github repository. The YAML files are parsed via javascript code. Specifically [Redocusaurus](https://github.com/rohit-gohri/redocusaurus) is used. The configuration that finds the files and setups the virtual paths is located in the main Docusaurus config.
+
+**Outline of steps**
+- find yaml files copy to `build_root/openapi`
+- run `npm run build`
+
 
 ## Nodeos Cloes and Kloes ##
 The markdown is pulled from github under the `leap` repo. A script is run to add meta-data to the document for better viewing.
@@ -65,26 +92,16 @@ The repo `mandel-swift` is cloned and the pre-generated swiftdocs and the source
 
 These are not markdown files so you will find them under `reference/swiftdocs/`
 
-There is one markdown file, an index of the top level interfaces in Swift. This markdown is copied from github, and it lives under `eosdocs/client-side/swiftdocs`
+There is one markdown file, an index of the top level interfaces in Swift. This markdown is copied from github, and it lives under `swift-sdk`
 
 ## Mandel Typescript ##
-The repo `mandel-eosjs` is cloned and typedoc runs to generate the documentation.
+The repo `mandel-eosjs` is cloned and typedoc runs to generate the documentation. Typedoc outputs as markdown, and all files are located under `eosdocs/client-side/jsdocs`
 
-Typedoc outputs as markdown, and all files are located under `eosdocs/client-side/jsdocs`
-
-## Mandel Contract Reference ##
-The `mandel-contracts` is cloned and doxygen is run to generate html files.
-
-These are not markdown files so they are stored under `reference/mandel-contracts`
-
-In addition the markdown docs from `mandel-contracts` are published into the folder `smart-contracts/mandel-contracts`
+## EOS System Contract API Reference ##
+The repo `eos-system-contracts` is cloned. The markdown is copied into the `system-contracts` folder and doxygen/doxybook2 is run to generate markdown files which live under `system-contracts/reference`
 
 ## Mandel Contract Developer Toolkit ##
-The `mandel.cdt` is cloned and doxygen is run to generate html files.
-
-These are not markdown files so they are stored under `reference/mandel.cdt`
-
-In addition the markdown docs from `mandel-cdt` are published into the folder `smart-contracts/mandel-cdt`
+The repo `cdt` is cloned. The markdown is copied into the `cdt` folder and doxygen/doxybook2 is run to generate markdown files which live under `cdt/reference`
 
 ## Setting up New Locales ##
 **Docusaurus i18n configs**
@@ -105,10 +122,10 @@ The full path the to `i18n` folder, is found under the current *devdocs* reposio
 When changing content under the `devdocs/web` folder make sure to check for localized versions. You will find those versions under `i18n/xx/docusaurus-plugin-content-docs/current`. For example when you change `api-listing.md` you must also change `i18n/zh/docusaurus-plugin-content-docs/current/api-listing.md` and change `i18n/ko/docusaurus-plugin-content-docs/current/api-listing.md`.
 
 ## Running local site ##
-You can run Docusaurus locally to debug. Cd to `/path/to/webroot/devdocs` and your port may differ. Note this won't pick up the files under references.
+You can run Docusaurus locally to debug. Cd to `/path/build_root/devdocs` and your port may differ. Note this won't pick up the files under references.
 ```
-cd /path/to/webroot/devdocs
+cd /path/build_root/devdocs
 npm run serve -- --port 39999
 ```
 
-After making direct changes to files under `/path/to/webroot/devdocs` you will need to rerun `npm run build` to generate the build directory.
+After making direct changes to files under `/path/build_root/devdocs` you will need to rerun `npm run build` to generate the build directory.

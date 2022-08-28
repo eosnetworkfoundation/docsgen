@@ -12,7 +12,7 @@ The system was keep simple. A shell script clones a git repository, and puts the
 ```mermaid
 graph LR;
     subgraph prod1 [Production]
-    Webserver-->HTML;
+    Webserver;
     end
     subgraph stag1 [DocService]
     Docusaurus-->HTML;
@@ -30,32 +30,35 @@ In addition, tools are included to help maintain documentation in source reposit
 ## Organization ##
 * devdocs - root for Docusaurus project
    * welcome - the welcome repo
+     - markdown
    * eos cdt - developer tools
+     - markdown
+     - reference (API documentation from code)
    * eos contracts - system contracts
+     - markdown
+     - reference (API documentation from code)
    * leap - core blockchain code
-* reference - auto generated documentation from code that is not compatible with Docusaurus
-   * mandel-contracts
-   * mandel-cdt
-   * ...
-   * swiftdocs
+   * SDKs (java, swift, typescript)
+    - markdown
+    - reference (API documentation from code)
+
 
 
 ### `Coverage` ###
 
 |   Topic  |  Source Repository  | Top Level Path | Process To HTML |
 |  ------- | ------------------- | -------------- | ------------ |
-| Nodeos HTTP API | [mandel](https://github.com/AntelopeIO/leap) | reference/mandel-plugins | static html with redocly |
-| JS and Node Documentation | [mandel-eosjs](https://github.com/eosnetworkfoundation/mandel-eosjs) | eosdocs/client-side/jsdocs | Docusaurus |
-| Swift Documentation | [mandel-swift](https://github.com/eosnetworkfoundation/mandel-swift) | reference/swiftdocs | static html |
-| Java Documenation | [mandel-java](https://github.com/eosnetworkfoundation/mandel-java) | reference/javadocs | static html |
-| EOS System Contracts | [eos-system-contracts](https://github.com/eosnetworkfoundation/eos-system-contracts) | reference/mandel-contracts | static html |
-| Contract Developer Tools | [cdt](https://github.com/AntelopeIO/cdt) | eosdocs/cdt | docusarus |
-| DUNE | [DUNE](https://github.com/AntelopeIO/DUNE.git) | eosdocs/dune | docusarus |
-| Nodeos | [Mandel](https://github.com/AntelopeIO/leap) | eosdocs/leap/01_nodeos | docusarus |
-| Cleos | [Mandel](https://github.com/AntelopeIO/leap) | eosdocs/developer-tools/02_cleos | docusarus |
-| Leap Install | [Mandel](https://github.com/AntelopeIO/leap) | eosdocs/developer-tools/00_install | docusarus |
-| Tutorial | [Mandel](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/tutorials | docusarus |
-| Glossary | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | eosdocs/glossary | docusarus |
+| Nodeos HTTP API | [mandel](https://github.com/AntelopeIO/leap) | leap-plugins/ | openAPI yaml and redocly |
+| JS SDK API Documentation | [mandel-eosjs](https://github.com/eosnetworkfoundation/mandel-eosjs) | eosjs/ | Docusaurus |
+| Swift API Documentation | [mandel-swift](https://github.com/eosnetworkfoundation/mandel-swift) | reference/swiftdocs | static html |
+| Swift API Manuals | [mandel-swift](https://github.com/eosnetworkfoundation/mandel-swift) | swift-sdk | Docusaurus |
+| Java API Documenation | [mandel-java](https://github.com/eosnetworkfoundation/mandel-java) | reference/javadocs | static html |
+| EOS System Contracts | [eos-system-contracts](https://github.com/eosnetworkfoundation/eos-system-contracts) | system-contracts | Docusaurus |
+| Contract Developer Tools | [cdt](https://github.com/AntelopeIO/cdt) | cdt | Docusarus |
+| DUNE | [DUNE](https://github.com/AntelopeIO/DUNE.git) | DUNE | Docusarus |
+| Nodeos, Cleos, Kloes Manuals | [Mandel](https://github.com/AntelopeIO/leap) | leap | Docusarus |
+| Tutorials | [Mandel](https://github.com/eosnetworkfoundation/welcome.git) | welcome/tutorials | Docusarus |
+| Glossary | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | glossary | Docusarus |
 | Welcome | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | welcome | docusarus |
 
 ## Initialize Content Repository ##
@@ -76,7 +79,7 @@ options:
 -t: tag to use for git
 -i: private key for web host, needed to install files
 -h: destination host(s) where to install files
--f: fast, skip git clone if files less then 1 hour old
+-f: fast, skip git checkout if files less then 1 hour old
 
 example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h hostA -h hostB
 Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version
