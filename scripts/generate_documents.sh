@@ -30,29 +30,34 @@ Help() {
 ####
 # Create Top Level Directories
 Create_Top_Level_Dir() {
+  if [ -z "$ARG_BUILD_DIR" ]; then
+    echo "Empty root dir! Exiting"
+    exit 1
+  fi
   # devdocs is for docusarus , reference for non-markdown content
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/welcome" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs/welcome"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/cdt" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs/cdt"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/system-contracts" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs/system-contracts"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/leap" ] && mkdir -p "${ARG_BUILD_DIR}/devdocs/eosdocs/leap"
+  # :? pattern for saftey don't create in root dir
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/welcome" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/welcome"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/cdt" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/cdt"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/system-contracts" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/system-contracts"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/leap" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/leap"
   # i18n directories zh and ko, english is the default and not included
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/ko" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n/ko"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/zh" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n/zh"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/zh/docusaurus-plugin-content-docs" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n/zh/docusaurus-plugin-content-docs"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/zh/docusaurus-plugin-content-docs/current" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n/zh/docusaurus-plugin-content-docs/current"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs/"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs/current" ] && mkdir "${ARG_BUILD_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs/current"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n" ] && mkdir "${ARG_BUILD_DIR:?}/devdocs/i18n"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/ko" ] && mkdir "${ARG_BUILD_DIR:?}/devdocs/i18n/ko"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/zh" ] && mkdir "${ARG_BUILD_DIR:?}/devdocs/i18n/zh"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/zh/docusaurus-plugin-content-docs" ] && mkdir "${ARG_BUILD_DIR:?}/devdocs/i18n/zh/docusaurus-plugin-content-docs"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/zh/docusaurus-plugin-content-docs/current" ] && mkdir "${ARG_BUILD_DIR:?}/devdocs/i18n/zh/docusaurus-plugin-content-docs/current"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs" ] && mkdir "${ARG_BUILD_DIR:?}/devdocs/i18n/ko/docusaurus-plugin-content-docs/"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/i18n/ko/docusaurus-plugin-content-docs/current" ] && mkdir "${ARG_BUILD_DIR:?}/devdocs/i18n/ko/docusaurus-plugin-content-docs/current"
 }
 
 ####
 # Copy over logos
 Install_Branding_Logos() {
   # copy over the logo these directories created when docusarus site is build
-  [ ! -f "${ARG_BUILD_DIR}/devdocs/static/img/eosn_logo.png" ] && cp "${SCRIPT_DIR}/../web/eosn_logo.png" "${ARG_BUILD_DIR}/devdocs/static/img/eosn_logo.png"
+  [ ! -f "${ARG_BUILD_DIR}/devdocs/static/img/eosn_logo.png" ] && cp "${SCRIPT_DIR:?}/../web/eosn_logo.png" "${ARG_BUILD_DIR:?}/devdocs/static/img/eosn_logo.png"
   SMALL_LOGO="cropped-EOS-Network-Foundation-Site-Icon-1-150x150.png"
-  [ ! -f "${ARG_BUILD_DIR}/devdocs/static/img/${SMALL_LOGO}" ] && cp "${SCRIPT_DIR}/../web/${SMALL_LOGO}" "${ARG_BUILD_DIR}/devdocs/static/img/${SMALL_LOGO}"
+  [ ! -f "${ARG_BUILD_DIR}/devdocs/static/img/${SMALL_LOGO}" ] && cp "${SCRIPT_DIR:?}/../web/${SMALL_LOGO}" "${ARG_BUILD_DIR:?}/devdocs/static/img/${SMALL_LOGO}"
 }
 
 #####
@@ -60,37 +65,40 @@ Install_Branding_Logos() {
 Install_Docusaurus() {
   DOC6S_CORE_PACKAGE="node_modules/@docusaurus/core/package.json"
   # eat the error
-  version=$(grep version ${ARG_BUILD_DIR}/devdocs/${DOC6S_CORE_PACKAGE} \
+  version=$(grep version "${ARG_BUILD_DIR:?}/devdocs/${DOC6S_CORE_PACKAGE}" \
          | cut -d: -f2 | tr -d " ,\"") 2>/dev/null
-  semver=( ${version//./} )
-  # no version
-  if [ -z ${semver[0]} ]; then
-    npx create-docusaurus@latest "${ARG_BUILD_DIR}/devdocs" classic --typescript
-    # add another module
-    pushd ${ARG_BUILD_DIR}/devdocs
+  # parse . seperate version into semver array
+  IFS="." read -r -a semver <<< "$version"
+  # check if major version exists
+  # semver[2] is minor version
+  # semver[3] is patch
+  if [ -z "${semver[1]}" ]; then
+    npx create-docusaurus@latest "${ARG_BUILD_DIR:?}/devdocs" classic --typescript
+    # add another module exit if we can't get into the directory
+    pushd "${ARG_BUILD_DIR}"/devdocs || exit
     npm i --save redocusaurus
-    popd
+    popd || exit
   fi
   # push our own config
-  cp "${SCRIPT_DIR}/../config/docusaurus.config.js" "${ARG_BUILD_DIR}/devdocs"
+  cp "${SCRIPT_DIR:?}/../config/docusaurus.config.js" "${ARG_BUILD_DIR:?}/devdocs"
   # copy over side sidebars one for each seperly versioned doc-id
-  for sidebar in $(find ${SCRIPT_DIR}/../web/docusaurus/src/ -type f -name "sidebar*.js")
+  find "${SCRIPT_DIR:?}"/../web/docusaurus/src -type f -name "sidebar*.js" -print0 | while IFS= read -r -d '' sidebar
   do
-    cp $sidebar ${ARG_BUILD_DIR}/devdocs
+    cp "$sidebar" "${ARG_BUILD_DIR:?}"/devdocs
   done
   # copy in i18n files
-  cp -r ${SCRIPT_DIR}/../web/docusaurus/i18n ${ARG_BUILD_DIR}/devdocs/
+  cp -r "${SCRIPT_DIR:?}/../web/docusaurus/i18n" "${ARG_BUILD_DIR:?}/devdocs/"
   # Overwrite entry page for docusarus
-  cp "${SCRIPT_DIR}/../web/docusaurus/src/pages/index.tsx" "${ARG_BUILD_DIR}/devdocs/src/pages"
-  cp "${SCRIPT_DIR}/../web/docusaurus/src/components/HomepageFeature/index.tsx" "${ARG_BUILD_DIR}/devdocs/src/components/HomepageFeatures"
+  cp "${SCRIPT_DIR:?}/../web/docusaurus/src/pages/index.tsx" "${ARG_BUILD_DIR:?}/devdocs/src/pages"
+  cp "${SCRIPT_DIR:?}/../web/docusaurus/src/components/HomepageFeature/index.tsx" "${ARG_BUILD_DIR:?}/devdocs/src/components/HomepageFeatures"
   # Customer CSS for Doc6s
-  cp "${SCRIPT_DIR}/../web/docusaurus/src/css/custom.css" "${ARG_BUILD_DIR}/devdocs/src/css"
+  cp "${SCRIPT_DIR:?}/../web/docusaurus/src/css/custom.css" "${ARG_BUILD_DIR:?}/devdocs/src/css"
 }
 
 ####
 # Copy in index files like API Reference
 Install_Web_Content() {
-  cp "${SCRIPT_DIR}/../web/api-listing.md" "${ARG_BUILD_DIR}/devdocs/eosdocs/welcome/"
+  cp "${SCRIPT_DIR:?}/../web/api-listing.md" "${ARG_BUILD_DIR:?}/devdocs/eosdocs/welcome/"
 }
 
 ####
@@ -99,18 +107,20 @@ Install_Web_Content() {
 #  sources bash script naming convention install_${repo}.sh
 #  calls function Install_${Repo} passes in arguments
 Bootstrap_Repo() {
-  WORKING_DIR="${SCRIPT_DIR}/../working"
+  WORKING_DIR="${SCRIPT_DIR:?}/../working"
   GIT_URL="https://github.com/${ARG_GIT_REPO}"
-  GIT_OWNER=$(echo $ARG_GIT_REPO | cut -d'/' -f1)
-  GIT_BASE_REPO=$(basename $ARG_GIT_REPO)
+  GIT_OWNER=$(echo "$ARG_GIT_REPO" | cut -d'/' -f1)
+  GIT_BASE_REPO=$(basename "$ARG_GIT_REPO")
 
   # source script
   if [ -f "${SCRIPT_DIR}/install_${GIT_BASE_REPO}.sh" ]; then
-    source ${SCRIPT_DIR}/install_${GIT_BASE_REPO}.sh
+    # directive to ignore source file we will lint seperatly
+    # shellcheck source=/dev/null
+    source "${SCRIPT_DIR:?}/install_${GIT_BASE_REPO:?}.sh" || exit
   else
     echo -e "${Red_Text}${On_White}Can not source ${SCRIPT_DIR}/install_${GIT_BASE_REPO}.sh"
     echo -e "Does File Exist"
-    echo -e "${ResetColor}"
+    echo -e "${Reset_Color}"
     exit 1
   fi
 
@@ -119,17 +129,17 @@ Bootstrap_Repo() {
   if [ -d "${WORKING_DIR}/${ARG_GIT_REPO}" ]; then
     # fast flag is faster but leaves dirty copy
     # no flag remove dir
-    if [ -z $ARG_FAST ]; then
-      rm -rf "${WORKING_DIR}/${ARG_GIT_REPO}"
+    if [ -z "$ARG_FAST" ]; then
+      rm -rf "${WORKING_DIR:?}/${ARG_GIT_REPO}" || exit
     else
       now=$(date +%s)
-      one_hour_earlier=$(echo $now "- 60*60" | bc)
-      last_modified=$( stat -f %m ${WORKING_DIR}/${ARG_GIT_REPO} )
-      if [ $DEBUG ]; then
+      one_hour_earlier=$(echo "$now" "- 60*60" | bc)
+      last_modified=$( stat -f %m "${WORKING_DIR}"/"${ARG_GIT_REPO}" )
+      if [ "$DEBUG" ]; then
          echo "detected fast flag last modified ${last_modified} sec since epoch"
       fi
       # there is a fast flag, but if older then 1 hour we still remove and clean
-      [ $last_modified -lt $one_hour_earlier ] && rm -rf "${WORKING_DIR}/${ARG_GIT_REPO}"
+      [ "$last_modified" -lt "$one_hour_earlier" ] && rm -rf "${WORKING_DIR:?}/${ARG_GIT_REPO}"
     fi
   fi
   # failed checks then directory still exists and reuse content
@@ -139,17 +149,17 @@ Bootstrap_Repo() {
   GIT_CLONE="git clone"
   GIT_CHECKOUT=""
   # ONLY TAG MOST LIKELY
-  if [ -z $ARG_BRANCH ] && [ ! -z $ARG_TAG ]; then
+  if [ -z "$ARG_BRANCH" ] && [ -n "$ARG_TAG" ]; then
     # hard tag
     GIT_CLONE="${GIT_CLONE} -b $ARG_TAG"
   fi
   # ONLY BRANCH
-  if [ ! -z $ARG_BRANCH ] && [ -z $ARG_TAG ]; then
+  if [ -n "$ARG_BRANCH" ] && [ -z "$ARG_TAG" ]; then
     # single branch
     GIT_CLONE="${GIT_CLONE} -b $ARG_BRANCH"
   fi
   # BOTH BRANCH AND TAG
-  if [ ! -z $ARG_BRANCH ] && [ ! -z $ARG_TAG ]; then
+  if [ -n "$ARG_BRANCH" ] && [ -n "$ARG_TAG" ]; then
     GIT_CLONE="${GIT_CLONE} -b $ARG_BRANCH"
     GIT_CHECKOUT="git checkout tags/${ARG_TAG}"
   fi
@@ -160,16 +170,16 @@ Bootstrap_Repo() {
   if [ ! -d "${WORKING_DIR}/${ARG_GIT_REPO}" ]; then
     mkdir -p "${WORKING_DIR}/${ARG_GIT_REPO}"
     # move to owner directory and clone
-    echo $GIT_CLONE
-    cd ${WORKING_DIR}/${GIT_OWNER} && $GIT_CLONE
+    echo "$GIT_CLONE"
+    cd "${WORKING_DIR:?}"/"${GIT_OWNER:?}" && $GIT_CLONE
   fi
   # move into newly cloned dir
-  cd ${WORKING_DIR}/${ARG_GIT_REPO}
+  cd "${WORKING_DIR}"/"${ARG_GIT_REPO}" || exit
   # run checkout command if needed
-  [ -z $GIT_CHECKOUT ] && $GIT_CHECKOUT
+  [ -z "$GIT_CHECKOUT" ] && "$GIT_CHECKOUT"
 
   # This weird command upper cases the first letter of GIT_BASE_REPO
-  GIT_BASE_REPO="$(tr '[:lower:]' '[:upper:]' <<< ${GIT_BASE_REPO:0:1})${GIT_BASE_REPO:1}"
+  GIT_BASE_REPO=$(tr '[:lower:]' '[:upper:]' <<< "${GIT_BASE_REPO:0:1}")"${GIT_BASE_REPO:1}"
   COMMAND="Install_${GIT_BASE_REPO} $SCRIPT_DIR $ARG_GIT_REPO $ARG_BUILD_DIR $ARG_BRANCH $ARG_TAG"
   $COMMAND
 }
@@ -219,7 +229,7 @@ while getopts "r:d:b:t:i:h:f" option; do
    esac
 done
 # check for required args
-if [ -z $ARG_GIT_REPO ] || [ -z $ARG_BUILD_DIR ]; then
+if [ -z "$ARG_GIT_REPO" ] || [ -z "$ARG_BUILD_DIR" ]; then
   echo -e "${Red_Text}${On_White}Missing required arguments -r repo or -d directory"
   echo -e "${Reset_Color}"
   Help;
@@ -230,12 +240,12 @@ fi
 ##############################################################################
 
 if [ $DEBUG ]; then
-  echo "git repo " $ARG_GIT_REPO
-  echo "build dir " $ARG_BUILD_DIR
-  echo "branch " $ARG_BRANCH
-  echo "tag " $ARG_TAG
-  echo "identity " $ARG_ID_FILE
-  echo "fast flag" $ARG_FAST
+  echo "git repo " "$ARG_GIT_REPO"
+  echo "build dir " "$ARG_BUILD_DIR"
+  echo "branch " "$ARG_BRANCH"
+  echo "tag " "$ARG_TAG"
+  echo "identity " "$ARG_ID_FILE"
+  echo "fast flag" "$ARG_FAST"
 
   echo "host "
   for val in "${ARG_HOST[@]}"; do
