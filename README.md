@@ -7,7 +7,7 @@ Scripts to generate Web Documentation Portal. Goal of this project is create a s
 
 ## System Design
 
-The system was keep simple. A shell script clones a git repository, and puts the content into a staging server. The staging server builds the content into the documentation you see on the website. The current system uses Docusaurus to convert markdown into HTML, power navigation, and manage versions.
+A shell script clones a git repository, and puts the content into a staging server. The staging server builds the content into the documentation you see on the website. The current system uses [Docusaurus](https://docusaurus.io/) to convert markdown into HTML, power navigation, and manage versions.
 
 ```mermaid
 graph LR;
@@ -25,26 +25,9 @@ graph LR;
     end
 ```
 
-In addition, tools are included to help maintain documentation in source repositories. An example is broken link crawlers, looking for bad links in .md files.
+Testing utilizes [Cypress](https://www.cypress.io/), while search is powered by [algolia](https://www.algolia.com/).
 
-## Organization ##
-* devdocs - root for Docusaurus project
-   * welcome - the welcome repo
-     - markdown
-   * eos cdt - developer tools
-     - markdown
-     - reference (API documentation from code)
-   * eos contracts - system contracts
-     - markdown
-     - reference (API documentation from code)
-   * leap - core blockchain code
-   * SDKs (java, swift, typescript)
-    - markdown
-    - reference (API documentation from code)
-
-
-
-### `Coverage` ###
+## Coverage ##
 
 |   Topic  |  Source Repository  | Top Level Path | Process To HTML |
 |  ------- | ------------------- | -------------- | ------------ |
@@ -56,8 +39,8 @@ In addition, tools are included to help maintain documentation in source reposit
 | EOS System Contracts | [eos-system-contracts](https://github.com/eosnetworkfoundation/eos-system-contracts) | system-contracts | Docusaurus |
 | Contract Developer Tools | [cdt](https://github.com/AntelopeIO/cdt) | cdt | Docusarus |
 | DUNE | [DUNE](https://github.com/AntelopeIO/DUNE.git) | DUNE | Docusarus |
-| Nodeos, Cleos, Kloes Manuals | [Mandel](https://github.com/AntelopeIO/leap) | leap | Docusarus |
-| Tutorials | [Mandel](https://github.com/eosnetworkfoundation/welcome.git) | welcome/tutorials | Docusarus |
+| Nodeos, Cleos, Kloes Manuals | [Leap](https://github.com/AntelopeIO/leap) | leap | Docusarus |
+| Tutorials | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | welcome/tutorials | Docusarus |
 | Glossary | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | glossary | Docusarus |
 | Welcome | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | welcome | docusarus |
 
@@ -65,9 +48,12 @@ In addition, tools are included to help maintain documentation in source reposit
 See [First Install Software](docs/FirstInstallSoftware.md) for all the dependancies.
 
 ## Generating Content ##
+
+**quick guide** Run `clean_rebuild.sh -d /path/to/build_root` to rebuild a clean **local** version. This script iterates through the repositories running `generate_documents.sh`
+
 The script `generate_documents.sh` clones various git repos, extracts documentation and then copies to `/path/to/build_dir folder`. The scripts are designed to be called once for each git repository.
 ```
-Creates web version of documentation pulling together documentation from several gitrepositories across the EOS Networks
+Creates web version of documentation pulling together documentation from several git repositories across the EOS Networks
 
 Syntax: generate_documents.sh [-r|d|b|t|v|i|h]
 mandatory: -r owner/rep and -d directory

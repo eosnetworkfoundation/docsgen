@@ -15,7 +15,7 @@ Very brief guide on steps to generating content from markdown to static html/css
 - run `npm run build`
 - run `npm run serve` to see local hosted version
 
-**Example:***
+**Example:**
 Note this assumes all software is installed including Doc6s under *$ARG_BUILD_DIR/devdocs*
 ```shell
 ARG_BUILD_DIR=$HOME/build_root/
@@ -28,6 +28,29 @@ cd $ARG_BUILD_DIR/devdocs
 npm run build
 npm run serve
 ```
+
+## Document Server Organization ##
+* devdocs - root for Docusaurus project
+   * eosdocs/welcome - the welcome repo
+     - markdown
+   * eosdocs/cdt - developer tools
+     - markdown
+     - reference (API documentation from code)
+   * eosdocs/eos system contracts
+     - markdown
+     - reference (API documentation from code)
+   * eosdocs/Leap - manuals for core blockchain code
+     - markdown
+   * eosdocs/SDKs (java, swift, typescript)
+     - markdown
+     - reference (API documentation from code)
+* reference - root for Docusaurus project
+   * cdt - developer tools
+          -(API documentation from code)
+   * eos system contracts
+          - (API documentation from code)
+   * SDKs (java, swift, typescript)
+          - (API documentation from code)
 
 ## Code Structure
 
@@ -59,6 +82,7 @@ Inside the fuction `Install_Busio` place the following code
 mkdir $ARG_BUILD_DIR/devdocs/eosdocs/busio
 cp -R docs/* $ARG_BUILD_DIR/devdocs/eosdocs/busio
 ```
+3. Run `generate_documents.sh -d /path/build_root -r enf/busio`
 
 ## Static Index Files ##
 
@@ -68,7 +92,7 @@ There is one static index files copied from the `devdocs` repo.
 | --------------- | --------- | ------- |
 | devdocs/web/api-listing.md | /devdocs/eosdocs/api-listing.md | eosdocs/api-listing.html |
 
-## Mandel Open APIs ##
+## Leap Open APIs ##
 
 These are not markdown files so you will find them under a virtual path `/leap-plugins/`
 
@@ -82,25 +106,25 @@ These are the HTTP APIs documented in YAML files. They are stored in the leap gi
 ## Nodeos Cloes and Kloes ##
 The markdown is pulled from github under the `leap` repo. A script is run to add meta-data to the document for better viewing.
 
-## Mandel JavaDocs ##
+## JavaDocs ##
 The repo `mandel-java` is cloned and javadocs command is run to generate the docs.
 
 These are not markdown files so you will find them under `reference/javadocs/`
 
-## Mandel Swift ##
+## Swift ##
 The repo `mandel-swift` is cloned and the pre-generated swiftdocs and the source code are copied into the specified directory.
 
 These are not markdown files so you will find them under `reference/swiftdocs/`
 
 There is one markdown file, an index of the top level interfaces in Swift. This markdown is copied from github, and it lives under `swift-sdk`
 
-## Mandel Typescript ##
+## EOSJS and Typescript ##
 The repo `mandel-eosjs` is cloned and typedoc runs to generate the documentation. Typedoc outputs as markdown, and all files are located under `eosdocs/client-side/jsdocs`
 
 ## EOS System Contract API Reference ##
 The repo `eos-system-contracts` is cloned. The markdown is copied into the `system-contracts` folder and doxygen/doxybook2 is run to generate markdown files which live under `system-contracts/reference`
 
-## Mandel Contract Developer Toolkit ##
+## Contract Developer Toolkit ##
 The repo `cdt` is cloned. The markdown is copied into the `cdt` folder and doxygen/doxybook2 is run to generate markdown files which live under `cdt/reference`
 
 ## Setting up New Locales ##
