@@ -64,10 +64,10 @@ options:
 -b: branch to use for git
 -t: tag to use for git
 -i: private key for web host, needed to install files
--h: destination host(s) where to install files
+-h: destination user@host(s) where to install files
 -f: fast, skip git checkout if files less then 1 hour old
 
-example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h hostA -h hostB
+example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB
 Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version
 ```
 
