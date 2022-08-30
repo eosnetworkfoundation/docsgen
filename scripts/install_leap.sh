@@ -6,24 +6,41 @@
 
 DoxygenLeap() {
   BUILD_ROOT=$1
-  DOXYFILE=$2
-  LOGO=$3
+  LOGO=$2
+  CONFIG_DIR=$3
+
   # location to write docs
-  DEST_DIR="${BUILD_ROOT}/reference/leap"
+  DEST_DIR="${BUILD_ROOT}/devdocs/eosdocs/leap/"
 
   # pull from github
   # create reference dir if it does not exist
   [ ! -d $DEST_DIR ] && mkdir -p $DEST_DIR
 
   # copy in doxygen config file
-  cp ${DOXYFILE} Doxyfile
+  cp $CONFIG_DIR/doxyfile/leap-doxyfile Doxyfile
+  # copy in doxybook config file
+  cp $CONFIG_DIR/doxybook/leap.doxybook.config.json .
   # copy in logo
   cp ${LOGO} docs
-  # run doxygen
+  # run doxygen create doxybook
   doxygen 2>&1>/dev/null
 
+  [ -d reference ] && rm reference
+  mkdir reference
+  # convert XML to Markdown
+  doxybook2 --input doxygen_out/xml --output reference --config leap.doxybook.config.json
+  for i in $(find reference -type f)
+  do
+    echo $i
+    # fix BR tags to close properly
+    sed 's/<br>/<br\/>/g' $i > temp.md
+    # remove empty links
+    sed 's/\[\([a-z0-9:_-]*\)\]()/\1/g' temp.md > tempNOLINK.md
+    mv tempNOLINK.md $i
+  done
+
   # copy files to staging area
-  cp -R doxygen_out/html/* $DEST_DIR
+  cp -R reference $DEST_DIR
 }
 
 Install_Leap() {
@@ -96,7 +113,7 @@ Install_Leap() {
 
   # three args, build_root, doxyfile, and path to logo
   #DoxygenLeap $ARG_BUILD_DIR \
-  #   ${SCRIPT_DIR}/mandle.cdt-doxyfile \
-  #   ${SCRIPT_DIR}/../web/eosn_logo.png
+  #   ${SCRIPT_DIR}/../web/eosn_logo.png \
+  #   ${SCRIPT_DIR}/../config
 
 }

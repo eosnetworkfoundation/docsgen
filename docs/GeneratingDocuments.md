@@ -44,7 +44,7 @@ npm run serve
    * eosdocs/SDKs (java, swift, typescript)
      - markdown
      - reference (API documentation from code)
-* reference - root for Docusaurus project
+* reference - HTML docs that aren't markdown
    * cdt - developer tools
           -(API documentation from code)
    * eos system contracts

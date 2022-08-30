@@ -239,8 +239,12 @@ const config = {
             position: 'left',
             items: [
               {
-                label: 'latest',
+                label: '3.1',
                 href: '/leap/latest/',
+              },
+              {
+                label: '2.0',
+                href: '/leap/2.0/',
               },
               // ... more items
             ],
@@ -251,10 +255,13 @@ const config = {
             position: 'left',
             items: [
               {
-                label: 'latest',
+                label: '3.0',
                 href: '/cdt/latest/',
               },
-              // ... more items
+              {
+                label: '1.8',
+                href: '/cdt/1.8/',
+              },
             ],
           },
           {
@@ -263,8 +270,12 @@ const config = {
             position: 'left',
             items: [
               {
-                label: 'latest',
+                label: '3.1',
                 href: '/system-contracts/latest/',
+              },
+              {
+                label: '3.0.0-rc1',
+                href: '/system-contracts/3.0.0-rc1/',
               },
               // ... more items
             ],
