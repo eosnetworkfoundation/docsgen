@@ -3,6 +3,21 @@
 # Clones Git repos and processes Markdown and Code to produce static HTML documentation
 # created Sep 2022
 # author @ericpassmore
+##############################################################################
+# Setup
+##############################################################################
+#Create_Top_Level_Dir
+#Install_Docusaurus
+#Install_Web_Content
+#Install_Branding_Logos
+##############################################################################
+# Main - Calls Code Based on Arguments Passed In
+##############################################################################
+#Bootstrap_Repo
+##############################################################################
+# Remote - Copy and install to remote
+##############################################################################
+#Remote_Upload
 
 #############################################################################
 # FUNCTIONS
@@ -208,6 +223,66 @@ Bootstrap_Repo() {
   $COMMAND
 }
 
+Run_Doc6s_Build() {
+  pushd "${ARG_BUILD_DIR:?}"/devdocs || exit
+  npm run build
+  popd || exit
+}
+
+Remote_Upload() {
+  ### check for valid params
+  if [ -n "$ARG_ID_FILE" ] && [ -n "${ARG_HOST[0]}" ]; then
+    if [ -f "$ARG_ID_FILE" ]; then
+      [ "$DEBUG" ] && echo "Found host and id file"
+      ### Create statics from markdown and config 
+      Run_Doc6s_Build
+      # copies reference into build directory
+      Arrange_Statics
+      # makes a tar file under /tmp
+      archive=$(Create_Tar)
+      # debug does archive exist?
+      [ "$DEBUG" ] && echo "stat of ${archive}" && stat "$archive"
+      # loop over hosts
+      for host in "${ARG_HOST[@]}"; do
+        ### vars
+        user=$(echo "$host" | cut -d'@' -f1)
+        machine=$(echo "$host" | cut -d'@' -f2)
+        # base date
+        bdate=$(date -u +%y%m%d%H)
+        base_tar_file=$(basename "${archive}")
+        # on remote move into content directory
+        move_cmd="mv ${base_tar_file} content/"
+        # on remote backup existing
+        backup_cmd="cd /var/www/html && tar czf /home/ubuntu/content/devdocs_${bdate}_backup.tgz -- *"
+        # loop over tar 1st level and delete on remote host
+        delete_cmd="cd /var/www/html && tar tfz /home/ubuntu/content/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
+        # un-pack tar populate new things
+        update_cmd="cd /var/www/html && tar xzf /home/ubuntu/content/${base_tar_file}"
+        ### sftp copy over
+        echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
+        ### move
+        ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$move_cmd"
+        ### backup
+        ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$backup_cmd"
+        ### delete
+        ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$delete_cmd"
+        ### update
+        ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$update_cmd"
+        ### clean old files in content directory
+        ssh -t -t -i "$ARG_ID_FILE" -l "$user" "$machine" <<EOF
+find content -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
+do
+  rm \$oldfile
+done
+exit
+EOF
+      done
+    fi
+  else
+    [ "$DEBUG" ] && echo "No host or id file provided"
+  fi
+}
+
 
 ############################################################################
 # Global Vars
@@ -263,7 +338,7 @@ fi
 # Initialize
 ##############################################################################
 
-if [ $DEBUG ]; then
+if [ "$DEBUG" ]; then
   echo "git repo " "$ARG_GIT_REPO"
   echo "build dir " "$ARG_BUILD_DIR"
   echo "branch " "$ARG_BRANCH"
@@ -277,57 +352,21 @@ if [ $DEBUG ]; then
     done
 fi
 
-#Create_Top_Level_Dir
-#Install_Docusaurus
-#Install_Web_Content
-#Install_Branding_Logos
+##############################################################################
+# Setup
+##############################################################################
+Create_Top_Level_Dir
+Install_Docusaurus
+Install_Web_Content
+Install_Branding_Logos
 
 
 ##############################################################################
 # Main - Calls Code Based on Arguments Passed In
 ##############################################################################
-#Bootstrap_Repo
+Bootstrap_Repo
 
 ##############################################################################
 # Remote - Copy and install to remote
 ##############################################################################
-
-### check for valid params
-if [ -n "$ARG_ID_FILE" ] && [ -n "${ARG_HOST[0]}" ]; then
-  if [ -f "$ARG_ID_FILE" ]; then
-    [ $DEBUG ] && echo "Found host and id file"
-    Arrange_Statics
-    archive=$(Create_Tar)
-    [ $DEBUG ] && stat "$archive"
-    for host in "${ARG_HOST[@]}"; do
-      ### vars
-      user=$(echo "$host" | cut -d'@' -f1)
-      machine=$(echo "$host" | cut -d'@' -f2)
-      bdate=$(date -u +%y%m%d%H)
-      base_tar_file=$(basename "${archive}")
-      move_cmd="mv ${base_tar_file} content/"
-      backup_cmd="cd /var/www/html && tar czf /home/ubuntu/content/devdocs_${bdate}_backup.tgz -- *"
-      delete_cmd="tar tfz /home/ubuntu/content/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
-      update_cmd="cd /var/www/html && tar xzf /home/ubuntu/content/${base_tar_file}"
-      ### sftp copy over
-      echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
-      ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$move_cmd"
-      ### backup
-      ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$backup_cmd"
-      ### delete
-      ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$delete_cmd"
-      ### update
-      ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$update_cmd"
-      ### clean old files in content directory
-      ssh -t -t -i "$ARG_ID_FILE" -l "$user" "$machine" <<EOF
-find content -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
-do
-  rm \$oldfile
-done
-exit
-EOF
-    done
-  fi
-else
-  [ $DEBUG ] && echo "No host or id file provided"
-fi
+Remote_Upload
