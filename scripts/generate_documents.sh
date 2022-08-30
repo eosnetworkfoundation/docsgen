@@ -300,18 +300,32 @@ if [ -n "$ARG_ID_FILE" ] && [ -n "${ARG_HOST[0]}" ]; then
     archive=$(Create_Tar)
     [ $DEBUG ] && stat "$archive"
     for host in "${ARG_HOST[@]}"; do
-      ### sftp copy over
-      echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
       ### vars
       user=$(echo "$host" | cut -d'@' -f1)
       machine=$(echo "$host" | cut -d'@' -f2)
       bdate=$(date -u +%y%m%d%H)
-      backup_cmd="cd /var/www/html && tar cvzf /home/ubuntu/content/devdocs_${bdate}_backup.tgz -- *"
-      update_cmd="cd /var/www/html && tar xzf /home/ubuntu/"$(basename "${archive}" )
+      base_tar_file=$(basename "${archive}")
+      move_cmd="mv ${base_tar_file} content/"
+      backup_cmd="cd /var/www/html && tar czf /home/ubuntu/content/devdocs_${bdate}_backup.tgz -- *"
+      delete_cmd="tar tfz /home/ubuntu/content/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
+      update_cmd="cd /var/www/html && tar xzf /home/ubuntu/content/${base_tar_file}"
+      ### sftp copy over
+      echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
+      ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$move_cmd"
       ### backup
       ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$backup_cmd"
+      ### delete
+      ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$delete_cmd"
       ### update
       ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$update_cmd"
+      ### clean old files in content directory
+      ssh -t -t -i "$ARG_ID_FILE" -l "$user" "$machine" <<EOF
+find content -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
+do
+  rm \$oldfile
+done
+exit
+EOF
     done
   fi
 else
