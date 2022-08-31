@@ -88,15 +88,15 @@ Install_Docusaurus() {
   # semver[2] is minor version
   # semver[3] is patch
   if [ -z "${semver[1]}" ]; then
-    npx create-docusaurus@latest "${ARG_BUILD_DIR:?}/devdocs" classic --typescript
-    if [ $? -ne 0 ]; then
+    if ! npx create-docusaurus@latest "${ARG_BUILD_DIR:?}/devdocs" classic --typescript;
+    then
       >&2 echo "npx create-docusaurus@latest failed exiting"
       exit 1
     fi
     # add another module exit if we can't get into the directory
     pushd "${ARG_BUILD_DIR}"/devdocs || exit
-    npm i --save redocusaurus
-    if [ $? -ne 0 ]; then
+    if ! npm i --save redocusaurus;
+    then
       >&2 echo "npm redocusaurus failed exiting"
       exit 1
     fi
@@ -233,8 +233,8 @@ Bootstrap_Repo() {
 
 Run_Doc6s_Build() {
   pushd "${ARG_BUILD_DIR:?}"/devdocs || exit
-  npm run build
-  if [ $? -ne 0 ]; then
+  if ! npm run build;
+  then
     >&2 echo "npm run build failed exiting"
     exit 1
   fi
