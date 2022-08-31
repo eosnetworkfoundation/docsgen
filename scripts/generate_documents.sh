@@ -89,9 +89,17 @@ Install_Docusaurus() {
   # semver[3] is patch
   if [ -z "${semver[1]}" ]; then
     npx create-docusaurus@latest "${ARG_BUILD_DIR:?}/devdocs" classic --typescript
+    if [ $? -ne 0 ]; then
+      >&2 echo "npx create-docusaurus@latest failed exiting"
+      exit 1
+    fi
     # add another module exit if we can't get into the directory
     pushd "${ARG_BUILD_DIR}"/devdocs || exit
     npm i --save redocusaurus
+    if [ $? -ne 0 ]; then
+      >&2 echo "npm redocusaurus failed exiting"
+      exit 1
+    fi
     popd || exit
   fi
   # push our own config
@@ -226,6 +234,10 @@ Bootstrap_Repo() {
 Run_Doc6s_Build() {
   pushd "${ARG_BUILD_DIR:?}"/devdocs || exit
   npm run build
+  if [ $? -ne 0 ]; then
+    >&2 echo "npm run build failed exiting"
+    exit 1
+  fi
   popd || exit
 }
 
@@ -234,7 +246,7 @@ Remote_Upload() {
   if [ -n "$ARG_ID_FILE" ] && [ -n "${ARG_HOST[0]}" ]; then
     if [ -f "$ARG_ID_FILE" ]; then
       [ "$DEBUG" ] && echo "Found host and id file"
-      ### Create statics from markdown and config 
+      ### Create statics from markdown and config
       Run_Doc6s_Build
       # copies reference into build directory
       Arrange_Statics

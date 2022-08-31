@@ -108,6 +108,26 @@ Install_Leap() {
     cp $i ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/
   done
 
+  ### MISC FIXES BREAKING JSX PARSING
+
+  sed 's/hash<>::result_type/`hash<>::result_type`/' markdown_out/30_release-notes/99_v2.0.0.md > tmpMISC.md
+  mv tmpMISC.md markdown_out/30_release-notes/99_v2.0.0.md
+
+  sed 's/<set>/`<set>`/' markdown_out/30_release-notes/88_v2.0.11.md > tmpMISC.md
+  mv tmpMISC.md markdown_out/30_release-notes/88_v2.0.11.md
+
+  grep -v '<!-' markdown_out/02_cleos/03_command-reference/index.md | grep -v '\-->' | grep -v '\[wrap\](wrap)' > tmpMISC.md
+  mv tmpMISC.md markdown_out/02_cleos/03_command-reference/index.md
+
+  sed 's/"--transaction-finality-status-max-storage-size-gb <size>"/`--transaction-finality-status-max-storage-size-gb <size>`/' markdown_out/02_cleos/03_command-reference/get/transaction-status.md > tmpMISC.md
+  mv tmpMISC.md markdown_out/02_cleos/03_command-reference/get/transaction-status.md
+
+  sed 's/<head block id in hex>.bin/`<head block id in hex>.bin`/' markdown_out/01_nodeos/04_replays/how-to-replay-from-a-snapshot.md > tmpMISC.md
+  mv tmpMISC.md markdown_out/01_nodeos/04_replays/how-to-replay-from-a-snapshot.md
+
+  sed 's/<provider-type>:<data>/`<provider-type>:<data>`/' markdown_out/01_nodeos/02_usage/02_node-setups/00_producing-node.md > tmpMISC.md
+  mv tmpMISC.md markdown_out/01_nodeos/02_usage/02_node-setups/00_producing-node.md
+
   # Finally copy docs into place
   cp -R markdown_out/* $ARG_BUILD_DIR/devdocs/eosdocs/leap
 

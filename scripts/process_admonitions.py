@@ -38,7 +38,7 @@ file_name_filter = re.compile(".+\.md$")
 
 
 ########### BEHAVIORS ##################
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
 
 ##### Class for document
 class Document:
