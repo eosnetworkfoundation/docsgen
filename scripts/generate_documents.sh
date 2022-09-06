@@ -100,6 +100,11 @@ Install_Docusaurus() {
       >&2 echo "npm redocusaurus failed exiting"
       exit 1
     fi
+    if ! npm install @docsearch/js@3;
+    then
+      >&2 echo "npm docsearch failed exiting"
+      exit 1
+    fi
     popd || exit
   fi
   # push our own config
