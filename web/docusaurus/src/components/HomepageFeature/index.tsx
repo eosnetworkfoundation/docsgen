@@ -14,31 +14,49 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: <Translate>Smart Contracts</Translate>,
+    title: <Translate>How EOS Works</Translate>,
     description: (
       <Translate>
-        Leverage the power of EOS, and distributed computing to build your own dApp.
+        Get familar with the concepts and how to work with the core software.
       </Translate>
     ),
-    link: 'http://docs.eosnetwork.com/reference/mandel-contracts/classeosiosystem_1_1system__contract.html',
+    link: '/welcome/latest/',
   },
   {
-    title: <Translate>Developer Tools</Translate>,
+    title: <Translate>Geting Starting </Translate>,
     description: (
       <Translate>
-        Under the hood look at the developer tools to work with the EOS blockchain.
+        Step by step instructions for setting up your environment.
       </Translate>
     ),
-    link: '/eosdocs/developer-tools/',
+    link: '/welcome/latest/getting-started/',
   },
   {
-    title: <Translate>Client SDK</Translate>,
+    title: <Translate>The Antelope Stack</Translate>,
     description: (
       <Translate>
-        Bring the power of EOS into your website, or mobile app.
+        Bring the power of EOS into your dApp.
       </Translate>
     ),
-    link: '/eosdocs/client-side/',
+    link: '/leap/latest/',
+  },
+  {
+    title: <Translate>API Reference</Translate>,
+    description: (
+      <Translate>
+        Consult our documentation for APIs and SDKs
+      </Translate>
+    ),
+    link: '/welcome/latest/api-listing',
+  },
+  {
+    title: <Translate>Resources</Translate>,
+    description: (
+      <Translate>
+        Information to help you get started
+      </Translate>
+    ),
+    link: '/welcome/latest/resources/',
   },
 ];
 

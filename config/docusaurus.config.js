@@ -58,14 +58,156 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: 'eosdocs',
-          routeBasePath: 'eosdocs',
+          // id: 'welcome', // omitted => default instance
+          lastVersion: 'current',
+          path: 'eosdocs/welcome',
+          routeBasePath: 'welcome',
           sidebarPath: require.resolve('./sidebars.js'),
+          versions: {
+            current: {
+               label: 'latest',
+               path: 'latest',
+            },
+          },
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
       }),
+    ],
+    [
+       'redocusaurus',
+       {
+         // Plugin Options for loading OpenAPI files
+         specs: [
+           {
+             spec: 'openapi/leap-plugins/latest/chain.swagger.yaml',
+             route: '/leap-plugins/latest/chain.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/latest/db_size.swagger.yaml',
+             route: '/leap-plugins/latest/db_size.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/latest/net.swagger.yaml',
+             route: '/leap-plugins/latest/net.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/latest/producer.swagger.yaml',
+             route: '/leap-plugins/latest/producer.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/latest/test_control.swagger.yaml',
+             route: '/leap-plugins/latest/test_control.api/',
+           },
+           {
+             spec: 'openapi/leap-plugins/latest/trace_api.swagger.yaml',
+             route: '/leap-plugins/latest/trace.api/',
+           },
+         ],
+         // Theme Options for modifying how redoc renders them
+         theme: {
+           // Change with your site colors
+           primaryColor: '#1890ff',
+         },
+       },
+     ],
+  ],
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'cdt',
+        lastVersion: 'current',
+        path: 'eosdocs/cdt',
+        routeBasePath: 'cdt',
+        sidebarPath: require.resolve('./sidebarsCdt.js'),
+        versions: {
+          current: {
+             label: 'latest',
+             path: 'latest',
+          },
+        },
+        // ... other options
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'system-contracts',
+        lastVersion: 'current',
+        path: 'eosdocs/system-contracts',
+        routeBasePath: 'system-contracts',
+        sidebarPath: require.resolve('./sidebarsSystemContracts.js'),
+        versions: {
+          current: {
+             label: 'latest',
+             path: 'latest',
+          },
+        },
+        // ... other options
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'leap',
+        lastVersion: 'current',
+        path: 'eosdocs/leap',
+        routeBasePath: 'leap',
+        sidebarPath: require.resolve('./sidebarsLeap.js'),
+        versions: {
+          current: {
+             label: 'latest',
+             path: 'latest',
+          },
+        },
+        // ... other options
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'dune',
+        lastVersion: 'current',
+        path: 'eosdocs/DUNE',
+        routeBasePath: 'DUNE',
+        sidebarPath: require.resolve('./sidebarsDUNE.js'),
+        versions: {
+          current: {
+             label: 'latest',
+             path: 'latest',
+          },
+        },
+        // ... other options
+      },
+    ],
+
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'eosjs',
+        lastVersion: 'current',
+        path: 'eosdocs/eosjs',
+        routeBasePath: 'eosjs',
+        sidebarPath: require.resolve('./sidebars_eosjs_sdk.js'),
+        versions: {
+          current: { label: 'latest', path: 'latest', },
+        },
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'swift-sdk',
+        lastVersion: 'current',
+        path: 'eosdocs/swift-sdk',
+        routeBasePath: 'swift-sdk',
+        sidebarPath: require.resolve('./sidebars_swift_sdk.js'),
+        versions: {
+          current: { label: 'latest', path: 'latest', },
+        },
+      },
     ],
   ],
 
@@ -80,21 +222,63 @@ const config = {
         },
         items: [
           {
-            href: 'https://docs.eosnetwork.com/reference/mandel-contracts/annotated.html',
+            type: 'doc',
+            docId: 'api-listing',
             position: 'left',
-            label: 'Smart Contracts',
+            label: 'API Listing',
           },
           {
             type: 'doc',
-            docId: 'client-side/index',
+            docId: 'index',
             position: 'left',
-            label: 'Client Side',
+            label: 'Welcome',
           },
           {
-            type: 'doc',
-            docId: 'developer-tools/index',
+            type: 'dropdown',
+            label: 'Leap',
             position: 'left',
-            label: 'Developer Tools',
+            items: [
+              {
+                label: '3.1',
+                href: '/leap/latest/',
+              },
+              {
+                label: '2.0',
+                href: '/leap/2.0/',
+              },
+              // ... more items
+            ],
+          },
+          {
+            type: 'dropdown',
+            label: 'CDT',
+            position: 'left',
+            items: [
+              {
+                label: '3.0',
+                href: '/cdt/latest/',
+              },
+              {
+                label: '1.8',
+                href: '/cdt/1.8/',
+              },
+            ],
+          },
+          {
+            type: 'dropdown',
+            label: 'EOS System Contracts',
+            position: 'left',
+            items: [
+              {
+                label: '3.1',
+                href: '/system-contracts/latest/',
+              },
+              {
+                label: '3.0.0-rc1',
+                href: '/system-contracts/3.0.0-rc1/',
+              },
+              // ... more items
+            ],
           },
           {
             type: 'localeDropdown',
@@ -106,6 +290,10 @@ const config = {
             position: 'right',
           },
         ],
+      },
+      docs: {
+        /* closes sibling categories when expanding a category */
+        sidebar: { autoCollapseCategories: true, },
       },
       footer: {
         style: 'dark',
@@ -142,22 +330,6 @@ const config = {
               },
             ],
           },
-          /*
-          // ********* More links in footer
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'FOOLABLE-TBR',
-                to: '/',
-              },
-              {
-                label: 'GitHub-TBR',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-          */
         ],
         copyright: `Copyright © ${new Date().getFullYear()} EOS Network.`,
       },

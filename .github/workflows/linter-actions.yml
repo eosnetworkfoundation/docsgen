@@ -1,0 +1,12 @@
+name: linter-actions
+on: [push]
+jobs:
+  shell-lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run ShellCheck
+        uses: azohra/shell-linter@latest
+        with:
+          path: "scripts/generate_documents.sh,scripts/build_index_md.sh,scripts/install_mandel-eosjs.sh,scripts/clean_rebuild.sh"

@@ -75,6 +75,7 @@ npm install --global yarn
 Used to generate documentation from C++ source code.
 
 [Installing Doxygen](https://www.doxygen.nl/manual/install.html)
+[Installing Doxybook2](https://github.com/matusnovak/doxybook2)
 
 check to see if *doxygen* is installed
 ```
@@ -102,3 +103,19 @@ Follow the instructions in the README.md to
 * initialize
 * generate documentation
 * run services
+
+### ShellCheck
+
+Used to check syntax and find bugs. Git action calls this on every push.
+You can add it to your editor.
+`Installation IDE`
+- [Visual Studio](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
+- [Atom](https://atom.io/packages/linter-shellcheck)
+- [JetBrains](https://plugins.jetbrains.com/plugin/10195-shellcheck)
+`Installation Command line`
+- [Install](https://github.com/koalaman/shellcheck#installing)
+
+Run it from the command line if you like
+```
+shellcheck scripts/install_leap.sh
+```
