@@ -71,7 +71,7 @@ This is no `cmdtest`. Warning `apt install yarn` will not work.
 npm install --global yarn
 ```
 
-### `doxygen`###
+### `doxygen` ###
 Used to generate documentation from C++ source code.
 
 [Installing Doxygen](https://www.doxygen.nl/manual/install.html)

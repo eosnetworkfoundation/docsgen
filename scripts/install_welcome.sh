@@ -60,7 +60,7 @@ Install_Welcome() {
   if [ -d markdown_out/04_protocol/images ]; then
       cp -r markdown_out/04_protocol/images/* $IMG_DIR
       # move it out of the way so it doens't get copied as doc
-      mv domarkdown_outcs/04_protocol/images ./protocol-images
+      mv markdown_out/04_protocol/images ./protocol-images
   fi
   # update image paths
   for i in $(find markdown_out/04_protocol -type f -name "*.md"); do
@@ -131,11 +131,5 @@ Install_Welcome() {
   # copy in the files to build root
   cp glossary.md $ARG_BUILD_DIR/devdocs/eosdocs/welcome
   cp markdown_out/index.md $ARG_BUILD_DIR/devdocs/eosdocs/welcome
-  for d in 01_overview 02_getting-started 03_tutorials 04_protocol \
-      05_community-developer-tools 06_eosio-blockchain-networks \
-      07_migration-guides resources
-  do
-    cp -r markdown_out/${d} $ARG_BUILD_DIR/devdocs/eosdocs/welcome
-  done
-
+  cp -r markdown_out/* $ARG_BUILD_DIR/devdocs/eosdocs/welcome
 }

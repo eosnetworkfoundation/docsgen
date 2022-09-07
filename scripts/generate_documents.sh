@@ -25,7 +25,7 @@
 Help() {
   echo "Creates web version of documentation pulling together documentation from several gitrepositories across the EOS Networks"
   echo ""
-  echo "Syntax: generate_documents.sh [-r|d|b|t|i|h|f]"
+  echo "Syntax: generate_documents.sh [-r|d|b|t|i|h|x|f]"
   echo "mandatory: -r owner/rep and -d directory"
   echo ""
   echo "options:"
@@ -35,6 +35,7 @@ Help() {
   echo "-t: tag to use for git"
   echo "-i: private key for web host, needed to install files"
   echo "-h: destination user@host(s) where to install files"
+  echo "-x: suppress build statics process"
   echo "-f: fast, skip git clone if files less then 1 hour old"
   echo ""
   echo "example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB"
@@ -246,8 +247,6 @@ Remote_Upload() {
   if [ -n "$ARG_ID_FILE" ] && [ -n "${ARG_HOST[0]}" ]; then
     if [ -f "$ARG_ID_FILE" ]; then
       [ "$DEBUG" ] && echo "Found host and id file"
-      ### Create statics from markdown and config
-      Run_Doc6s_Build
       # copies reference into build directory
       Arrange_Statics
       # makes a tar file under /tmp
@@ -308,7 +307,7 @@ Reset_Color='\033[0m' # No Color
 
 ############################################################################
 # Get the options
-while getopts "r:d:b:t:i:h:f" option; do
+while getopts "r:d:b:t:i:h:xf" option; do
    case $option in
       r) # repository
         ARG_GIT_REPO=${OPTARG}
@@ -327,6 +326,9 @@ while getopts "r:d:b:t:i:h:f" option; do
         ;;
       h) # set host
         ARG_HOST+=("${OPTARG}")
+        ;;
+      x) # set fast
+        ARG_SUPPRESS_BUILD="True"
         ;;
       f) # set fast
         ARG_FAST="True"
@@ -356,6 +358,7 @@ if [ "$DEBUG" ]; then
   echo "branch " "$ARG_BRANCH"
   echo "tag " "$ARG_TAG"
   echo "identity " "$ARG_ID_FILE"
+  echo "supress build" "$ARG_SUPPRESS_BUILD"
   echo "fast flag" "$ARG_FAST"
 
   echo "host "
@@ -377,6 +380,11 @@ Install_Branding_Logos
 # Main - Calls Code Based on Arguments Passed In
 ##############################################################################
 Bootstrap_Repo
+### Create statics from markdown and config
+# run if supress flag not present
+if [ -z "$ARG_SUPPRESS_BUILD" ]; then
+  Run_Doc6s_Build
+fi
 
 ##############################################################################
 # Remote - Copy and install to remote
