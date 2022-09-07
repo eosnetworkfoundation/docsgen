@@ -65,6 +65,7 @@ options:
 -t: tag to use for git
 -i: private key for web host, needed to install files
 -h: destination user@host(s) where to install files
+-x: suppress build statics process
 -f: fast, skip git checkout if files less then 1 hour old
 
 example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB
