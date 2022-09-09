@@ -16,7 +16,8 @@ What we upload to Algoria. Structured as JSON
 
 ### Required Fields
 
-- name - H1 of the page
+- title - H1 of the page
+- url - page url
 - parentId - source repository default *welcome*, used to filter
 - parentName - prettier version of id
 - type - either *codedocs* or *manual* allows filtering to code reference
