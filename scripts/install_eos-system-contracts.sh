@@ -123,6 +123,9 @@ MarkdownSystemContracts() {
   # updates the paths to avoid collisions with doc6s indexing
   mv markdown_out/README.md markdown_out/about_system_contracts.md
   rm markdown_out/LICENSE*
+  # both index and README are titled "About System Contracts"
+  sed 's/title: About System Contracts/title: Overview/' markdown_out/index.md > tmp_index.md
+  mv tmp_index.md markdown_out/index.md
 
   # process markdown
   find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
