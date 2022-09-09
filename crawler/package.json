@@ -21,5 +21,11 @@
   "dependencies": {
     "properties-reader": "^2.2.0",
     "puppeteer": "^17.1.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "eslint": "^8.23.0",
+    "eslint-plugin-react": "^7.31.7"
   }
 }
