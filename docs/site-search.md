@@ -29,8 +29,6 @@ What we upload to Algoria. Structured as JSON
    - level1 - list of H1 tags (may duplicate with name)
    - level2 - list of H2 tags
    - level3 - list of H3 tags
-   - level4 - list of H4 tags
-   - level5 - list of H5 tags
 - role - TBD default smart-contract developer
 
 ## crawler

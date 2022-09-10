@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 crawler/node_modules/
 crawler/env/
+crawler/records/
