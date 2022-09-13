@@ -101,6 +101,7 @@ Install_Docusaurus() {
       >&2 echo "npm redocusaurus failed exiting"
       exit 1
     fi
+    popd || exit
   fi
   # push our own config
   cp "${SCRIPT_DIR:?}/../config/docusaurus.config.js" "${ARG_BUILD_DIR:?}/devdocs"
