@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 
 const scraperObject = {
 	  async scraper(browser, link, domain, user, password){
@@ -14,10 +15,18 @@ const scraperObject = {
 			let pagePromise = (link) => new Promise(async(resolve, reject) => {
 				try {
 					let pageData = {};
-					let hierarchy1 = [];
-					let hierarchy2 = [];
-					let hierarchy3 = [];
-					let hierarchy4 = [];
+					let hierarchy = {};
+					let weight = {
+						"pageRank" : 100,
+						"level" : 100,
+        		"position" : 100
+					};
+					let lvl1 = [];
+					let lvl2 = [];
+					let lvl3 = [];
+					let lvl4 = [];
+					let lvl5 = [];
+					let lvl6 = [];
 					let content = "";
 
 					let page = await browser.newPage();
@@ -28,30 +37,31 @@ const scraperObject = {
 					// Wait for the required DOM to be rendered
 					await page.waitForSelector('article');
 					// All H1 Tags includes title
-					hierarchy1 = await page.$$eval( 'h1', hierarchy1 => {
-						hierarchy1 = hierarchy1.map(el => el.textContent);
-						return hierarchy1;
+					lvl1 = await page.$$eval( 'h1', lvl1 => {
+						lvl1 = lvl1.map(el => el.textContent);
+						return lvl1;
 					});
+					// required by algoria search
+					hierarchy['lvl1'] = lvl1.join(" ") || "";
 					// get the title as first H1
-					if ( Array.isArray(hierarchy1) && hierarchy1.length > 0 ) {
-						pageData['title'] = hierarchy1[0];
+					if ( Array.isArray(lvl1) && lvl1.length > 0 ) {
+						hierarchy['lvl0'] = lvl1[0] || "Documentation" ;
 					} else {
 						// default
-						pageData['title'] = "";
+						hierarchy['lvl0'] = "Documentation";
 					}
-					pageData['hierarchy1'] = hierarchy1 || [];
 					// All H2 Tags
-					hierarchy2 = await page.$$eval( 'h2', hierarchy2 => {
-						hierarchy2 = hierarchy2.map(el => el.textContent);
-						return hierarchy2;
+					lvl2 = await page.$$eval( 'h2', lvl2 => {
+						lvl2 = lvl2.map(el => el.textContent);
+						return lvl2;
 					});
-					pageData['hierarchy2'] = hierarchy2 || [];
+					hierarchy['lvl2'] = lvl2.join(" ") || "";
 					// All H3 Tags
-					hierarchy3 = await page.$$eval( 'h3', hierarchy3 => {
-							hierarchy3 = hierarchy3.map(el => el.textContent);
-							return hierarchy3;
+					lvl3 = await page.$$eval( 'h3', lvl3 => {
+							lvl3 = lvl3.map(el => el.textContent);
+							return lvl3;
 					});
-					pageData['hierarchy3'] = hierarchy3 || [];
+					hierarchy['lvl3'] = lvl3.join(" ") || "";
 					// content
 					content = await page.$eval( 'article', content => {
 							content = content.innerText;
@@ -60,7 +70,13 @@ const scraperObject = {
 
 							return content;
 					});
+					hierarchy['lvl4'] = lvl4.join(" ") || "";
+					hierarchy['lvl5'] = lvl5.join(" ") || "";
+					hierarchy['lvl6'] = lvl6.join(" ") || "";
 					pageData['content'] = content || "";
+					pageData['objectID'] = crypto.randomUUID();
+					pageData['hierarchy'] = hierarchy;
+					pageData['weight'] = weight;
 					resolve(pageData);
 					await page.close();
 				}  catch (e) {

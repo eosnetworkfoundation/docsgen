@@ -291,6 +291,29 @@ const config = {
           },
         ],
       },
+      algolia: {
+          // The application ID provided by Algolia
+          appId: 'Y01II9W2M2',
+
+          // Public API key: it is safe to commit it
+          apiKey: 'b38fbb3f240d2690dfaeff2ac326a85d',
+
+          indexName: 'test_index',
+
+          // Optional: see doc section below
+          contextualSearch: true,
+
+          // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+          externalUrlRegex: 'external\\.com|domain\\.com',
+
+          // Optional: Algolia search parameters
+          searchParameters: {},
+
+          // Optional: path for search page that enabled by default (`false` to disable it)
+          searchPagePath: 'search',
+
+          //... other Algolia params
+      },
       docs: {
         /* closes sibling categories when expanding a category */
         sidebar: { autoCollapseCategories: true, },
