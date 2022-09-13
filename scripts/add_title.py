@@ -38,8 +38,9 @@ class Document:
     has_metablock = False
     is_valid_metablock = False
     # patter to grab meta-data block
-    metabock_pattern = re.compile(r"^---\n([a-z0-9_-]*title)\s*:\s*([^\n]+)\n---\n", re.MULTILINE)
-    metabock_replace_pattern = re.compile(r"^---\n[^:]+:[^:]+\n---\n", re.MULTILINE)
+    # Note [^-]* added to match another name: value pair
+    metabock_pattern = re.compile(r"^---\n([a-z0-9_-]*title)\s*:\s*([^\n]+)\n[^-]*---\n", re.MULTILINE)
+    metabock_replace_pattern = re.compile(r"^---\n[^-]+\n---\n", re.MULTILINE)
     meta_name = ""
     meta_value = ""
     contents = ""

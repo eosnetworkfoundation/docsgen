@@ -1,0 +1,32 @@
+{
+  "name": "sammy-crawler",
+  "version": "1.0.0",
+  "description": "a puppeteer based crawler to extract searchable attributes and create json documents",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest src/tests/*",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "devdocs"
+  },
+  "keywords": [
+    "puppeteer",
+    "crawler",
+    "algoria"
+  ],
+  "author": "ericpassmore",
+  "license": "MIT",
+  "dependencies": {
+    "algoliasearch": "^4.14.2",
+    "properties-reader": "^2.2.0",
+    "puppeteer": "^17.1.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "eslint": "^8.23.0",
+    "eslint-plugin-react": "^7.31.7"
+  }
+}
