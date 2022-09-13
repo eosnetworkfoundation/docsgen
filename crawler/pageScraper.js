@@ -1,7 +1,5 @@
-const crypto = require('crypto');
-
 const scraperObject = {
-	  async scraper(browser, link, domain, user, password){
+	  async scraper(browser, link, objId, domain, user, password){
 			/**
 			 * Scape a Single Page given a URL
 			 * Waits for 'article' tag
@@ -15,6 +13,7 @@ const scraperObject = {
 			let pagePromise = (link) => new Promise(async(resolve, reject) => {
 				try {
 					let pageData = {};
+					pageData['objectID'] = objId;
 					let hierarchy = {};
 					let weight = {
 						"pageRank" : 100,
@@ -28,6 +27,7 @@ const scraperObject = {
 					let lvl5 = [];
 					let lvl6 = [];
 					let content = "";
+					pageData['type'] = "lvl0";
 
 					let page = await browser.newPage();
 					console.log(`Navigating to ${link}...`);
@@ -41,8 +41,6 @@ const scraperObject = {
 						lvl1 = lvl1.map(el => el.textContent);
 						return lvl1;
 					});
-					// required by algoria search
-					hierarchy['lvl1'] = lvl1.join(" ") || "";
 					// get the title as first H1
 					if ( Array.isArray(lvl1) && lvl1.length > 0 ) {
 						hierarchy['lvl0'] = lvl1[0] || "Documentation" ;
@@ -50,18 +48,23 @@ const scraperObject = {
 						// default
 						hierarchy['lvl0'] = "Documentation";
 					}
+					// required by algoria search
+					hierarchy['lvl1'] = lvl1.join(" ") || "";
+					if (hierarchy['lvl1'].length > 1) { pageData['type'] = "lvl1"; }
 					// All H2 Tags
 					lvl2 = await page.$$eval( 'h2', lvl2 => {
 						lvl2 = lvl2.map(el => el.textContent);
 						return lvl2;
 					});
 					hierarchy['lvl2'] = lvl2.join(" ") || "";
+					if (hierarchy['lvl2'].length > 1) { pageData['type'] = "lvl2"; }
 					// All H3 Tags
 					lvl3 = await page.$$eval( 'h3', lvl3 => {
 							lvl3 = lvl3.map(el => el.textContent);
 							return lvl3;
 					});
 					hierarchy['lvl3'] = lvl3.join(" ") || "";
+					if (hierarchy['lvl3'].length > 1) { pageData['type'] = "lvl3"; }
 					// content
 					content = await page.$eval( 'article', content => {
 							content = content.innerText;
@@ -74,7 +77,6 @@ const scraperObject = {
 					hierarchy['lvl5'] = lvl5.join(" ") || "";
 					hierarchy['lvl6'] = lvl6.join(" ") || "";
 					pageData['content'] = content || "";
-					pageData['objectID'] = crypto.randomUUID();
 					pageData['hierarchy'] = hierarchy;
 					pageData['weight'] = weight;
 					resolve(pageData);

@@ -28,6 +28,33 @@ function getDocusuarusTag(url,domain,tags) {
   return doc6s_tag;
 }
 
+function createObjId(url,domain, map) {
+  var path = url.substring(url.indexOf(domain)+domain.length, url.length)
+  // strip off leading slash
+  if (path.charAt(0) === "/") { path = path.substring(1,path.length); }
+  path = path.replace(/\/+$/, "");
+  path = path.replaceAll('/', '-');
+
+  // see if path is already used
+  if (path in map) {
+    // append ids until we have a miss
+    // that miss is our new id
+    for (let i=1; i < 11; i++) {
+      let newPath = path + "-" + i.toString();
+      if (!(newPath in map)) {
+        map[newPath] = 0;
+        path = newPath;
+        break;
+      }
+    }
+  } else {
+    // first resever it
+    map[path] = 0;
+  }
+
+  return path;
+}
+
 /**
 * gets the language code from the url
 * @param url - string to parse for id
@@ -79,5 +106,10 @@ function urlToRecordName(url) {
 }
 
 module.exports = {
-	getDocusuarusTag, getLanguageCode, isCodedocs, isInternalLink, urlToRecordName
+	getDocusuarusTag,
+  getLanguageCode,
+  isCodedocs,
+  isInternalLink,
+  urlToRecordName,
+  createObjId
 };

@@ -22,6 +22,7 @@ const index = client.initIndex(indexName)
 // Search for "tutorial" in the indexName
 index.search('tutorial').then(({ hits }) => {
   console.log(hits);
+  console.log(hits[0]['_highlightResult']);
 }).catch(() => {
   console.log("Search Error");
 });

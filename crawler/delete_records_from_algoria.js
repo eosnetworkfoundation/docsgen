@@ -19,7 +19,7 @@ const indexName = properties.get('algolia.indexName');
 const client = algoliasearch(appId, privateApiKey)
 const index = client.initIndex(indexName)
 
-objectIDs = ["a639e7c1-2786-459c-8a0a-c569132fc5b7","9489f4eb-d2a0-49b0-891e-26344097c520","6115f98a-3f7e-4976-96ef-8aa572b6627a"];
+objectIDs = ["welcome-latest-overview-","welcome-latest-overview-1","welcome-latest-overview-2","welcome-latest-overview","welcome-latest-overview--2","welcome-latest-overview--1"];
 index.deleteObjects(objectIDs).then(({ objectIDs }) => {
   console.log(objectIDs);
 });

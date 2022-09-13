@@ -34,34 +34,38 @@ async function scrapeAll(browserInstance){
 		const algoliaIndex = client.initIndex(indexName)
 
 		let links = await linksScraper.scrapeLinks(browser, url, domain, user, password);
-		let loop=0;
+		let map = {};
+		//let loop=0;
 		for (var i in links) {
-			loop++;
-			if (loop >3) { break; }
+			//loop++;
+			//if (loop >3) { break; }
 			// skip over external links
 			if (! lib.isInternalLink(url, domain)) { continue; }
-			let data = await pageScraper.scraper(browser, links[i], domain, user, password);
+			// build up a sensible object-id
+			objId = lib.createObjId(links[i],domain, map);
+			let data = await pageScraper.scraper(browser, links[i], objId, domain, user, password);
 			data['url'] = links[i];
 			data['url_without_anchor'] = links[i];
 			data['anchor'] = "Document";
 			tags = ["leap","dune","system-contracts","cdt","swift-sdk","eosjs"];
 			data['docusaurus_tag'] = lib.getDocusuarusTag(links[i],domain, tags);
 			data['language'] = lib.getLanguageCode(links[i],domain) || "en";
-			data['type'] = "docs";
 
 			recordName = "./records/"+lib.urlToRecordName(links[i]);
-			fs.writeFile(recordName, JSON.stringify(data), 'utf8', function(err) {
+			let jsonDoc = JSON.stringify(data);
+			fs.writeFile(recordName, jsonDoc, 'utf8', function(err) {
 				if(err) {
 					return console.log(err);
 				}
 				console.log(`The data has been scraped and saved successfully! View it at '${recordName}'`);
 			});
 
-			//algoliaIndex.saveObject(JSON.stringify(data)).then(({ objectIDs }) => {
-  		//	console.log("Saved object with id ", objectIDs);
-			//}).catch(function () {
-     	//	console.log("Object Save Rejected ", data['hierarchy']);
-			//});
+			console.log("about to save ",jsonDoc);
+			algoliaIndex.saveObject(data).then(() => {
+  			console.log("Saved object with id ", data['objectID'] );
+			}).catch((err) => {
+     		console.error(err);
+			});
 
 		}
 	} catch(err) {
