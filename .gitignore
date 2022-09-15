@@ -4,3 +4,4 @@ __pycache__/
 crawler/node_modules/
 crawler/env/
 crawler/records/
+.DS_Store
