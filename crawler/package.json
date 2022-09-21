@@ -21,7 +21,8 @@
   "dependencies": {
     "algoliasearch": "^4.14.2",
     "properties-reader": "^2.2.0",
-    "puppeteer": "^17.1.2"
+    "puppeteer": "^17.1.2",
+    "sitemapper": "^3.2.6"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.36.2",

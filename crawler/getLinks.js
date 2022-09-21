@@ -1,5 +1,11 @@
+const Sitemapper = require('sitemapper');
+
+
 const linksObject = {
-  async scrapeLinks(browser, url, domain, user, password){
+  async scrapeLinks(domain, exclude){
+
+
+
 		/**
 		 * Get all the links to scrape starts from provided URL
 		 * Waits for 'article' tag
@@ -14,28 +20,25 @@ const linksObject = {
 		*/
 		let linksPromise = () => new Promise(async(resolve, reject) => {
 			try {
-				let links = [];
-				let linkPage = await browser.newPage();
-				// set the HTTP Basic Authentication credential
-				await linkPage.authenticate({'username': user, 'password': password });
-				await linkPage.goto(url);
-				// Wait for the required DOM to be rendered
-				await linkPage.waitForSelector('article');
-				links = await linkPage.$$eval(
-					'div.navbar-sidebar__items > div:nth-child(2) > ul > li',
-					(links) => {
-						// filter out links containing '#'
-						links = links.filter(link => link.querySelector('a.menu__link').href.indexOf("#") === -1);
-						// array of links
-						links = links.map(el => el.querySelector('a.menu__link').href);
-						return links;
-					});
-					resolve(links);
-					await linkPage.close();
-				}  catch (e) {
+        const sitemap = new Sitemapper();
+        let sitemapurl = "https://" + domain +"/sitemap.xml";
+        sitemap.fetch(sitemapurl).then(function(sites) {
+          var links = [];
+          for (u in sites.sites) {
+            var ok = true;
+            for (x in exclude) {
+              if (sites.sites[u].includes(domain + "/" + exclude[x].trim())) {
+                ok = false;
+              }
+            }
+            if (ok) { links.push(sites.sites[u]); }
+          }
+          resolve(links);
+        });
+			}  catch (e) {
 					return reject(e);
-				}
-			});
+			}
+		});
 
       // get links and iterate through them
       return linksPromise();

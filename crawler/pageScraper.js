@@ -1,5 +1,5 @@
 const scraperObject = {
-	  async scraper(browser, link, objId, domain, user, password){
+	  async scraper(browser, link, objId, domain ){
 			/**
 			 * Scape a Single Page given a URL
 			 * Waits for 'article' tag
@@ -31,8 +31,6 @@ const scraperObject = {
 
 					let page = await browser.newPage();
 					console.log(`Navigating to ${link}...`);
-					// set the HTTP Basic Authentication credential
-					await page.authenticate({'username': user, 'password': password });
 					await page.goto(link);
 					// Wait for the required DOM to be rendered
 					await page.waitForSelector('article');

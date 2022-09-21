@@ -16,10 +16,9 @@ async function scrapeAll(browserInstance){
 	// get the properties
 	const properties = propertiesReader(property_file_name);
 	// crawler properties
-	var url = properties.get('main.url');
 	const domain = properties.get('main.domain');
-	const user = properties.get('main.app.user');
-	const password = properties.get('main.app.password');
+	const exclude = properties.get('main.exclude').split(',');
+	console.log("Excluding: " + exclude);
 	// search properties
 	const publicApiKey = properties.get('algolia.publicApiKey');
 	const privateApiKey = properties.get('algolia.privateApiKey');
@@ -33,17 +32,17 @@ async function scrapeAll(browserInstance){
 		const client = algoliasearch(appId, privateApiKey)
 		const algoliaIndex = client.initIndex(indexName)
 
-		let links = await linksScraper.scrapeLinks(browser, url, domain, user, password);
+
+		let links = await linksScraper.scrapeLinks(domain, exclude);
+		//links = ['https://docs.eosnetwork.com/leap-plugins/latest/chain.api/', 'https://docs.eosnetwork.com/leap-plugins/latest/producer.api/', 'https://docs.eosnetwork.com/leap-plugins/latest/net.api/', 'https://docs.eosnetwork.com/leap-plugins/latest/db_size.api/', 'https://docs.eosnetwork.com/leap-plugins/latest/trace.api/']
+		//console.log(links);
 		let map = {};
-		//let loop=0;
 		for (var i in links) {
-			//loop++;
-			//if (loop >3) { break; }
 			// skip over external links
-			if (! lib.isInternalLink(url, domain)) { continue; }
+			if (! lib.isInternalLink(links[i], domain)) { continue; }
 			// build up a sensible object-id
 			objId = lib.createObjId(links[i],domain, map);
-			let data = await pageScraper.scraper(browser, links[i], objId, domain, user, password);
+			let data = await pageScraper.scraper(browser, links[i], objId, domain);
 			data['url'] = links[i];
 			data['url_without_anchor'] = links[i];
 			data['anchor'] = "Document";
