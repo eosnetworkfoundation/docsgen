@@ -75,3 +75,5 @@ Run script to build mandel docs and update production site , with branch ericpas
 After running there will be many static HTML, CSS, JS files under `/path/to/build_dir/devdocs/build`. The files are served as the current production version.
 
 See [Generating Documents](docs/GeneratingDocuments.md) for additional details
+
+See [How To Do A Full Release](docs/How-To-Do-A-Full-Release.md) for details on building fresh from an empty directory. 
