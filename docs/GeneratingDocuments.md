@@ -1,6 +1,9 @@
 # Generating Documents #
 How to guide on generating the documents or regenerating
 
+## Full Release 
+See [How To Do A Full Release](docs/How-To-Do-A-Full-Release.md) for details on building fresh from an empty directory. 
+
 ## Generation Steps ##
 There are two steps to generating content
 * **Pre-Build** - clones the repositories, performs some light manipulation of files, generates javadocs, generates doxygen file
@@ -153,3 +156,10 @@ npm run serve -- --port 39999
 ```
 
 After making direct changes to files under `/path/build_root/devdocs` you will need to rerun `npm run build` to generate the build directory.
+
+## Navigation Changes
+
+[Updating Navigation](docs/SiteNavigation.md)
+
+## Search
+[Site Search](docs/site-search.md)
