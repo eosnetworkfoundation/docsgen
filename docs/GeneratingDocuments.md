@@ -159,7 +159,7 @@ After making direct changes to files under `/path/build_root/devdocs` you will n
 
 ## Navigation Changes
 
-[Updating Navigation](docs/SiteNavigation.md)
+[Updating Navigation](SiteNavigation.md)
 
 ## Search
-[Site Search](docs/site-search.md)
+[Site Search](site-search.md)
