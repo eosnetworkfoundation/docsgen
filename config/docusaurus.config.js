@@ -18,7 +18,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'eosnetwork', // Usually your GitHub org/user name.
-  projectName: 'engineering/developer_documentation', // Usually your repo name.
+  projectName: 'developer-documentation', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -242,10 +242,6 @@ const config = {
                 label: '3.1',
                 href: '/leap/latest/',
               },
-              {
-                label: '2.0',
-                href: '/leap/2.0/',
-              },
               // ... more items
             ],
           },
@@ -258,10 +254,6 @@ const config = {
                 label: '3.0',
                 href: '/cdt/latest/',
               },
-              {
-                label: '1.8',
-                href: '/cdt/1.8/',
-              },
             ],
           },
           {
@@ -272,10 +264,6 @@ const config = {
               {
                 label: '3.1',
                 href: '/system-contracts/latest/',
-              },
-              {
-                label: '3.0.0-rc1',
-                href: '/system-contracts/3.0.0-rc1/',
               },
               // ... more items
             ],

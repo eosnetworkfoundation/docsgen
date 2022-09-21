@@ -29,7 +29,7 @@ Install_Mandel-eosjs() {
   find "SDK Reference" -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
     sed 's/(..\/modules.md)/(..\/index.md)/g' "$file" > tempIDX.md
-    mv tempIDX.md "$file"
+    sed 's/(..\/README.md)/(..\/index.md)/g' tempIDX.md > "$file"
   done
 
   [ -d markdown_out ] && rm -rf markdown_out
