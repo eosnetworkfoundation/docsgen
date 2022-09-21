@@ -1,0 +1,17 @@
+type: "object"
+additionalProperties: false
+minProperties: 3
+required:
+  - "name"
+  - "base"
+  - "fields"
+properties:
+  name:
+    $ref: "CppSignature.yaml"
+  base:
+    type: "string"
+  fields:
+    type: "array"
+    items:
+      $ref: "AbiStructFields.yaml"
+title: "AbiStruct"

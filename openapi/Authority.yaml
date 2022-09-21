@@ -1,0 +1,12 @@
+type: "object"
+additionalProperties: false
+minProperties: 2
+required:
+  - "actor"
+  - "permission"
+properties:
+  actor:
+    $ref: "Name.yaml"
+  permission:
+    $ref: "Name.yaml"
+title: "Authority"

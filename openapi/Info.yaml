@@ -1,0 +1,65 @@
+type: "object"
+additionalProperties: false
+required:
+  - "server_version"
+  - "chain_id"
+  - "head_block_num"
+  - "head_block_id"
+  - "head_block_time"
+  - "head_block_producer"
+  - "last_irreversible_block_num"
+  - "last_irreversible_block_id"
+  - "virtual_block_cpu_limit"
+  - "virtual_block_net_limit"
+  - "block_cpu_limit"
+  - "block_net_limit"
+  - "server_version_string"
+  - "fork_db_head_block_num"
+  - "fork_db_head_block_id"
+properties:
+  server_version:
+    type: "string"
+    description: "Hash representing the last commit in the tagged release"
+  chain_id:
+    type: "string"
+    description: "Hash representing the ID of the chain"
+  head_block_num:
+    type: "integer"
+    description: "Highest block number on the chain"
+  head_block_id:
+    type: "string"
+    description: "Highest block ID on the chain"
+  head_block_time:
+    type: "string"
+    description: "Highest block unix timestamp"
+  head_block_producer:
+    type: "string"
+    description: "Producer that signed the highest block (head block)"
+  last_irreversible_block_num:
+    type: "integer"
+    description: "Highest block number on the chain that has been irreversibly applied to state"
+  last_irreversible_block_id:
+    type: "string"
+    description: "Highest block ID on the chain that has been irreversibly applied to state"
+  virtual_block_cpu_limit:
+    type: "integer"
+    description: "CPU limit calculated after each block is produced, approximately 1000 times block_cpu_limit"
+  virtual_block_net_limit:
+    type: "integer"
+    description: "NET limit calculated after each block is produced, approximately 1000 times block_net_limit"
+  block_cpu_limit:
+    type: "integer"
+    description: "Actual maximum CPU limit"
+  block_net_limit:
+    type: "integer"
+    description: "Actual maximum NET limit"
+  server_version_string:
+    type: "string"
+    description: "String representation of server version - Majorish-Minorish-Patchy - Warning - Not actually SEMVER!"
+  fork_db_head_block_num:
+    type: "integer"
+    description: "Sequential block number representing the best known head in the fork database tree"
+  fork_db_head_block_id:
+    type: "string"
+    description: "Hash representing the best known head in the fork database tree"
+title: "Info"

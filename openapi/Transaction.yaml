@@ -1,0 +1,40 @@
+type: "object"
+additionalProperties: false
+minProperties: 8
+required:
+  - "expiration"
+  - "ref_block_num"
+  - "ref_block_prefix"
+  - "max_net_usage_words"
+  - "max_cpu_usage_ms"
+  - "delay_sec"
+  - "context_free_actions"
+  - "actions"
+properties:
+  expiration:
+    description: "Time that transaction must be confirmed by."
+    $ref: "DateTime.yaml"
+  ref_block_num:
+    type: "integer"
+  ref_block_prefix:
+    description: "32-bit portion of block ID"
+    type: "integer"
+  max_net_usage_words:
+    $ref: "WholeNumber.yaml"
+  max_cpu_usage_ms:
+    $ref: "WholeNumber.yaml"
+  delay_sec:
+    type: "integer"
+  context_free_actions:
+    type: "array"
+    items:
+      $ref: "Action.yaml"
+  actions:
+    type: "array"
+    items:
+      $ref: "Action.yaml"
+  transaction_extensions:
+    type: "array"
+    items:
+      $ref: "Extension.yaml"
+title: "Transaction"

@@ -1,0 +1,14 @@
+type: "object"
+additionalProperties: false
+minProperties: 2
+required:
+  - "_active_nodes"
+  - "_node_count"
+properties:
+  _active_nodes:
+    type: "array"
+    items:
+      $ref: "Sha256.yaml"
+  _node_count:
+    $ref: "WholeNumber.yaml"
+title: "BlockrootMerkle"

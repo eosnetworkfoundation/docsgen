@@ -1,0 +1,14 @@
+type: "object"
+additionalProperties: false
+minProperties: 2
+required:
+  - "id"
+  - "actions"
+properties:
+  id:
+    $ref: "Sha256.yaml"
+  actions:
+    type: "array"
+    items:
+      $ref: "ActionTraceV0.yaml"
+title: "TransactionTraceV0"

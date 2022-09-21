@@ -1,0 +1,71 @@
+type: "object"
+additionalProperties: false
+minProperties: 16
+required:
+  - "id"
+  - "block_num"
+  - "header"
+  - "dpos_proposed_irreversible_blocknum"
+  - "dpos_irreversible_blocknum"
+  - "bft_irreversible_blocknum"
+  - "pending_schedule_lib_num"
+  - "pending_schedule_hash"
+  - "pending_schedule"
+  - "active_schedule"
+  - "blockroot_merkle"
+  - "producer_to_last_produced"
+  - "producer_to_last_implied_irb"
+  - "block_signing_key"
+  - "confirm_count"
+  - "confirmations"
+properties:
+  id:
+    type: "string"
+    description: "ID of block"
+  block_num:
+    description: "height of this block in the chain"
+    type: "integer"
+  header:
+    $ref: "Block.yaml"
+  dpos_proposed_irreversible_blocknum:
+    $ref: "WholeNumber.yaml"
+  dpos_irreversible_blocknum:
+    $ref: "WholeNumber.yaml"
+  bft_irreversible_blocknum:
+    $ref: "WholeNumber.yaml"
+  pending_schedule_lib_num:
+    $ref: "WholeNumber.yaml"
+  pending_schedule_hash:
+    $ref: "Sha256.yaml"
+  pending_schedule:
+    $ref: "ProducerSchedule.yaml"
+  active_schedule:
+    $ref: "ProducerSchedule.yaml"
+  blockroot_merkle:
+    $ref: "BlockrootMerkle.yaml"
+  producer_to_last_produced:
+    type: "array"
+    items:
+      type: "array"
+      items:
+        anyOf:
+          - $ref: "Name.yaml"
+          - $ref: "WholeNumber.yaml"
+  producer_to_last_implied_irb:
+    type: "array"
+    items:
+      type: "array"
+      items:
+        anyOf:
+          - $ref: "Name.yaml"
+          - $ref: "WholeNumber.yaml"
+  block_signing_key:
+    $ref: "PublicKey.yaml"
+  confirm_count:
+    type: "array"
+    items:
+      $ref: "WholeNumber.yaml"
+  confirmations:
+    type: "array"
+    items: {}
+title: "BlockHeaderState"

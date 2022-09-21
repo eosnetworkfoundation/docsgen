@@ -1,0 +1,15 @@
+type: "object"
+additionalProperties: false
+minProperties: 3
+required:
+  - "max"
+  - "available"
+  - "used"
+properties:
+  max:
+    $ref: "WholeNumber.yaml"
+  available:
+    $ref: "WholeNumber.yaml"
+  used:
+    $ref: "WholeNumber.yaml"
+title: "ResourceLimits"

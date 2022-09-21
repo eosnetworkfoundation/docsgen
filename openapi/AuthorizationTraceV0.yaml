@@ -1,0 +1,12 @@
+type: "object"
+additionalProperties: false
+minProperties: 2
+required:
+  - "account"
+  - "permission"
+properties:
+  account:
+    $ref: "Name.yaml"
+  permission:
+    $ref: "Name.yaml"
+title: "AuthorizationTraceV0"

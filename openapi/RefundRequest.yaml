@@ -1,0 +1,19 @@
+type: "object"
+additionalProperties: false
+minProperties: 4
+required:
+  - "owner"
+  - "request_time"
+  - "net_amount"
+  - "cpu_amount"
+properties:
+  owner:
+    $ref: "Name.yaml"
+  request_time:
+    type: "string"
+  net_amount:
+    $ref: "Symbol.yaml"
+  cpu_amount:
+    $ref: "Symbol.yaml"
+title: "RefundRequest"
+nullable: true

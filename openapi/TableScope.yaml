@@ -1,0 +1,22 @@
+type: "object"
+additionalProperties: false
+minProperties: 5
+required:
+  - "code"
+  - "scope"
+  - "table"
+  - "payer"
+  - "count"
+properties:
+  code:
+    $ref: "Name.yaml"
+  scope:
+    $ref: "Name.yaml"
+  table:
+    $ref: "Name.yaml"
+  payer:
+    $ref: "Name.yaml"
+  count:
+    description: "Number of matching items."
+    type: "integer"
+title: "TableScope"

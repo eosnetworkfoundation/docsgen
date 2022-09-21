@@ -1,0 +1,48 @@
+type: "object"
+additionalProperties: false
+required:
+  - "version"
+  - "types"
+  - "structs"
+  - "actions"
+  - "tables"
+  - "abi_extensions"
+  - "error_messages"
+  - "ricardian_clauses"
+  - "variants"
+properties:
+  version:
+    type: "string"
+  types:
+    type: "array"
+    items:
+      $ref: "AbiType.yaml"
+  structs:
+    type: "array"
+    items:
+      $ref: "AbiStruct.yaml"
+  actions:
+    type: "array"
+    items:
+      $ref: "AbiAction.yaml"
+  tables:
+    type: "array"
+    items:
+      $ref: "AbiTable.yaml"
+  abi_extensions:
+    type: "array"
+    items:
+      $ref: "Extension.yaml"
+  error_messages:
+    type: "array"
+    items:
+      type: "string"
+  ricardian_clauses:
+    type: "array"
+    items:
+      type: "string"
+  variants:
+    type: "array"
+    items:
+      type: "string"
+title: "Abi"

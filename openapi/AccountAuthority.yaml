@@ -1,0 +1,11 @@
+type: "object"
+additionalProperties: false
+required:
+  - "weight"
+  - "permission"
+properties:
+  weight:
+    type: "integer"
+  permission:
+    $ref: "Authority.yaml"
+title: "AccountAuthority"

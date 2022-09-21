@@ -1,0 +1,44 @@
+type: "object"
+additionalProperties: false
+minProperties: 10
+required:
+  - "id"
+  - "number"
+  - "previous_id"
+  - "status"
+  - "timestamp"
+  - "producer"
+  - "transaction_mroot"
+  - "action_mroot"
+  - "schedule_version"
+  - "transactions"
+properties:
+  id:
+    $ref: "Sha256.yaml"
+  number:
+    description: "height of this block in the chain"
+    type: "integer"
+  previous_id:
+    $ref: "Sha256.yaml"
+  status:
+    description: "pending or irreversible"
+    type: "string"
+  timestamp:
+    $ref: "DateTimeSeconds.yaml"
+  producer:
+    oneOf:
+      - $ref: "EmptyString.yaml"
+      - $ref: "Name.yaml"
+  transaction_mroot:
+    $ref: "Sha256.yaml"
+  action_mroot:
+    $ref: "Sha256.yaml"
+  schedule_version:
+    description: "number of times producer schedule has changed since genesis"
+    type: "integer"
+  transactions:
+    description: "list of transaction traces generated from block"
+    type: "array"
+    items:
+      $ref: "TransactionTraceV1.yaml"
+title: "BlockTraceV1"

@@ -1,0 +1,38 @@
+type: "object"
+additionalProperties: false
+minProperties: 7
+required:
+  - "id"
+  - "actions"
+  - "status"
+  - "cpu_usage_us"
+  - "net_usage_words"
+  - "signatures"
+  - "transaction_header"
+properties:
+  id:
+    $ref: "Sha256.yaml"
+  actions:
+    type: "array"
+    items:
+      $ref: "ActionTraceV0.yaml"
+  status:
+    type: "string"
+    enum:
+      - "executed"
+      - "soft_fail"
+      - "hard_fail"
+      - "delayed"
+      - "expired"
+    description: "status:\n  * `executed` - Succeed, no error handler executed\n  * `soft_fail` - Objectively failed (not executed), error handler executed\n  * `hard_fail` - Objectively failed and error handler objectively failed thus no state change\n  * `delayed` - Used by delayed-user transactions for timer-based executions\n  * `expired` - Transaction expired and storage space refunded to user\n"
+  cpu_usage_us:
+    type: "integer"
+  net_usage_words:
+    type: "integer"
+  signatures:
+    type: "array"
+    items:
+      $ref: "Signature.yaml"
+  transaction_header:
+    $ref: "TransactionHeader.yaml"
+title: "TransactionTraceV1"

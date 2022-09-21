@@ -1,0 +1,17 @@
+type: "object"
+additionalProperties: false
+minProperties: 3
+required:
+  - "parent"
+  - "perm_name"
+  - "required_auth"
+properties:
+  parent:
+    description: "The parent of this permission, if any"
+    type: "string"
+  perm_name:
+    description: "Name of this permission"
+    type: "string"
+  required_auth:
+    $ref: "RequiredAuthority.yaml"
+title: "Permission"

@@ -1,0 +1,42 @@
+type: "object"
+additionalProperties: false
+minProperties: 10
+required:
+  - "owner"
+  - "proxy"
+  - "producers"
+  - "staked"
+  - "last_vote_weight"
+  - "proxied_vote_weight"
+  - "is_proxy"
+  - "flags1"
+  - "reserved2"
+  - "reserved3"
+properties:
+  owner:
+    $ref: "Name.yaml"
+  proxy:
+    oneOf:
+      - $ref: "Name.yaml"
+      - $ref: "EmptyString.yaml"
+  producers:
+    type: "array"
+    items:
+      $ref: "Name.yaml"
+  staked:
+    $ref: "WholeNumber.yaml"
+  last_vote_weight:
+    type: "string"
+  proxied_vote_weight:
+    type: "string"
+  is_proxy:
+    description: "1 if true, 0 if false."
+    type: "integer"
+  flags1:
+    type: "integer"
+  reserved2:
+    type: "integer"
+  reserved3:
+    $ref: "Symbol.yaml"
+title: "VoterInfo"
+nullable: true

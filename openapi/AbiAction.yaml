@@ -1,0 +1,15 @@
+type: "object"
+additionalProperties: false
+required:
+  - "name"
+  - "type"
+  - "ricardian_contract"
+properties:
+  name:
+    $ref: "Name.yaml"
+  type:
+    $ref: "Name.yaml"
+  ricardian_contract:
+    type: "string"
+    minLength: 0
+title: "AbiAction"

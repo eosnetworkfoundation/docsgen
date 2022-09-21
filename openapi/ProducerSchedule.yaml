@@ -1,0 +1,15 @@
+type: "object"
+additionalProperties: false
+minProperties: 2
+required:
+  - "version"
+  - "producers"
+properties:
+  version:
+    type: "integer"
+  producers:
+    type: "array"
+    items:
+      $ref: "ProducerSigningKey.yaml"
+title: "ProducerSchedule"
+nullable: true

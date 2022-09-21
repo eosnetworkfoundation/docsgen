@@ -1,0 +1,11 @@
+type: "object"
+additionalProperties: false
+required:
+  - "key"
+  - "weight"
+properties:
+  key:
+    $ref: "PublicKey.yaml"
+  weight:
+    type: "integer"
+title: "KeyAuthority"

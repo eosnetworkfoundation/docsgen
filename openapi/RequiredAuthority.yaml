@@ -1,0 +1,24 @@
+type: "object"
+additionalProperties: false
+minProperties: 4
+required:
+  - "waits"
+  - "keys"
+  - "threshold"
+  - "accounts"
+properties:
+  waits:
+    type: "array"
+    items:
+      $ref: "Wait.yaml"
+  keys:
+    type: "array"
+    items:
+      $ref: "KeyAuthority.yaml"
+  threshold:
+    type: "integer"
+  accounts:
+    type: "array"
+    items:
+      $ref: "AccountAuthority.yaml"
+title: "RequiredAuthority"

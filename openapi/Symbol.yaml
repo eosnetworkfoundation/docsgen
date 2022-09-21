@@ -1,0 +1,4 @@
+type: "string"
+description: "A string representation of an EOSIO symbol, composed of a float with a precision of 4, and a symbol composed of capital letters between 1-7 letters separated by a space, example `1.0000 ABC`."
+pattern: "^([0-9]{1,32}.[0-9]{4} [A-Z]{1,7})$"
+title: "Symbol"

@@ -1,0 +1,4 @@
+type: "string"
+enum:
+  - "i64"
+title: "IndexType"

@@ -1,0 +1,62 @@
+type: "object"
+additionalProperties: false
+minProperties: 18
+required:
+  - "account_name"
+  - "head_block_num"
+  - "head_block_time"
+  - "last_code_update"
+  - "created"
+  - "refund_request"
+  - "ram_quota"
+  - "net_limit"
+  - "cpu_limit"
+  - "total_resources"
+  - "core_liquid_balance"
+  - "self_delegated_bandwidth"
+  - "net_weight"
+  - "cpu_weight"
+  - "ram_usage"
+  - "privileged"
+  - "permissions"
+  - "voter_info"
+properties:
+  account_name:
+    $ref: "Name.yaml"
+  head_block_num:
+    type: "integer"
+  head_block_time:
+    $ref: "DateTimeSeconds.yaml"
+  last_code_update:
+    $ref: "DateTimeSeconds.yaml"
+  created:
+    $ref: "DateTimeSeconds.yaml"
+  refund_request:
+    $ref: "RefundRequest.yaml"
+  ram_quota:
+    $ref: "WholeNumber.yaml"
+  net_limit:
+    $ref: "ResourceLimits.yaml"
+  cpu_limit:
+    $ref: "ResourceLimits.yaml"
+  total_resources:
+    $ref: "ResourceOverview.yaml"
+  core_liquid_balance:
+    $ref: "Symbol.yaml"
+  self_delegated_bandwidth:
+    $ref: "ResourceDelegation.yaml"
+  net_weight:
+    $ref: "WholeNumber.yaml"
+  cpu_weight:
+    $ref: "WholeNumber.yaml"
+  ram_usage:
+    $ref: "WholeNumber.yaml"
+  privileged:
+    type: "boolean"
+  permissions:
+    type: "array"
+    items:
+      $ref: "Permission.yaml"
+  voter_info:
+    $ref: "VoterInfo.yaml"
+title: "Account"

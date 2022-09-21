@@ -1,0 +1,4 @@
+type: "string"
+description: "String representation of EOSIO name type"
+pattern: "^([a-z1-5]{1}[a-z1-5\\.]{0,10}[a-z1-5]{1})([a-j]{1})?$"
+title: "NameCatchAll"

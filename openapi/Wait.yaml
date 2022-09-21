@@ -1,0 +1,12 @@
+type: "object"
+minProperties: 2
+additionalProperties: false
+required:
+  - "wait_sec"
+  - "weight"
+properties:
+  wait_sec:
+    type: "integer"
+  weight:
+    type: "integer"
+title: "Wait"

@@ -1,0 +1,6 @@
+anyOf:
+  - $ref: "NamePrivileged.yaml"
+  - $ref: "NameBasic.yaml"
+  - $ref: "NameBid.yaml"
+  - $ref: "NameCatchAll.yaml"
+title: "Name"

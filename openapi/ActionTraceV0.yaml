@@ -1,0 +1,27 @@
+type: "object"
+additionalProperties: false
+minProperties: 6
+required:
+  - "global_sequence"
+  - "receiver"
+  - "account"
+  - "action"
+  - "authorization"
+  - "data"
+properties:
+  global_sequence:
+    type: "integer"
+  receiver:
+    $ref: "Name.yaml"
+  account:
+    $ref: "Name.yaml"
+  action:
+    $ref: "Name.yaml"
+  authorization:
+    type: "array"
+    items:
+      $ref: "AuthorizationTraceV0.yaml"
+  data:
+    type: "object"
+    additionalProperties: true
+title: "ActionTraceV0"

@@ -1,0 +1,24 @@
+type: "object"
+additionalProperties: false
+minProperties: 5
+required:
+  - "account"
+  - "name"
+  - "authorization"
+  - "data"
+  - "hex_data"
+properties:
+  account:
+    $ref: "Name.yaml"
+  name:
+    $ref: "Name.yaml"
+  authorization:
+    type: "array"
+    items:
+      $ref: "Authority.yaml"
+  data:
+    type: "object"
+    additionalProperties: true
+  hex_data:
+    type: "string"
+title: "Action"

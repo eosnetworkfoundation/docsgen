@@ -1,0 +1,4 @@
+type: "string"
+description: "String representation of basic EOSIO name type, must be 12 characters and contain only a-z and 0-5"
+pattern: "^([a-z]{1}[a-z1-5]{11})([a-j]{1})?$"
+title: "NameBasic"

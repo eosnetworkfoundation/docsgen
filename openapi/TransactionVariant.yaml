@@ -1,0 +1,4 @@
+anyOf:
+  - $ref: "Sha256.yaml"
+  - $ref: "PackedTransaction.yaml"
+title: "TransactionVariant"

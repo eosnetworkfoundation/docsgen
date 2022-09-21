@@ -1,0 +1,6 @@
+type: "array"
+items:
+  anyOf:
+    - type: "integer"
+    - type: "string"
+title: "Extension"

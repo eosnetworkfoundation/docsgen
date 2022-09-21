@@ -1,0 +1,6 @@
+description: "A whole number"
+anyOf:
+  - type: "string"
+    pattern: "^\\d+$"
+  - type: "integer"
+title: "WholeNumber"

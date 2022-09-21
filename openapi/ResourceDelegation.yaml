@@ -1,0 +1,19 @@
+type: "object"
+additionalProperties: false
+minProperties: 4
+required:
+  - "from"
+  - "to"
+  - "net_weight"
+  - "cpu_weight"
+properties:
+  from:
+    $ref: "Name.yaml"
+  to:
+    $ref: "Name.yaml"
+  net_weight:
+    $ref: "Symbol.yaml"
+  cpu_weight:
+    $ref: "Symbol.yaml"
+title: "ResourceDelegation"
+nullable: true

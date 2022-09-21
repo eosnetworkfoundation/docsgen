@@ -1,0 +1,12 @@
+type: "object"
+additionalProperties: false
+minProperties: 2
+required:
+  - "new_type_name"
+  - "type"
+properties:
+  new_type_name:
+    $ref: "CppSignature.yaml"
+  type:
+    $ref: "Type.yaml"
+title: "AbiType"

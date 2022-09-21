@@ -1,0 +1,31 @@
+type: "object"
+additionalProperties: false
+minProperties: 7
+required:
+  - "id"
+  - "signatures"
+  - "compression"
+  - "packed_context_free_data"
+  - "context_free_data"
+  - "packed_trx"
+  - "transaction"
+properties:
+  id:
+    $ref: "Sha256.yaml"
+  signatures:
+    type: "array"
+    items:
+      $ref: "Signature.yaml"
+  compression:
+    type: "string"
+  packed_context_free_data:
+    type: "string"
+  context_free_data:
+    type: "array"
+    items:
+      type: "string"
+  packed_trx:
+    type: "string"
+  transaction:
+    $ref: "Transaction.yaml"
+title: "PackedTransaction"

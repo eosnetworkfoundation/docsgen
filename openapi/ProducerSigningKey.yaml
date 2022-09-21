@@ -1,0 +1,12 @@
+type: "object"
+additionalProperties: false
+minProperties: 2
+required:
+  - "producer_name"
+  - "block_signing_key"
+properties:
+  producer_name:
+    $ref: "Name.yaml"
+  block_signing_key:
+    $ref: "PublicKey.yaml"
+title: "ProducerSigningKey"

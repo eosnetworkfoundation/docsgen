@@ -1,0 +1,4 @@
+type: "string"
+description: "Base58 encoded EOSIO public key"
+pattern: "^(EOS|PUB_([RK]1|WA)_)[1-9A-HJ-NP-Za-km-z]+$"
+title: "PublicKey"

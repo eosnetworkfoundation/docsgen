@@ -1,0 +1,4 @@
+type: "string"
+description: "C++ variable signature"
+pattern: "^([a-z1-9]{1}[a-z1-9_]{0,30}[a-z1-9]{1})$"
+title: "CppSignature"

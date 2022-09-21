@@ -1,0 +1,18 @@
+type: "object"
+additionalProperties: false
+minProperties: 4
+required:
+  - "owner"
+  - "ram_bytes"
+  - "net_weight"
+  - "cpu_weight"
+properties:
+  owner:
+    $ref: "Name.yaml"
+  ram_bytes:
+    $ref: "WholeNumber.yaml"
+  net_weight:
+    $ref: "Symbol.yaml"
+  cpu_weight:
+    $ref: "Symbol.yaml"
+title: "ResourceOverview"

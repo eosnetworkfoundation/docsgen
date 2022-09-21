@@ -1,0 +1,4 @@
+type: "string"
+description: "String representation of EOSIO bid name type, 1-12 characters and only a-z and 0-5 are allowed"
+pattern: "^([a-z1-5]{1,12})([a-j]{1})?$"
+title: "NameBid"

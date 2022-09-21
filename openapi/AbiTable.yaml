@@ -1,0 +1,22 @@
+type: "object"
+additionalProperties: false
+minProperties: 5
+required:
+  - "name"
+  - "index_type"
+properties:
+  name:
+    $ref: "Name.yaml"
+  index_type:
+    $ref: "IndexType.yaml"
+  key_names:
+    type: "array"
+    items:
+      $ref: "CppSignature.yaml"
+  key_types:
+    type: "array"
+    items:
+      $ref: "KeyType.yaml"
+  type:
+    $ref: "CppSignature.yaml"
+title: "AbiTable"
