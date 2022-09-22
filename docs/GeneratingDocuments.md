@@ -2,7 +2,7 @@
 How to guide on generating the documents or regenerating
 
 ## Full Release 
-See [How To Do A Full Release](docs/How-To-Do-A-Full-Release.md) for details on building fresh from an empty directory. 
+See [How To Do A Full Release](How-To-Do-A-Full-Release.md) for details on building fresh from an empty directory. 
 
 ## Generation Steps ##
 There are two steps to generating content
