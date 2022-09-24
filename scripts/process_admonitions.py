@@ -102,13 +102,13 @@ class Document:
     def print_newblock(self):
         if self.admonition_text is not None:
             if self.admonition_title is not None:
-                return f':::{self.admonition_type} {self.admonition_title}\n\n{self.admonition_text}\n\n:::\n'
+                return f'\n:::{self.admonition_type} {self.admonition_title}\n\n{self.admonition_text}\n\n:::\n\n'
             else:
-                return f':::{self.admonition_type}\n\n{self.admonition_text}\n\n:::\n'
+                return f'\n:::{self.admonition_type}\n\n{self.admonition_text}\n\n:::\n\n'
         elif self.admonition_title is not None:
-            return f':::{self.admonition_type} {self.admonition_title}\n\n:::\n'
+            return f'\n:::{self.admonition_type} {self.admonition_title}\n\n:::\n\n'
         else:
-            return f':::{self.admonition_type}\n\n:::\n'
+            return f'\n:::{self.admonition_type}\n\n:::\n\n'
 
     def reset_to_init(self):
         # reset data
