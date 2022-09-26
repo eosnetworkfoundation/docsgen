@@ -1,0 +1,55 @@
+type: object
+properties:
+  id:
+    $ref: "Sha256.yaml"
+  number:
+    type: integer
+    example: 31
+  previous_id:
+    $ref: "Sha256.yaml"
+  status:
+    type: string
+    enum:
+      - "irreversible"
+      - "executed"
+      - "pending"
+      - "soft_fail"
+      - "hard_fail"
+      - "delayed"
+      - "expired"
+    example: executed
+  timestamp:
+    type: string
+    example: "2019-06-18T00:00:00"
+  producer:
+    type: string
+    example: myproducer
+  transaction_mroot:
+    $ref: "Sha256.yaml"
+  action_mroot:
+    $ref: "Sha256.yaml"
+  schedule_version:
+    type: integer
+    example: 1
+  transactions:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          $ref: "Sha256.yaml"
+        block_num:
+          type: integer
+          example: 31
+        block_time:
+          type: string
+          example: "2019-06-18T00:00:00"
+        producer_block_id:
+          $ref: "Sha256.yaml"
+        actions:
+          type: array
+          items:
+            $ref: "ActionTraceV2.yaml"
+        transaction_header:
+          type: object
+          $ref: "TransactionHeader.yaml"

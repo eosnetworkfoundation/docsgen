@@ -1,0 +1,46 @@
+type: object
+properties:
+  global_squence:
+    type: integer
+    example: 669
+  receiver:
+    type: string
+    example: myproducer
+  account:
+    type: string
+    example: esio.token
+  action:
+    type: string
+    example: transfer
+  authorization:
+    type: array
+    items:
+      type: object
+      properties:
+        account:
+          type: string
+          example: myaccount
+        permission:
+          type: string
+          example: active
+  data:
+    type: string
+    $ref: "https://docs.eosnetwork.com/openapi/v2.0/Sha256.yaml"
+  return_value:
+    type: string
+    example: ""
+  params:
+    type: object
+    properties:
+      from:
+        type: string
+        example: eosio
+      to:
+        type: string
+        example: myproducer
+      quantity:
+        type: string
+        example: "10.000 SYS"
+      memo:
+        type: string
+        example: "first transfer"

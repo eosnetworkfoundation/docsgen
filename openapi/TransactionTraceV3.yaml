@@ -1,0 +1,15 @@
+type: "object"
+additionalProperties: false
+minProperties: 2
+required:
+  - "block_num"
+  - "block_time"
+properties:
+  block_num:
+    number:
+    type: "integer"
+  block_time:
+    $ref: "DateTimeSeconds.yaml"
+  producer_block_id:
+    $ref: "Sha256.yaml"
+title: "TransactionTraceV3"
