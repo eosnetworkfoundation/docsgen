@@ -42,7 +42,8 @@ Install_Welcome() {
      mv markdown_out/01_overview/images ./overview-images
   fi
   # update image paths
-  for i in $(find markdown_out/01_overview -type f -name "*.md"); do
+  find markdown_out/01_overview -type f -name "*.md" -print0 | while IFS= read -r -d '' i
+  do
     sed 's/(\.\/images\//(\/welcome\//g' $i > tmpP.md
     mv tmpP.md $i
   done
@@ -54,7 +55,8 @@ Install_Welcome() {
      mv markdown_out/02_getting-started/images ./getting-started-images
   fi
   # update image paths
-  for i in $(find markdown_out/02_getting-started -type f -name "*.md"); do
+  find markdown_out/02_getting-started -type f -name "*.md" -print0 | while IFS= read -r -d '' i
+  do
     sed 's/(\.\.\/images\//(\/welcome\//g' $i > tmpP.md
     mv tmpP.md $i
   done
@@ -66,18 +68,19 @@ Install_Welcome() {
       mv markdown_out/04_protocol/images ./protocol-images
   fi
   # update image paths
-  for i in $(find markdown_out/04_protocol -type f -name "*.md"); do
+  find markdown_out/04_protocol -type f -name "*.md" -print0 | while IFS= read -r -d '' i
+  do
     sed 's/(images\//(\/welcome\//g' $i > tmpP.md
     mv tmpP.md $i
   done
 
   # patch up files titles
   ${SCRIPT_DIR}/add_title.py markdown_out/index.md
-  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
-  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/process_admonitions.py {}
 
   # fix paths for dev tools
-  for file in $(find markdown_out -type f -name "*.md")
+  find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
     FIND="\/eosdocs\/developer-tools\/cleos\/how-to-guides\/how-to-create-a-wallet.md"
     REPLACE="\/leap\/latest\/cleos\/how-to-guides\/how-to-create-a-wallet"

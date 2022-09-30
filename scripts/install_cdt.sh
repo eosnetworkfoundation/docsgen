@@ -14,47 +14,53 @@ DoxygenCDT() {
 
   # pull from github
   # create reference dir if it does not exist
-  [ ! -d $DEST_DIR ] && mkdir -p $DEST_DIR
+  [ ! -d "$DEST_DIR" ] && mkdir -p "$DEST_DIR"
 
   # copy in doxygen config file
-  cp $CONFIG_DIR/doxyfile/cdt-doxyfile Doxyfile
+  cp "$CONFIG_DIR"/doxyfile/cdt-doxyfile Doxyfile
   # copy in doxybook config file
-  cp $CONFIG_DIR/doxybook/cdt.doxybook.config.json .
+  cp "$CONFIG_DIR"/doxybook/cdt.doxybook.config.json .
   # copy in logo
-  cp ${LOGO} docs
+  cp "${LOGO}" docs
   # run doxygen create doxybook
   { doxygen > /dev/null; } 2>&1
 
   [ ! -d reference ] && mkdir reference
   # convert XML to Markdown
   doxybook2 --input doxygen_out/xml --output reference --config cdt.doxybook.config.json
-  for i in $(find reference -type f)
+  find reference -type f -print0 | while IFS= read -r -d '' i
   do
-    echo $i
+    echo "$i"
     # fix BR tags to close properly
-    sed 's/<br>/<br\/>/g' $i > temp.md
+    sed 's/<br>/<br\/>/g' "$i" > temp.md
     # remove empty links
     sed 's/\[\([a-z0-9:_-]*\)\]()/\1/g' temp.md > tempNOLINK.md
-    mv tempNOLINK.md $i
+    mv tempNOLINK.md "$i"
   done
 
   # spot fixes
+  # shellcheck disable=SC2016
   sed 's/<Word>/`<Word>`/g' reference/Classes/classeosio_1_1fixed__bytes.md > temp.md
   mv temp.md reference/Classes/classeosio_1_1fixed__bytes.md
 
+  # shellcheck disable=SC2016
   sed 's/<int>/`<int>`/g' reference/Classes/structeosio_1_1ignore.md > temp.md
   mv temp.md reference/Classes/structeosio_1_1ignore.md
 
+  # shellcheck disable=SC2016
   sed 's/<T>/`<T>`/g' reference/Namespaces/namespaceeosio.md > temp.md
   mv temp.md reference/Namespaces/namespaceeosio.md
 
+  # shellcheck disable=SC2016
   sed 's/<Stream>/`<Stream>`/g' reference/Classes/structeosio_1_1multi__index_1_1index.md > temp.md
   mv temp.md reference/Classes/structeosio_1_1multi__index_1_1index.md
 
+  # shellcheck disable=SC2016
   sed 's/<Stream>/`<Stream>`/g' reference/Namespaces/namespaceeosio.md > temp.md
   mv temp.md reference/Namespaces/namespaceeosio.md
 
   # Note need to fix summary
+  # shellcheck disable=SC2016
   sed 's/summary:\(.*\)Example:/summary:\1/' reference/Classes/structeosio_1_1action__wrapper.md > temp.md
   mv temp.md reference/Classes/structeosio_1_1action__wrapper.md
   # reference/Classes/structeosio_1_1action__wrapper.md
@@ -71,7 +77,7 @@ DoxygenCDT() {
   mv reference/index_namespaces.md reference/Namespaces/index.md
 
   # copy directory
-  cp -R reference $DEST_DIR
+  cp -R reference "$DEST_DIR"
 
 }
 
@@ -89,17 +95,17 @@ Install_Cdt() {
   cp -R docs/* markdown_out
 
   # process and copy markdown
-  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
-  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
   # get rid of HR tags messes up MDX parsing
   sed 's/<hr>//g' markdown_out/09_tutorials/01_binary-extension.md > temp.md
   mv temp.md markdown_out/09_tutorials/01_binary-extension.md
   sed 's/<hr>//g' markdown_out/05_features/30_binary-extension.md > temp.md
   mv temp.md markdown_out/05_features/30_binary-extension.md
-  cp -R markdown_out/* $ARG_BUILD_DIR/devdocs/eosdocs/cdt
+  cp -R markdown_out/* "$ARG_BUILD_DIR"/devdocs/eosdocs/cdt
 
   # three args, build_root, doxyfile, and path to logo
-  DoxygenCDT $ARG_BUILD_DIR \
-     ${SCRIPT_DIR}/../web/eosn_logo.png \
-     ${SCRIPT_DIR}/../config
+  DoxygenCDT "$ARG_BUILD_DIR" \
+     "${SCRIPT_DIR}"/../web/eosn_logo.png \
+     "${SCRIPT_DIR}"/../config
 }

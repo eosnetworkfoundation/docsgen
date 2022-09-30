@@ -26,13 +26,13 @@ DoxygenSystemContracts() {
   # copy in logo
   cp ${LOGO} docs
   # run doxygen
-  doxygen 2>&1>/dev/null
+  { doxygen > /dev/null; } 2>&1
 
   # convert doxybook XML to Markdown
   [ ! -d reference ] && mkdir reference
   # convert XML to Markdown
   doxybook2 --input doxygen_out/xml --output reference --config system-contracts.doxybook.config.json
-  for i in $(find reference -type f)
+  find reference -type f -print0 | while IFS= read -r -d '' i
   do
     echo $i
         # fix BR tags to close properly
@@ -128,8 +128,8 @@ MarkdownSystemContracts() {
   mv tmp_index.md markdown_out/index.md
 
   # process markdown
-  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
-  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/process_admonitions.py {}
 
   # copy into serving location
   cp -R markdown_out/* ${ARG_BUILD_DIR}/devdocs/eosdocs/system-contracts

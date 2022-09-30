@@ -32,7 +32,7 @@ Install_Mandel-swift() {
   # mostly HTML pregenerated docs
   cp -R markdown_out/* ${ARG_BUILD_DIR}/reference/swiftdocs
   # clean out markdown pushed over in last copy
-  find ${ARG_BUILD_DIR}/reference/swiftdocs -type f -name "*.md" | xargs rm
+  find ${ARG_BUILD_DIR}/reference/swiftdocs -type f -name "*.md" -print0 | xargs -0 rm
   # copy sources
   cp -r Sources ${ARG_BUILD_DIR}/reference/swiftdocs
 

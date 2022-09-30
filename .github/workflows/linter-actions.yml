@@ -9,4 +9,4 @@ jobs:
       - name: Run ShellCheck
         uses: azohra/shell-linter@latest
         with:
-          path: "scripts/generate_documents.sh,scripts/build_index_md.sh,scripts/install_mandel-eosjs.sh,scripts/clean_rebuild.sh"
+          path: "scripts"

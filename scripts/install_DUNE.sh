@@ -16,8 +16,8 @@ Install_DUNE() {
 
   # copy over images into destination
   # doc6s needs images in static dir
-  [ ! -d $IMG_DIR ] && mkdir -p $IMG_DIR
-  cp docs/images/* $IMG_DIR
+  [ ! -d "$IMG_DIR" ] && mkdir -p "$IMG_DIR"
+  cp docs/images/* "$IMG_DIR"
 
   # to keep docs clean and process idempotent
   [ ! -d markdown_out ] && mkdir markdown_out
@@ -28,7 +28,7 @@ Install_DUNE() {
   sed 's/">$/"\/>/g' markdown_out/index.md > temp.md
   mv temp.md markdown_out/index.md
 
-  [ ! -d $DEST_DIR ] && mkdir -p $DEST_DIR
-  cp -R markdown_out/* $DEST_DIR
+  [ ! -d "$DEST_DIR" ] && mkdir -p "$DEST_DIR"
+  cp -R markdown_out/* "$DEST_DIR"
 
 }
