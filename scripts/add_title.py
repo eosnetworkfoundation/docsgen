@@ -94,43 +94,12 @@ class MetaBlock:
 
 ##### END Class MetaBlock #######
 
-#### Global Method for Determine Client Side Path
-def is_client_side(file_parts):
-
-    is_client_side = False
-
-    if len(file_parts) > 4 and (
-        file_parts[-3] == "client-side"
-        or file_parts[-4] == "client-side"
-        ):
-
-        is_client_side = True
-
-    return is_client_side
-
 #### Global Method default way of creating title tag
 def general_title(sub_directory, last_item, extensions):
     value = sub_directory.replace("_"," ")
     if last_item != "index.md":
         # remove the extenstion and turn undscr to space
         value = str(last_item).removesuffix(extensions).replace("_"," ")
-    return value
-
-#### Global Method client-side way of creating title tag
-def client_side_title(sub_directory, last_item):
-    value = ""
-    if sub_directory == "swiftdocs" and last_item == "index.md":
-        return "EOS Swift SDK"
-    if sub_directory == "jsdocs" and last_item == "README.md":
-        return "EOS JS SDK"
-    if sub_directory == "jsdocs" and last_item == "LICENSE.md":
-            return "EOS JS SDK License"
-    if sub_directory == "jsdocs" and last_item == "CONTRIBUTING.md":
-            return "Contributing"
-    if sub_directory == "jsdocs" and last_item == "modules.md":
-            return "EOS JS Exports"
-    if sub_directory == "swiftdocs" and last_item == "README.md":
-        return "EOS Swift Overview"
     return value
 
 #### Global Method calculate the proper title for the doc
@@ -142,17 +111,22 @@ def calculate_value(file_name):
     last_item = file_components[-1]
     sub_directory = file_components[-2]
 
-    if is_client_side(file_components):
-        value = client_side_title(sub_directory, last_item)
+    # filename extensions
+    extensions = "".join(p.suffixes)
+    value = general_title(sub_directory, last_item, extensions)
+    # capitalize words
+    value = value.title()
+
+    # sometimes the index has no title
+    #   and we accidently set it to the directory name
+    #   this code unsets the value and does not set the title
+    if value == "Markdown Out" and last_item == "index.md":
+        value = "";
     else:
-        # filename extensions
-        extensions = "".join(p.suffixes)
-        value = general_title(sub_directory, last_item, extensions)
-        # capitalize words
-        value = value.title()
+        value = value.lstrip('0123456789 ')
 
     # remove leading numbers and spaces
-    return value.lstrip('0123456789 ')
+    return value
 
 ##################### MAIN ##################
 meta_block = MetaBlock()
