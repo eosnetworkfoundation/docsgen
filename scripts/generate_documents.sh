@@ -264,11 +264,11 @@ Remote_Upload() {
         # on remote move into content directory
         move_cmd="mv ${base_tar_file} content/"
         # on remote backup existing
-        backup_cmd="cd /var/www/html && tar czf /home/ubuntu/content/devdocs_${bdate}_backup.tgz -- *"
+        backup_cmd="cd /var/www/html && tar czf /home/fedevops/content/devdocs_${bdate}_backup.tgz -- *"
         # loop over tar 1st level and delete on remote host
-        delete_cmd="cd /var/www/html && tar tfz /home/ubuntu/content/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
+        delete_cmd="cd /var/www/html && tar tfz /home/fedevops/content/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
         # un-pack tar populate new things
-        update_cmd="cd /var/www/html && tar xzf /home/ubuntu/content/${base_tar_file}"
+        update_cmd="cd /var/www/html && tar xzf /home/fedevops/content/${base_tar_file}"
         ### sftp copy over
         echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
         ### move
