@@ -29,7 +29,7 @@ DoxygenLeap() {
   mkdir reference
   # convert XML to Markdown
   doxybook2 --input doxygen_out/xml --output reference --config leap.doxybook.config.json
-  for i in $(find reference -type f)
+  find reference -type f -print0 | while IFS= read -r -d '' i
   do
     echo $i
     # fix BR tags to close properly
@@ -60,11 +60,11 @@ Install_Leap() {
   cp -R docs/* markdown_out
 
   # process and copy markdown
-  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/add_title.py {}
-  find markdown_out -type f | xargs -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/process_admonitions.py {}
 
   # fix paths for dev tools
-  for file in $(find markdown_out -type f -name "*.md")
+  find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
     sed 's/(\/glossary.md/(\/welcome\/latest\/glossary/g' $file > tempG.md
 
@@ -91,45 +91,20 @@ Install_Leap() {
     mv tempTT.md $file
   done
 
-  # fix plugin reference
-  sed 's/https:\/\/docs.eosnetwork.com\/reference\/mandel-plugins\//\/leap-plugins\/latest\//g' \
-      markdown_out/01_nodeos/03_plugins/net_api_plugin/index.md > tempPlugin.md
-  mv tempPlugin.md markdown_out/01_nodeos/03_plugins/net_api_plugin/index.md
   # fix reasource path
   sed 's/\/resources\/index.md/\/welcome\/latest\/resources\//' \
-      02_cleos/02_how-to-guides/how-to-get-block-information.md > tempRes.md
-  mv tempRes.md 02_cleos/02_how-to-guides/how-to-get-block-information.md
-
+      markdown_out/02_cleos/02_how-to-guides/how-to-get-block-information.md > tempRes.md
+  mv tempRes.md markdown_out/02_cleos/02_how-to-guides/how-to-get-block-information.md
 
   # move tutorial to welcome
   cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"
 
   # copy the YAML Files
   [ ! -d ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/ ] && mkdir -p ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/
-  for i in $(find plugins -name "*.yaml")
+  find plugins -name "*.yaml" -print0 | while IFS= read -r -d '' i
   do
     cp $i ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/
   done
-
-  ### MISC FIXES BREAKING JSX PARSING
-
-  sed 's/hash<>::result_type/`hash<>::result_type`/' markdown_out/30_release-notes/99_v2.0.0.md > tmpMISC.md
-  mv tmpMISC.md markdown_out/30_release-notes/99_v2.0.0.md
-
-  sed 's/<set>/`<set>`/' markdown_out/30_release-notes/88_v2.0.11.md > tmpMISC.md
-  mv tmpMISC.md markdown_out/30_release-notes/88_v2.0.11.md
-
-  grep -v '<!-' markdown_out/02_cleos/03_command-reference/index.md | grep -v '\-->' | grep -v '\[wrap\](wrap)' > tmpMISC.md
-  mv tmpMISC.md markdown_out/02_cleos/03_command-reference/index.md
-
-  sed 's/"--transaction-finality-status-max-storage-size-gb <size>"/`--transaction-finality-status-max-storage-size-gb <size>`/' markdown_out/02_cleos/03_command-reference/get/transaction-status.md > tmpMISC.md
-  mv tmpMISC.md markdown_out/02_cleos/03_command-reference/get/transaction-status.md
-
-  sed 's/<head block id in hex>.bin/`<head block id in hex>.bin`/' markdown_out/01_nodeos/04_replays/how-to-replay-from-a-snapshot.md > tmpMISC.md
-  mv tmpMISC.md markdown_out/01_nodeos/04_replays/how-to-replay-from-a-snapshot.md
-
-  sed 's/<provider-type>:<data>/`<provider-type>:<data>`/' markdown_out/01_nodeos/02_usage/02_node-setups/00_producing-node.md > tmpMISC.md
-  mv tmpMISC.md markdown_out/01_nodeos/02_usage/02_node-setups/00_producing-node.md
 
   # Finally copy docs into place
   cp -R markdown_out/* $ARG_BUILD_DIR/devdocs/eosdocs/leap
