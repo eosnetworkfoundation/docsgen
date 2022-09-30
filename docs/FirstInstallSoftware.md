@@ -89,6 +89,31 @@ sudo apt install doxygen
 
 On ubuntu 22 it will prompt you to restart services. You should answer `<OK>` and restart the services.
 
+### `doxybook2` ###
+Used to make pretty html version from ugly doxygen XML.
+
+[Binary Releases](https://github.com/matusnovak/doxybook2/releases)
+
+Install locally, and make sure to update PATH to find it.
+```
+mkdir -p local
+wget https://github.com/matusnovak/doxybook2/releases/download/v1.4.0/doxybook2-linux-amd64-v1.4.0.zip
+cd local
+unzip ../doxybook2-linux-amd64-v1.4.0.zip
+cat << EOF >> ~/.bashrc
+if [ -d ~/local/bin ]; then
+        PATH=${PATH}:~/local/bin
+        export PATH
+fi
+EOF
+. ~/.bashrc
+```
+
+Test
+```
+doxybook2 -v
+```
+
 ### `python3` ###
 Need to make sure python 3.4 or better is installed. It is assumed the executable is named `python3`
 

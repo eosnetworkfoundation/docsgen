@@ -290,7 +290,7 @@ EOF
       done
     fi
   else
-    [ "$DEBUG" ] && echo "No host or id file provided"
+    [ "$DEBUG" ] && echo "Not performing content install because no host/id-file provided"
   fi
 }
 

@@ -23,7 +23,7 @@ DoxygenCDT() {
   # copy in logo
   cp ${LOGO} docs
   # run doxygen create doxybook
-  doxygen 2>&1>/dev/null
+  { doxygen > /dev/null; } 2>&1
 
   [ ! -d reference ] && mkdir reference
   # convert XML to Markdown
@@ -70,8 +70,6 @@ DoxygenCDT() {
   mv reference/index_files.md reference/Files/index.md
   mv reference/index_namespaces.md reference/Namespaces/index.md
 
-
-
   # copy directory
   cp -R reference $DEST_DIR
 
@@ -79,9 +77,12 @@ DoxygenCDT() {
 
 Install_Cdt() {
   SCRIPT_DIR=$1
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_GIT_REPO=$2
   ARG_BUILD_DIR=$3
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_BRANCH=$4
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
   [ ! -d markdown_out ] && mkdir markdown_out

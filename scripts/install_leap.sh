@@ -23,7 +23,7 @@ DoxygenLeap() {
   # copy in logo
   cp ${LOGO} docs
   # run doxygen create doxybook
-  doxygen 2>&1>/dev/null
+  { doxygen > /dev/null; } 2>&1
 
   [ -d reference ] && rm reference
   mkdir reference
@@ -45,9 +45,12 @@ DoxygenLeap() {
 
 Install_Leap() {
   SCRIPT_DIR=$1
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_GIT_REPO=$2
   ARG_BUILD_DIR=$3
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_BRANCH=$4
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
   TUTORIAL_DOC_ROOT="${ARG_BUILD_DIR}/devdocs/eosdocs/welcome/03_tutorials"

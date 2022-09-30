@@ -18,9 +18,12 @@
 #     welcome
 Install_Welcome() {
   SCRIPT_DIR=$1
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_GIT_REPO=$2
   ARG_BUILD_DIR=$3
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_BRANCH=$4
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
   IMG_DIR=${ARG_BUILD_DIR}/devdocs/static/welcome

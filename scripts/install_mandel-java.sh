@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
 Install_Mandel-java() {
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   SCRIPT_DIR=$1
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_GIT_REPO=$2
   ARG_BUILD_DIR=$3
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_BRANCH=$4
+  # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
   # location of java code inside repo
