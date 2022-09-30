@@ -25,7 +25,7 @@ Install_Mandel-java() {
   PACKAGES=${PACKAGES//[$'\t\r\n']/ }
 
   # copy files in, view framework will convert from Markdown to HTML
-  [ ! -d ${ARG_BUILD_DIR}/reference/javadocs ] && mkdir -p ${ARG_BUILD_DIR}/reference/javadocs
+  [ ! -d "${ARG_BUILD_DIR}"/reference/javadocs ] && mkdir -p "${ARG_BUILD_DIR}"/reference/javadocs
   CMD="javadoc -sourcepath ${SOURCE_PATH} -d ${ARG_BUILD_DIR}/reference/javadocs ${PACKAGES}"
 
   echo "running ${CMD}"

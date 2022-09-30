@@ -26,9 +26,9 @@ Install_Welcome() {
   # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
-  IMG_DIR=${ARG_BUILD_DIR}/devdocs/static/welcome
+  IMG_DIR="${ARG_BUILD_DIR:?}"/devdocs/static/welcome
   # place for welcome static image files
-  [ ! -d $IMG_DIR ] && mkdir $IMG_DIR
+  [ ! -d "$IMG_DIR" ] && mkdir "$IMG_DIR"
 
   # copy out to keep docs clean and process idempotent
   [ -d markdown_out ] && rm -rf markdown_out
@@ -37,54 +37,54 @@ Install_Welcome() {
 
   # setup images
   if [ -d markdown_out/01_overview/images ]; then
-     cp -r markdown_out/01_overview/images/* $IMG_DIR
+     cp -r markdown_out/01_overview/images/* "$IMG_DIR"
      # move it out of the way so it doens't get copied as doc
      mv markdown_out/01_overview/images ./overview-images
   fi
   # update image paths
   find markdown_out/01_overview -type f -name "*.md" -print0 | while IFS= read -r -d '' i
   do
-    sed 's/(\.\/images\//(\/welcome\//g' $i > tmpP.md
-    mv tmpP.md $i
+    sed 's/(\.\/images\//(\/welcome\//g' "$i" > tmpP.md
+    mv tmpP.md "$i"
   done
 
   # setup images
   if [ -d markdown_out/02_getting-started/images ]; then
-     cp -r markdown_out/02_getting-started/images/* $IMG_DIR
+     cp -r markdown_out/02_getting-started/images/* "$IMG_DIR"
      # move it out of the way so it doens't get copied as doc
      mv markdown_out/02_getting-started/images ./getting-started-images
   fi
   # update image paths
   find markdown_out/02_getting-started -type f -name "*.md" -print0 | while IFS= read -r -d '' i
   do
-    sed 's/(\.\.\/images\//(\/welcome\//g' $i > tmpP.md
-    mv tmpP.md $i
+    sed 's/(\.\.\/images\//(\/welcome\//g' "$i" > tmpP.md
+    mv tmpP.md "$i"
   done
 
   # setup images
   if [ -d markdown_out/04_protocol/images ]; then
-      cp -r markdown_out/04_protocol/images/* $IMG_DIR
+      cp -r markdown_out/04_protocol/images/* "$IMG_DIR"
       # move it out of the way so it doens't get copied as doc
       mv markdown_out/04_protocol/images ./protocol-images
   fi
   # update image paths
   find markdown_out/04_protocol -type f -name "*.md" -print0 | while IFS= read -r -d '' i
   do
-    sed 's/(images\//(\/welcome\//g' $i > tmpP.md
-    mv tmpP.md $i
+    sed 's/(images\//(\/welcome\//g' "$i" > tmpP.md
+    mv tmpP.md "$i"
   done
 
   # patch up files titles
-  ${SCRIPT_DIR}/add_title.py markdown_out/index.md
-  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/add_title.py {}
-  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+  "${SCRIPT_DIR}"/add_title.py markdown_out/index.md
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR:?}"/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR:?}"/process_admonitions.py {}
 
   # fix paths for dev tools
   find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
     FIND="\/eosdocs\/developer-tools\/cleos\/how-to-guides\/how-to-create-a-wallet.md"
     REPLACE="\/leap\/latest\/cleos\/how-to-guides\/how-to-create-a-wallet"
-    sed "s/${FIND}/${REPLACE}/g" $file > tempCW.md
+    sed "s/${FIND}/${REPLACE}/g" "$file" > tempCW.md
 
     FIND="\/eosdocs\/developer-tools\/cleos\/how-to-guides\/how-to-create-an-account.md"
     REPLACE="\/leap\/latest\/cleos\/how-to-guides\/how-to-create-an-account"
@@ -106,7 +106,7 @@ Install_Welcome() {
     # fix glossary
     sed 's/(\/glossary.md/(glossary.md/g' tempDT.md > tempG.md
 
-    mv tempG.md $file
+    mv tempG.md "$file"
   done
 
   FIND="action-reference\/eosio\.bios"
@@ -135,7 +135,7 @@ Install_Welcome() {
   mv tmp_index.md markdown_out/04_protocol/index.md
 
   # copy in the files to build root
-  cp glossary.md $ARG_BUILD_DIR/devdocs/eosdocs/welcome
-  cp markdown_out/index.md $ARG_BUILD_DIR/devdocs/eosdocs/welcome
-  cp -r markdown_out/* $ARG_BUILD_DIR/devdocs/eosdocs/welcome
+  cp glossary.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/welcome
+  cp markdown_out/index.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/welcome
+  cp -r markdown_out/* "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/welcome
 }

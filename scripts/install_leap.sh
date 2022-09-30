@@ -14,14 +14,14 @@ DoxygenLeap() {
 
   # pull from github
   # create reference dir if it does not exist
-  [ ! -d $DEST_DIR ] && mkdir -p $DEST_DIR
+  [ ! -d "$DEST_DIR" ] && mkdir -p "$DEST_DIR"
 
   # copy in doxygen config file
-  cp $CONFIG_DIR/doxyfile/leap-doxyfile Doxyfile
+  cp "$CONFIG_DIR"/doxyfile/leap-doxyfile Doxyfile
   # copy in doxybook config file
-  cp $CONFIG_DIR/doxybook/leap.doxybook.config.json .
+  cp "$CONFIG_DIR"/doxybook/leap.doxybook.config.json .
   # copy in logo
-  cp ${LOGO} docs
+  cp "${LOGO}" docs
   # run doxygen create doxybook
   { doxygen > /dev/null; } 2>&1
 
@@ -31,16 +31,18 @@ DoxygenLeap() {
   doxybook2 --input doxygen_out/xml --output reference --config leap.doxybook.config.json
   find reference -type f -print0 | while IFS= read -r -d '' i
   do
-    echo $i
+    echo "$i"
     # fix BR tags to close properly
-    sed 's/<br>/<br\/>/g' $i > temp.md
+    # shellcheck disable=SC2016
+    sed 's/<br>/<br\/>/g' "$i" > temp.md
     # remove empty links
+    # shellcheck disable=SC2016
     sed 's/\[\([a-z0-9:_-]*\)\]()/\1/g' temp.md > tempNOLINK.md
-    mv tempNOLINK.md $i
+    mv tempNOLINK.md "$i"
   done
 
   # copy files to staging area
-  cp -R reference $DEST_DIR
+  cp -R reference "$DEST_DIR"
 }
 
 Install_Leap() {
@@ -60,13 +62,13 @@ Install_Leap() {
   cp -R docs/* markdown_out
 
   # process and copy markdown
-  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/add_title.py {}
-  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
 
   # fix paths for dev tools
   find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
-    sed 's/(\/glossary.md/(\/welcome\/latest\/glossary/g' $file > tempG.md
+    sed 's/(\/glossary.md/(\/welcome\/latest\/glossary/g' "$file" > tempG.md
 
     FIND="(\/protocol-guides\/01_consensus_protocol.md"
     REPLACE="(\/welcome\/latest\/protocol\/consensus_protocol"
@@ -88,7 +90,7 @@ Install_Leap() {
     REPLACE="\/welcome\/latest\/tutorials\/bios-boot-tutorial"
     sed "s/${FIND}/${REPLACE}/g" tempAP.md > tempTT.md
 
-    mv tempTT.md $file
+    mv tempTT.md "$file"
   done
 
   # fix reasource path
@@ -100,18 +102,18 @@ Install_Leap() {
   cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"
 
   # copy the YAML Files
-  [ ! -d ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/ ] && mkdir -p ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/
+  [ ! -d "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest/ ] && mkdir -p "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest/
   find plugins -name "*.yaml" -print0 | while IFS= read -r -d '' i
   do
-    cp $i ${ARG_BUILD_DIR}/devdocs/openapi/leap-plugins/latest/
+    cp "$i" "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest/
   done
 
   # Finally copy docs into place
-  cp -R markdown_out/* $ARG_BUILD_DIR/devdocs/eosdocs/leap
+  cp -R markdown_out/* "$ARG_BUILD_DIR"/devdocs/eosdocs/leap
 
   # three args, build_root, doxyfile, and path to logo
   #DoxygenLeap $ARG_BUILD_DIR \
-  #   ${SCRIPT_DIR}/../web/eosn_logo.png \
-  #   ${SCRIPT_DIR}/../config
+  #   "${SCRIPT_DIR}"/../web/eosn_logo.png \
+  #   "${SCRIPT_DIR}"/../config
 
 }

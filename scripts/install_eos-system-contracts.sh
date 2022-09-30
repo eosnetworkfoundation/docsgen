@@ -17,14 +17,14 @@ DoxygenSystemContracts() {
 
   # pull from github
   # create reference dir if it does not exist
-  [ ! -d $DEST_DIR ] && mkdir -p $DEST_DIR
+  [ ! -d "$DEST_DIR" ] && mkdir -p "$DEST_DIR"
 
   # copy in doxygen config file
-  cp $CONFIG_DIR/doxyfile/system-contracts-doxyfile Doxyfile
+  cp "$CONFIG_DIR"/doxyfile/system-contracts-doxyfile Doxyfile
   # copy in doxybook config file
-  cp $CONFIG_DIR/doxybook/system-contracts.doxybook.config.json .
+  cp "$CONFIG_DIR"/doxybook/system-contracts.doxybook.config.json .
   # copy in logo
-  cp ${LOGO} docs
+  cp "${LOGO}" docs
   # run doxygen
   { doxygen > /dev/null; } 2>&1
 
@@ -34,14 +34,18 @@ DoxygenSystemContracts() {
   doxybook2 --input doxygen_out/xml --output reference --config system-contracts.doxybook.config.json
   find reference -type f -print0 | while IFS= read -r -d '' i
   do
-    echo $i
-        # fix BR tags to close properly
-    sed 's/<br>/<br\/>/g' $i > tempBR.md
+    echo "$i"
+    # fix BR tags to close properly
+    # shellcheck disable=SC2016
+    sed 's/<br>/<br\/>/g' "$i" > tempBR.md
+    # shellcheck disable=SC2016
     sed 's/<T>/`<T>`/g' tempBR.md > tempT.md
+    # shellcheck disable=SC2016
     sed 's/<int>/`<int>`/g' tempBR.md > tempT.md
     # remove empty links
+    # shellcheck disable=SC2016
     sed 's/\[\([a-z0-9:_-]*\)\]()/\1/g' tempT.md > tempNOLINK.md
-    mv tempNOLINK.md $i
+    mv tempNOLINK.md "$i"
   done
 
   # remove bad files
@@ -64,12 +68,12 @@ DoxygenSystemContracts() {
   mv reference/index_namespaces.md reference/Namespaces/index.md
 
 
-  if [ $SUPRESS_EULA -eq 1 ]; then
+  if [ "$SUPRESS_EULA" -eq 1 ]; then
     rm -rf reference/Pages
   fi
 
   # copy directory
-  cp -R reference $DEST_DIR
+  cp -R reference "$DEST_DIR"
 }
 
 MarkdownSystemContracts() {
@@ -128,11 +132,11 @@ MarkdownSystemContracts() {
   mv tmp_index.md markdown_out/index.md
 
   # process markdown
-  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/add_title.py {}
-  find markdown_out -type f -print0 | xargs -0 -I{} ${SCRIPT_DIR}/process_admonitions.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
 
   # copy into serving location
-  cp -R markdown_out/* ${ARG_BUILD_DIR}/devdocs/eosdocs/system-contracts
+  cp -R markdown_out/* "${ARG_BUILD_DIR}"/devdocs/eosdocs/system-contracts
 }
 
 Install_Eos-system-contracts() {
@@ -142,10 +146,10 @@ Install_Eos-system-contracts() {
   ARG_BRANCH=$4
   ARG_TAG=$5
 
-  MarkdownSystemContracts $SCRIPT_DIR $ARG_GIT_REPO $ARG_BUILD_DIR $ARG_BRANCH $ARG_TAG
+  MarkdownSystemContracts "$SCRIPT_DIR" "$ARG_GIT_REPO" "$ARG_BUILD_DIR" "$ARG_BRANCH" "$ARG_TAG"
 
   # three args, build_root, doxyfile, and path to logo
-  DoxygenSystemContracts $ARG_BUILD_DIR \
-     ${SCRIPT_DIR}/../web/eosn_logo.png \
-     ${SCRIPT_DIR}/../config
+  DoxygenSystemContracts "$ARG_BUILD_DIR" \
+     "${SCRIPT_DIR}"/../web/eosn_logo.png \
+     "${SCRIPT_DIR}"/../config
 }
