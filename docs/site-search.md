@@ -1,8 +1,9 @@
-# Site Search
+# Ignore This Page on Site Search
 
-Site search is powered by Algoria. We push search records to Algoria instead of using the crawler. This has two advantages
-- faster indexing update only the changed pages
-- better control the ability to control attributes
+**This page is only relevant if we want to run our own indexing of content.**
+Site search is powered by Algoria. We use the Algoria crawler. This has the advantage of not requiring engineering resources.
+
+**The following describes how to run our own Puppeteer based crawler to index documents in Alogria. We are not using this indexing code**
 
 ## Overview
 
