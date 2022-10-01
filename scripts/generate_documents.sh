@@ -35,10 +35,11 @@ Help() {
   echo "-t: tag to use for git"
   echo "-i: private key for web host, needed to install files"
   echo "-h: destination user@host(s) where to install files"
+  echo "-c: content directory on remote host for tar archives"
   echo "-x: suppress build statics process"
   echo "-f: fast, skip git clone if files less then 1 hour old"
   echo ""
-  echo "example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB"
+  echo "example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB -c /s3mount/content"
   echo "Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version"
   exit 1
 }
@@ -262,13 +263,13 @@ Remote_Upload() {
         bdate=$(date -u +%y%m%d%H)
         base_tar_file=$(basename "${archive}")
         # on remote move into content directory
-        move_cmd="mv ${base_tar_file} content/"
+        move_cmd="mv ${base_tar_file} ${ARG_CONTENT:-~/content}"
         # on remote backup existing
-        backup_cmd="cd /var/www/html && tar czf /home/fedevops/content/devdocs_${bdate}_backup.tgz -- *"
+        backup_cmd="cd /var/www/html && tar czf ${ARG_CONTENT:-~/content}/devdocs_${bdate}_backup.tgz -- *"
         # loop over tar 1st level and delete on remote host
-        delete_cmd="cd /var/www/html && tar tfz /home/fedevops/content/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
+        delete_cmd="cd /var/www/html && tar tfz ${ARG_CONTENT:-~/content}/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
         # un-pack tar populate new things
-        update_cmd="cd /var/www/html && tar xzf /home/fedevops/content/${base_tar_file}"
+        update_cmd="cd /var/www/html && tar xzf ${ARG_CONTENT:-~/content}/${base_tar_file}"
         ### sftp copy over
         echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
         ### move
@@ -307,7 +308,7 @@ Reset_Color='\033[0m' # No Color
 
 ############################################################################
 # Get the options
-while getopts "r:d:b:t:i:h:xf" option; do
+while getopts "r:d:b:t:i:h:c:xf" option; do
    case $option in
       r) # repository
         ARG_GIT_REPO=${OPTARG}
@@ -326,6 +327,9 @@ while getopts "r:d:b:t:i:h:xf" option; do
         ;;
       h) # set host
         ARG_HOST+=("${OPTARG}")
+        ;;
+      c) # set content dir
+        ARG_CONTENT=${OPTARG}
         ;;
       x) # set fast
         ARG_SUPPRESS_BUILD="True"
@@ -358,6 +362,7 @@ if [ "$DEBUG" ]; then
   echo "branch " "$ARG_BRANCH"
   echo "tag " "$ARG_TAG"
   echo "identity " "$ARG_ID_FILE"
+  echo "content " "$ARG_CONTENT"
   echo "supress build" "$ARG_SUPPRESS_BUILD"
   echo "fast flag" "$ARG_FAST"
 
@@ -365,6 +370,15 @@ if [ "$DEBUG" ]; then
   for val in "${ARG_HOST[@]}"; do
       echo " $val"
     done
+fi
+
+# if host and id exist check content directory exists
+# when no host and no id file, content directory is not needed
+if [ -n "$ARG_ID_FILE" ] && [ -n "${ARG_HOST[0]}" ]; then
+  if [ ! -d "$ARG_CONTENT" ]; then
+    echo "Directory ${ARG_CONTENT} does not exist! Cannot proceed with install. Please create directory"
+    exit
+  fi
 fi
 
 ##############################################################################
