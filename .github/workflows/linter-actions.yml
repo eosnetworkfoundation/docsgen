@@ -10,3 +10,6 @@ jobs:
         uses: azohra/shell-linter@latest
         with:
           path: "scripts/*.sh"
+        args:
+          - "-x"
+          - "-P scripts"
