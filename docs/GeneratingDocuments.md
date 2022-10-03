@@ -1,8 +1,8 @@
 # Generating Documents #
 How to guide on generating the documents or regenerating
 
-## Full Release 
-See [How To Do A Full Release](How-To-Do-A-Full-Release.md) for details on building fresh from an empty directory. 
+## Full Release
+See [How To Do A Full Release](How-To-Do-A-Full-Release.md) for details on building fresh from an empty directory.
 
 ## Generation Steps ##
 There are two steps to generating content
@@ -34,7 +34,7 @@ npm run serve
 
 ## Document Server Organization ##
 * devdocs - root for Docusaurus project
-   * eosdocs/welcome - the welcome repo
+   * eosdocs/docs - the docs repo
      - markdown
    * eosdocs/cdt - developer tools
      - markdown
@@ -65,9 +65,9 @@ Scripts are under the `scripts` directory. `generate_documents.sh` is called pro
 - The script calls the fundtion `Install_Repo`. It is a naming convention.
 
 For example
--  Execute `generate_documents -d $HOME/build_root -r eosnetwork/welcome`
-- Sources `install_welcome.sh`
-- Function call `Install_Welcome`, see args below
+-  Execute `generate_documents -d $HOME/build_root -r eosnetwork/docs`
+- Sources `install_docs.sh`
+- Function call `Install_docs`, see args below
   -  SCRIPT_DIR=$1
   -  ARG_GIT_REPO=$2
   -  ARG_BUILD_DIR=$3

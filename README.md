@@ -40,9 +40,9 @@ Testing utilizes [Cypress](https://www.cypress.io/), while search is powered by 
 | Contract Developer Tools | [cdt](https://github.com/AntelopeIO/cdt) | cdt | Docusarus |
 | DUNE | [DUNE](https://github.com/AntelopeIO/DUNE.git) | DUNE | Docusarus |
 | Nodeos, Cleos, Kloes Manuals | [Leap](https://github.com/AntelopeIO/leap) | leap | Docusarus |
-| Tutorials | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | welcome/tutorials | Docusarus |
-| Glossary | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | glossary | Docusarus |
-| Welcome | [Welcome](https://github.com/eosnetworkfoundation/welcome.git) | welcome | docusarus |
+| Tutorials | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs/tutorials | Docusarus |
+| Glossary | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | glossary | Docusarus |
+| Docs | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs | docusarus |
 
 ## Initialize Content Repository ##
 See [First Install Software](docs/FirstInstallSoftware.md) for all the dependancies.
@@ -65,6 +65,7 @@ options:
 -t: tag to use for git
 -i: private key for web host, needed to install files
 -h: destination user@host(s) where to install files
+-c: context directory for backups and archives
 -x: suppress build statics process
 -f: fast, skip git checkout if files less then 1 hour old
 

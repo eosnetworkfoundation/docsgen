@@ -20,7 +20,7 @@ const FeatureList: FeatureItem[] = [
         Get familar with the concepts and how to work with the core software.
       </Translate>
     ),
-    link: '/welcome/latest/',
+    link: '/docs/latest/',
   },
   {
     title: <Translate>Geting Starting </Translate>,
@@ -29,7 +29,7 @@ const FeatureList: FeatureItem[] = [
         Step by step instructions for setting up your environment.
       </Translate>
     ),
-    link: '/welcome/latest/getting-started/',
+    link: '/docs/latest/getting-started/',
   },
   {
     title: <Translate>The Antelope Stack</Translate>,
@@ -47,7 +47,7 @@ const FeatureList: FeatureItem[] = [
         Consult our documentation for APIs and SDKs
       </Translate>
     ),
-    link: '/welcome/latest/api-listing',
+    link: '/docs/latest/api-listing',
   },
   {
     title: <Translate>Resources</Translate>,
@@ -56,7 +56,7 @@ const FeatureList: FeatureItem[] = [
         Information to help you get started
       </Translate>
     ),
-    link: '/welcome/latest/resources/',
+    link: '/docs/latest/resources/',
   },
 ];
 

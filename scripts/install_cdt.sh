@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Populates the following directories
-# images go into static/welcome
 #
 
 DoxygenCDT() {

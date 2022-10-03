@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Populates the following directories
-# images go into static/welcome
+# images go into static/docs
 #
-#  welcome
+#  docs
 #     getting-started (has images)
 #     getting-started
 #            development-environment
@@ -15,7 +15,7 @@
 #     protocol (has images)
 #     community-developer-tools
 #  static
-#     welcome
+#     docs
 Install_Welcome() {
   SCRIPT_DIR=$1
   # shellcheck disable=SC2034  # Unused variables to keep method call enforced
@@ -26,8 +26,8 @@ Install_Welcome() {
   # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
-  IMG_DIR="${ARG_BUILD_DIR:?}"/devdocs/static/welcome
-  # place for welcome static image files
+  IMG_DIR="${ARG_BUILD_DIR:?}"/devdocs/static/docs
+  # place for docs static image files
   [ ! -d "$IMG_DIR" ] && mkdir "$IMG_DIR"
 
   # copy out to keep docs clean and process idempotent
@@ -44,7 +44,7 @@ Install_Welcome() {
   # update image paths
   find markdown_out/01_overview -type f -name "*.md" -print0 | while IFS= read -r -d '' i
   do
-    sed 's/(\.\/images\//(\/welcome\//g' "$i" > tmpP.md
+    sed 's/(\.\/images\//(\/docs\//g' "$i" > tmpP.md
     mv tmpP.md "$i"
   done
 
@@ -57,7 +57,7 @@ Install_Welcome() {
   # update image paths
   find markdown_out/02_getting-started -type f -name "*.md" -print0 | while IFS= read -r -d '' i
   do
-    sed 's/(\.\.\/images\//(\/welcome\//g' "$i" > tmpP.md
+    sed 's/(\.\.\/images\//(\/docs\//g' "$i" > tmpP.md
     mv tmpP.md "$i"
   done
 
@@ -70,7 +70,7 @@ Install_Welcome() {
   # update image paths
   find markdown_out/04_protocol -type f -name "*.md" -print0 | while IFS= read -r -d '' i
   do
-    sed 's/(images\//(\/welcome\//g' "$i" > tmpP.md
+    sed 's/(images\//(\/docs\//g' "$i" > tmpP.md
     mv tmpP.md "$i"
   done
 
@@ -135,7 +135,7 @@ Install_Welcome() {
   mv tmp_index.md markdown_out/04_protocol/index.md
 
   # copy in the files to build root
-  cp glossary.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/welcome
-  cp markdown_out/index.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/welcome
-  cp -r markdown_out/* "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/welcome
+  cp glossary.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs
+  cp markdown_out/index.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs
+  cp -r markdown_out/* "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs
 }

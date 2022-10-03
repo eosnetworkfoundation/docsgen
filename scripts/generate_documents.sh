@@ -54,7 +54,7 @@ Create_Top_Level_Dir() {
   # devdocs is for docusarus , reference for non-markdown content
   # :? pattern for saftey don't create in root dir
   [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs"
-  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/welcome" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/welcome"
+  [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/docs" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/docs"
   [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/cdt" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/cdt"
   [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/system-contracts" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/system-contracts"
   [ ! -d "${ARG_BUILD_DIR}/devdocs/eosdocs/leap" ] && mkdir -p "${ARG_BUILD_DIR:?}/devdocs/eosdocs/leap"
@@ -123,7 +123,7 @@ Install_Docusaurus() {
 ####
 # Copy in index files like API Reference
 Install_Web_Content() {
-  cp "${SCRIPT_DIR:?}/../web/api-listing.md" "${ARG_BUILD_DIR:?}/devdocs/eosdocs/welcome/"
+  cp "${SCRIPT_DIR:?}/../web/api-listing.md" "${ARG_BUILD_DIR:?}/devdocs/eosdocs/docs/"
 }
 
 ###

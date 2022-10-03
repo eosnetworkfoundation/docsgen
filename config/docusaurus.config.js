@@ -58,10 +58,10 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          // id: 'welcome', // omitted => default instance
+          // id: 'docs', // omitted => default instance
           lastVersion: 'current',
-          path: 'eosdocs/welcome',
-          routeBasePath: 'welcome',
+          path: 'eosdocs/docs',
+          routeBasePath: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
           versions: {
             current: {
@@ -231,7 +231,7 @@ const config = {
             type: 'doc',
             docId: 'index',
             position: 'left',
-            label: 'Welcome',
+            label: 'docs',
           },
           {
             type: 'dropdown',

@@ -55,7 +55,7 @@ Install_Leap() {
   # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
-  TUTORIAL_DOC_ROOT="${ARG_BUILD_DIR}/devdocs/eosdocs/welcome/03_tutorials"
+  TUTORIAL_DOC_ROOT="${ARG_BUILD_DIR}/devdocs/eosdocs/docs/03_tutorials"
 
   # copy out to keep docs clean and process idempotent
   [ ! -d markdown_out ] && mkdir markdown_out
@@ -68,37 +68,37 @@ Install_Leap() {
   # fix paths for dev tools
   find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
-    sed 's/(\/glossary.md/(\/welcome\/latest\/glossary/g' "$file" > tempG.md
+    sed 's/(\/glossary.md/(\/docs\/latest\/glossary/g' "$file" > tempG.md
 
     FIND="(\/protocol-guides\/01_consensus_protocol.md"
-    REPLACE="(\/welcome\/latest\/protocol\/consensus_protocol"
+    REPLACE="(\/docs\/latest\/protocol\/consensus_protocol"
     sed "s/${FIND}/${REPLACE}/g" tempG.md > tempCP.md
 
     FIND="(\/protocol-guides\/02_transactions_protocol.md"
-    REPLACE="(\/welcome\/latest\/protocol\/transactions_protocol"
+    REPLACE="(\/docs\/latest\/protocol\/transactions_protocol"
     sed "s/${FIND}/${REPLACE}/g" tempCP.md  > tempTP.md
 
     FIND="(\/protocol-guides\/03_network_peer_protocol.md"
-    REPLACE="(\/welcome\/latest\/protocol\/network_peer_protocol"
+    REPLACE="(\/docs\/latest\/protocol\/network_peer_protocol"
     sed "s/${FIND}/${REPLACE}/g" tempTP.md > tempPP.md
 
     FIND="(\/protocol-guides\/04_accounts_and_permissions.md"
-    REPLACE="(\/welcome\/latest\/protocol\/accounts_and_permissions"
+    REPLACE="(\/docs\/latest\/protocol\/accounts_and_permissions"
     sed "s/${FIND}/${REPLACE}/g" tempPP.md > tempAP.md
 
     FIND="\/tutorials\/bios-boot-tutorial.md"
-    REPLACE="\/welcome\/latest\/tutorials\/bios-boot-tutorial"
+    REPLACE="\/docs\/latest\/tutorials\/bios-boot-tutorial"
     sed "s/${FIND}/${REPLACE}/g" tempAP.md > tempTT.md
 
     mv tempTT.md "$file"
   done
 
   # fix reasource path
-  sed 's/\/resources\/index.md/\/welcome\/latest\/resources\//' \
+  sed 's/\/resources\/index.md/\/docs\/latest\/resources\//' \
       markdown_out/02_cleos/02_how-to-guides/how-to-get-block-information.md > tempRes.md
   mv tempRes.md markdown_out/02_cleos/02_how-to-guides/how-to-get-block-information.md
 
-  # move tutorial to welcome
+  # move tutorial to docs
   cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"
 
   # copy the YAML Files

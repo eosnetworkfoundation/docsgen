@@ -1,8 +1,8 @@
 describe('Testing Each Respository', () => {
-  it('I can see Welcome Titles', () => {
-    cy.visit('http://localhost:3000/welcome/latest/overview/');
+  it('I can see docs Titles', () => {
+    cy.visit('http://localhost:3000/docs/latest/overview/');
     cy.get('header h1').contains('Overview');
-    cy.visit('http://localhost:3000/welcome/latest/api-listing');
+    cy.visit('http://localhost:3000/docs/latest/api-listing');
     cy.get('h1').contains('API Reference')
   });
   it('I can see Leap Titles', () => {
