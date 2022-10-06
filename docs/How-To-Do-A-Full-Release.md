@@ -19,6 +19,67 @@ git clone https://github.com/eosnetworkfoundation/devdocs.git
 
 ## Update Config
 
+### Version Config
+
+Change `lastVersion` to `current`, and comment out explicit versions in the `versions` json array. Once the version are created with `npm run docusaurus` the changes may be reverted. 
+
+**FROM**
+```
+'@docusaurus/plugin-content-docs',
+{
+  id: 'cdt',
+  // note clean build change to 'current'
+  // clean build comment out 3.0 versions
+  lastVersion: '3.0',
+  path: 'eosdocs/cdt',
+  routeBasePath: 'cdt',
+  sidebarPath: require.resolve('./sidebarsCdt.js'),
+  versions: {
+    current: {
+       label: 'preview',
+       path: 'preview',
+       banner: 'unreleased'
+    },
+    '3.0': {
+      label: '3.0',
+      path: 'latest',
+      banner: 'none'
+    },
+  },
+  // ... other options
+},
+```
+**TO**
+```
+'@docusaurus/plugin-content-docs',
+{
+  id: 'cdt',
+  // note clean build change to 'current'
+  // clean build comment out 3.0 versions
+  lastVersion: 'current',
+  path: 'eosdocs/cdt',
+  routeBasePath: 'cdt',
+  sidebarPath: require.resolve('./sidebarsCdt.js'),
+  versions: {
+    current: {
+       label: 'preview',
+       path: 'preview',
+       banner: 'unreleased'
+    },
+    /*
+    '3.0': {
+      label: '3.0',
+      path: 'latest',
+      banner: 'none'
+    },
+    */
+  },
+  // ... other options
+},
+```
+
+### Drop Down
+
 Edit `config/docusaruus.config.js`. Look for the section `themeConfig -> navbar -> items`. You need to update the versions for the drop down menus. For example below we add a new 3.1 section, point it to latest and move 2.0 to a versioned URL.
 
 **FROM**
@@ -115,7 +176,7 @@ Running the generate script with a `-i` identify file and `-h` host will push th
    - copies tar'd file to remote hosts
    - backups existing site to a tar file
    - untar new content
-   - removes tar files (backups and new docs) older than 30 days 
+   - removes tar files (backups and new docs) older than 30 days
 
 
 ```

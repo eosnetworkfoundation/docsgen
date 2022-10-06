@@ -40,11 +40,20 @@ for gitrepo in eosnetworkfoundation/welcome \
     AntelopeIO/leap \
     AntelopeIO/DUNE \
     eosnetworkfoundation/mandel-eosjs \
-    eosnetworkfoundation/mandel-java 
+    eosnetworkfoundation/mandel-java
 do
   echo "working on ${gitrepo}"
   # empty out var
   unset branch
+  if [ ${gitrepo} == "AntelopeIO/leap" ]; then
+    branch="release/3.1"
+  fi
+  if [ ${gitrepo} == "AntelopeIO/cdt" ]; then
+    branch="release/3.0"
+  fi
+  if [ ${gitrepo} == "eosnetworkfoundation/eos-system-contracts" ]; then
+    branch="release/3.1"
+  fi
   if [ -z "$branch" ]; then
     ./generate_documents.sh -d "$ARG_BUILD_DIR" -r ${gitrepo} -x
   else

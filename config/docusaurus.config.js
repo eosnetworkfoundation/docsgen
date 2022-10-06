@@ -118,14 +118,22 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'cdt',
-        lastVersion: 'current',
+        // note clean build change to 'current'
+        // clean build comment out 3.0 versions
+        lastVersion: '3.0',
         path: 'eosdocs/cdt',
         routeBasePath: 'cdt',
         sidebarPath: require.resolve('./sidebarsCdt.js'),
         versions: {
           current: {
-             label: 'latest',
-             path: 'latest',
+             label: 'preview',
+             path: 'preview',
+             banner: 'unreleased'
+          },
+          '3.0': {
+            label: '3.0',
+            path: 'latest',
+            banner: 'none'
           },
         },
         // ... other options
@@ -135,14 +143,22 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'system-contracts',
-        lastVersion: 'current',
+        // note clean build change to 'current'
+        // clean build comment out 3.1 versions
+        lastVersion: '3.1',
         path: 'eosdocs/system-contracts',
         routeBasePath: 'system-contracts',
         sidebarPath: require.resolve('./sidebarsSystemContracts.js'),
         versions: {
           current: {
-             label: 'latest',
-             path: 'latest',
+             label: 'preview',
+             path: 'preview',
+             banner: 'unreleased'
+          },
+          '3.1': {
+            label: '3.1',
+            path: 'latest',
+            banner: 'none'
           },
         },
         // ... other options
@@ -152,14 +168,22 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'leap',
-        lastVersion: 'current',
+        // note clean build change to 'current'
+        // clean build comment out 3.1 versions
+        lastVersion: '3.1',
         path: 'eosdocs/leap',
         routeBasePath: 'leap',
         sidebarPath: require.resolve('./sidebarsLeap.js'),
         versions: {
           current: {
-             label: 'latest',
-             path: 'latest',
+             label: 'preview',
+             path: 'preview',
+             banner: 'unreleased'
+          },
+          '3.1': {
+            label: '3.1',
+            path: 'latest',
+            banner: 'none'
           },
         },
         // ... other options
