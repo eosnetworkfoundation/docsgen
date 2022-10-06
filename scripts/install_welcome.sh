@@ -75,8 +75,6 @@ Install_Welcome() {
   done
 
   # patch up files titles
-  "${SCRIPT_DIR}"/add_title.py markdown_out/index.md
-  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR:?}"/add_title.py {}
   find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR:?}"/process_admonitions.py {}
 
   # fix paths for dev tools
