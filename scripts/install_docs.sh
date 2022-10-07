@@ -16,7 +16,7 @@
 #     community-developer-tools
 #  static
 #     docs
-Install_Welcome() {
+Install_Docs() {
   SCRIPT_DIR=$1
   # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_GIT_REPO=$2
