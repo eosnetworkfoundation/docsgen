@@ -223,15 +223,9 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'api-listing',
-            position: 'left',
-            label: 'API Listing',
-          },
-          {
-            type: 'doc',
             docId: 'index',
             position: 'left',
-            label: 'docs',
+            label: 'Welcome',
           },
           {
             type: 'dropdown',
@@ -267,6 +261,23 @@ const config = {
               },
               // ... more items
             ],
+          },
+          {
+            type: 'dropdown',
+            label: 'DUNE',
+            position: 'left',
+            items: [
+              {
+                label: '1.0',
+                href: '/DUNE/latest/',
+              },
+            ],
+          },
+          {
+            type: 'doc',
+            docId: 'api-listing',
+            position: 'left',
+            label: 'API Reference',
           },
           {
             type: 'localeDropdown',
