@@ -3,6 +3,7 @@ set -x
 Help() {
   echo "clean_rebuild.sh -d /path/to/build_root"
   echo "removes everything and rebuilds "
+  echo "please specify absolute path"
   exit 1
 }
 
@@ -24,6 +25,14 @@ done
 if [ -z "$ARG_BUILD_DIR" ]; then
   echo -e "Missing required argument -d directory"
   Help;
+fi
+# better to have absolute paths
+if [[ "${ARG_BUILD_DIR:0:1}" == / || "${ARG_BUILD_DIR:0:2}" == ~[/a-z] ]]
+then
+    echo "OK: Build Dir Absolute Path"
+else
+    echo -e "Directory must be absolte path starting with / or ~"
+    Help;
 fi
 
 # compute script dir for copying files from here to web directory
