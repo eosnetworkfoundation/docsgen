@@ -86,4 +86,4 @@ popd || exit
 # Another Leap Version
 # This will do full rebuild, add hosts and identify to deploy
 "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1"
-# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -h {fedevops@host} -i {fedevops.pem}
+# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -h {fedevops@host} -i {fedevops.pem} -c ~/content
