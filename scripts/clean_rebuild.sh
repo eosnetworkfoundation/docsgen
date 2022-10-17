@@ -80,6 +80,9 @@ done
 # CREATE VERSIONS: docusaurus copy content to versioned directories
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 npm run docusaurus docs:version:leap 3.2.0-rc1
+# now version is in place, so uncomment version specific config
+sed '/^.*DROPME.*$/d' ./docusaurus.config.js > ./temp.docusaurus.config.js
+mv ./temp.docusaurus.config.js ./docusaurus.config.js
 popd || exit
 
 ##

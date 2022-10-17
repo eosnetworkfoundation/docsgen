@@ -161,11 +161,13 @@ const config = {
              label: '3.1',
              path: 'latest',
           },
+          /* DROPME
           '3.2-rc1': {
             label: '3.2-rc1',
             path: '3.2-rc1',
             banner: 'unreleased',
-          }
+          },
+          DROPME */
         },
         // ... other options
       },
