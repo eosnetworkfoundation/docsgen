@@ -11,11 +11,47 @@ There are two steps to generating content
 
 The static content will need to be supported by an HTTP service. These steps only build out the content. They don't serve the content via HTTP.
 
+### Pre-Build
+Copy the markdown files from a repository into a working directory. From there do some processes the markdown doing fixes, and process the code comments into markdown. Finally put the markdown files under the correct location in a Docusaurus instance.
+
+**Fixes**
+- convert legacy admonitions to modern format
+- remove common unclosed html tags `<br>` or `<hr>`
+- move images to static Docusaurus directory and update image paths to match
+- change some file names like overview.md to index.md
+- suppress some files like a EULA 
+
+**Code Documentation**
+Runs through headers converts inline code to XML. Then converts XML to markdown. Places markdown inside Docusaurus directory.
+
+```mermaid
+graph LR;
+    subgraph stag3 [Docusaurus]
+    Folder;
+    end
+    subgraph stag2 [Documentation]
+    DoxyGen-->|markdown|Folder;
+    end
+    subgraph stag1 [Fixes]
+    CodeFixes-->|markdown|Folder;
+    end
+    subgraph working [Working]
+    Working-->CodeFixes;
+    Working-->DoxyGen;
+    end
+    subgraph github [GitHub]
+    Repo-->|clone|Working;
+    end
+```
+
 ### Quick Guide
 Very brief guide on steps to generating content from markdown to static html/css/js
 
+- install Docusaurus `npm install docusaurus`
+- clone repos into local `working` directory
+- process files
 - copy markdown into `/path/build_root/devdocs/eosdocs`
-- run `npm run build`
+- run `npm run build` in `/path/build_root/devdocs`
 - run `npm run serve` to see local hosted version
 
 **Example:**
@@ -24,6 +60,9 @@ Note this assumes all software is installed including Doc6s under *$ARG_BUILD_DI
 ARG_BUILD_DIR=$HOME/build_root/
 git clone https://git.github.com/enf/busio
 cd busio
+# do process steps here
+sed 's/<br>//g' docs/index.html
+rm docs/EULA.md
 mkdir $ARG_BUILD_DIR/devdocs/eosdocs/busio
 # copy markdown
 cp -R docs/* $ARG_BUILD_DIR/devdocs/eosdocs/busio
@@ -48,12 +87,8 @@ npm run serve
      - markdown
      - reference (API documentation from code)
 * reference - HTML docs that aren't markdown
-   * cdt - developer tools
-          -(API documentation from code)
-   * eos system contracts
-          - (API documentation from code)
-   * SDKs (java, swift, typescript)
-          - (API documentation from code)
+   * SDKs (java, swift)
+     - (API documentation from code)
 
 ## Code Structure
 
@@ -105,7 +140,6 @@ These are the HTTP APIs documented in YAML files. They are stored in the leap gi
 - find yaml files copy to `build_root/openapi`
 - run `npm run build`
 
-
 ## Nodeos Cloes and Kloes ##
 The markdown is pulled from github under the `leap` repo. A script is run to add meta-data to the document for better viewing.
 
@@ -139,8 +173,8 @@ npm run write-translations -- --locale en
 
 ## Translation ##
 The translations come in two form
-* **Static Markdown** - You will find these under source control under `i18n` directory as static markdown files
-* **React Templates** - The React template will have strings wrapped with `<Translate>` tags.
+- **Static Markdown** - You will find these under source control under `i18n` directory as static markdown files
+- **React Templates** - The React template will have strings wrapped with `<Translate>` tags.
 
 The full path the to `i18n` folder, is found under the current *devdocs* reposiory.
 `devdocs/web/docusarus/i18n`
@@ -163,3 +197,6 @@ After making direct changes to files under `/path/build_root/devdocs` you will n
 
 ## Search
 [Site Search](site-search.md)
+
+## Testing
+[Testing](Testing.md)
