@@ -26,13 +26,16 @@ if [ -z "$ARG_BUILD_DIR" ]; then
   Help;
 fi
 
+# compute script dir for copying files from here to web directory
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # create dir if it does not exist
 [ ! -d "$ARG_BUILD_DIR" ] && mkdir -p "$ARG_BUILD_DIR"
 
 # remove everthing under the build dir
 rm -rf "${ARG_BUILD_DIR:?}"/* || exit
 # remove working directories
-rm -rf ../working/*
+rm -rf "${SCRIPT_DIR:?}/working/*" || exit
 
 for gitrepo in eosnetworkfoundation/docs \
     AntelopeIO/cdt \
@@ -40,17 +43,38 @@ for gitrepo in eosnetworkfoundation/docs \
     AntelopeIO/leap \
     AntelopeIO/DUNE \
     eosnetworkfoundation/mandel-eosjs \
-    eosnetworkfoundation/mandel-java
+    eosnetworkfoundation/mandel-java \
+    eosnetworkfoundation/mandel-swift
 do
   echo "working on ${gitrepo}"
   # empty out var
   unset branch
+  if [ "${gitrepo}" == "AntelopeIO/leap" ]; then
+    branch="v3.1.2"
+        # later v3.2.0-rc1
+  fi
+  if [ "${gitrepo}" == "AntelopeIO/cdt" ]; then
+    branch="v3.0.1"
+  fi
+  if [ "${gitrepo}" == "eosnetworkfoundation/eos-system-contracts" ]; then
+    branch="v3.1.1"
+  fi
+
   if [ -z "$branch" ]; then
-    ./generate_documents.sh -d "$ARG_BUILD_DIR" -r ${gitrepo} -x
+    "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r ${gitrepo} -x
   else
-    ./generate_documents.sh -d "$ARG_BUILD_DIR" -r "${gitrepo}" -b "$branch" -x
+    "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "${gitrepo}" -b "$branch" -x
   fi
 done
-# one last time without supress flag
-# this last run builds the statics via "npm run build"
-./generate_documents.sh -d "$ARG_BUILD_DIR" -r "eosnetworkfoundation/mandel-swift"
+
+##
+# CREATE VERSIONS: docusaurus copy content to versioned directories
+pushd "$ARG_BUILD_DIR"/devdocs || exit
+npm run docusaurus docs:version:leap 3.1
+popd || exit
+
+##
+# Another Leap Version
+# This will do full rebuild, add hosts and identify to deploy
+"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1"
+# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -h {fedevops@host} -i {fedevops.pem}

@@ -233,8 +233,12 @@ const config = {
             position: 'left',
             items: [
               {
-                label: '3.1',
+                label: '3.2-rc0',
                 href: '/leap/latest/',
+              },
+              {
+                label: '3.1',
+                href: '/leap/3.1/',
               },
               // ... more items
             ],
