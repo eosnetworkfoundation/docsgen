@@ -65,7 +65,7 @@ echo "---"
 echo ""
 echo "# ${ARG_NAME}"
 echo ""
-set -x
+
 find "${find_args[@]}" | while IFS= read -r -d '' file
 do
   base_name=$(basename "$file")
