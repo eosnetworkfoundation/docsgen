@@ -25,11 +25,26 @@ Used to generate HTML from yaml files
 Nothing to install this is done via Javascript loaded from a CDN.
 
 ### `javadoc` ###
-Used to generate javadocs. Find avalible versions
+Used to generate javadocs. Only works with JDK/JRE 8. So please install version 8.
 
 ```
 java -version
-sudo apt install default-jre
+```
+
+If version is greater than 8, find the current versions and remove them
+
+```
+sudo apt list --installed | egrep -i `jre|jdk'
+```
+**Example**
+```
+sudo apt remove default-jre openjdk-11-jre default-jre-headless openjdk-11-jre-headless
+sudo apt autoremove
+```
+
+Install version 8 with javadoc
+```
+sudo apt-get install openjdk-8-jdk
 ```
 
 ### `node & npm` ###

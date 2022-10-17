@@ -124,7 +124,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsCdt.js'),
         versions: {
           current: {
-             label: 'latest',
+             label: '3.0',
              path: 'latest',
           },
         },
@@ -141,7 +141,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsSystemContracts.js'),
         versions: {
           current: {
-             label: 'latest',
+             label: '3.1',
              path: 'latest',
           },
         },
@@ -158,9 +158,14 @@ const config = {
         sidebarPath: require.resolve('./sidebarsLeap.js'),
         versions: {
           current: {
-             label: 'latest',
+             label: '3.1',
              path: 'latest',
           },
+          '3.2-rc1': {
+            label: '3.2-rc1',
+            path: '3.2-rc1',
+            banner: 'unreleased',
+          }
         },
         // ... other options
       },
@@ -175,7 +180,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsDUNE.js'),
         versions: {
           current: {
-             label: 'latest',
+             label: '1.0',
              path: 'latest',
           },
         },
@@ -233,12 +238,12 @@ const config = {
             position: 'left',
             items: [
               {
-                label: '3.2-rc0',
+                label: '3.1',
                 href: '/leap/latest/',
               },
               {
-                label: '3.1',
-                href: '/leap/3.1/',
+                label: '3.2-rc1',
+                href: '/leap/3.2-rc1/',
               },
               // ... more items
             ],
@@ -307,10 +312,10 @@ const config = {
           contextualSearch: true,
 
           // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
-          externalUrlRegex: 'external\\.com|domain\\.com',
+          externalUrlRegex: 'docs.eosnetwork.com',
 
           // Optional: Algolia search parameters
-          searchParameters: {},
+          //searchParameters: {},
 
           // Optional: path for search page that enabled by default (`false` to disable it)
           searchPagePath: 'search',

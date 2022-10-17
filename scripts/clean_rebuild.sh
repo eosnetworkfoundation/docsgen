@@ -59,8 +59,8 @@ do
   # empty out var
   unset branch
   if [ "${gitrepo}" == "AntelopeIO/leap" ]; then
-    branch="v3.1.2"
-        # later v3.2.0-rc1
+    branch="v3.2.0-rc1"
+    # later v3.1
   fi
   if [ "${gitrepo}" == "AntelopeIO/cdt" ]; then
     branch="v3.0.1"
@@ -79,11 +79,11 @@ done
 ##
 # CREATE VERSIONS: docusaurus copy content to versioned directories
 pushd "$ARG_BUILD_DIR"/devdocs || exit
-npm run docusaurus docs:version:leap 3.1
+npm run docusaurus docs:version:leap 3.2.0-rc1
 popd || exit
 
 ##
 # Another Leap Version
 # This will do full rebuild, add hosts and identify to deploy
-"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1"
-# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -h {fedevops@host} -i {fedevops.pem} -c ~/content
+"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.1.2"
+# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.1.2" -h {fedevops@host} -i {fedevops.pem} -c ~/content
