@@ -159,7 +159,7 @@ const config = {
         versions: {
           current: {
             label: '3.2-rc1',
-            path: '3.2-rc1',
+            path: 'latest', // switch to 3.2-rc1
             banner: 'unreleased',
           },
           /* DROPME

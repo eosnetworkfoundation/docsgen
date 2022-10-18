@@ -81,6 +81,8 @@ done
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 npm run docusaurus docs:version:leap 3.1
 # now version is in place, so uncomment version specific config
+sed "s/path: 'latest', \/\/ switch to 3.2-rc1/path: '3.2-rc1'/" ./docusaurus.config.js > ./temp.docusaurus.config.js
+mv ./temp.docusaurus.config.js ./docusaurus.config.js
 sed '/^.*DROPME.*$/d' ./docusaurus.config.js > ./temp.docusaurus.config.js
 mv ./temp.docusaurus.config.js ./docusaurus.config.js
 popd || exit
