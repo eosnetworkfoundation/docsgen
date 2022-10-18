@@ -90,8 +90,11 @@ pushd "$ARG_BUILD_DIR"/devdocs || exit
 # now version is in place, so uncomment version specific config
 sed "s/path: 'latest', \/\/ switch to 3.2-rc1/path: '3.2-rc1',/" ./docusaurus.config.js > ./temp.docusaurus.config.js
 mv ./temp.docusaurus.config.js ./docusaurus.config.js
+sed "s/lastVersion: 'current', \/\/ switch to 3.1/lastVersion: '3.1',/" ./docusaurus.config.js > ./temp.docusaurus.config.js
+mv ./temp.docusaurus.config.js ./docusaurus.config.js
 sed '/^.*DROPME.*$/d' ./docusaurus.config.js > ./temp.docusaurus.config.js
 mv ./temp.docusaurus.config.js ./docusaurus.config.js
+cp ./docusaurus.config.js ./docusaurus.config.js.backup
 # explict build
 npm run build
 popd || exit
@@ -99,3 +102,6 @@ popd || exit
 # Final run to push to production Add Hosts and Identify
 # USE DUNE because it is a one file change and its fast
 # UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -x -f -r "AntelopeIO/DUNE" -h {fedevops@host} -i {fedevops.pem} -c ~/content
+##
+# Preserve our modify config after any final operations
+cp "$ARG_BUILD_DIR"/devdocs/docusaurus.config.js.backup "$ARG_BUILD_DIR"/devdocs/docusaurus.config.js

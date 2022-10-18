@@ -152,7 +152,7 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'leap',
-        lastVersion: 'current',
+        lastVersion: 'current', // switch to 3.1
         path: 'eosdocs/leap',
         routeBasePath: 'leap',
         sidebarPath: require.resolve('./sidebarsLeap.js'),
