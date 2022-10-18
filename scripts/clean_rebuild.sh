@@ -80,15 +80,22 @@ done
 # CREATE VERSIONS: docusaurus copy content to versioned directories
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 npm run docusaurus docs:version:leap 3.1
-# now version is in place, so uncomment version specific config
-sed "s/path: 'latest', \/\/ switch to 3.2-rc1/path: '3.2-rc1'/" ./docusaurus.config.js > ./temp.docusaurus.config.js
-mv ./temp.docusaurus.config.js ./docusaurus.config.js
-sed '/^.*DROPME.*$/d' ./docusaurus.config.js > ./temp.docusaurus.config.js
-mv ./temp.docusaurus.config.js ./docusaurus.config.js
 popd || exit
 
 ##
 # Another Leap Version
-# This will do full rebuild, add hosts and identify to deploy
-"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1"
-# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -h {fedevops@host} -i {fedevops.pem} -c ~/content
+"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -x
+# Configure version paths and banners
+pushd "$ARG_BUILD_DIR"/devdocs || exit
+# now version is in place, so uncomment version specific config
+sed "s/path: 'latest', \/\/ switch to 3.2-rc1/path: '3.2-rc1',/" ./docusaurus.config.js > ./temp.docusaurus.config.js
+mv ./temp.docusaurus.config.js ./docusaurus.config.js
+sed '/^.*DROPME.*$/d' ./docusaurus.config.js > ./temp.docusaurus.config.js
+mv ./temp.docusaurus.config.js ./docusaurus.config.js
+# explict build
+npm run build
+popd || exit
+
+# Final run to push to production Add Hosts and Identify
+# USE DUNE because it is a one file change and its fast
+# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -x -f -r "AntelopeIO/DUNE" -h {fedevops@host} -i {fedevops.pem} -c ~/content
