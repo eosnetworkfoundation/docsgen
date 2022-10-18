@@ -166,7 +166,7 @@ const config = {
           '3.1' : {
             label: '3.1',
             path: 'latest',
-            banner: none,
+            banner: 'none',
           }
           DROPME */
         },
