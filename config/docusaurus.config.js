@@ -158,15 +158,16 @@ const config = {
         sidebarPath: require.resolve('./sidebarsLeap.js'),
         versions: {
           current: {
-             label: '3.1',
-             path: 'latest',
-          },
-          /* DROPME
-          '3.2-rc1': {
             label: '3.2-rc1',
             path: '3.2-rc1',
-            banner: 'none',
+            banner: 'unreleased',
           },
+          /* DROPME
+          '3.1' : {
+            label: '3.1',
+            path: 'latest',
+            banner: none,
+          }
           DROPME */
         },
         // ... other options
