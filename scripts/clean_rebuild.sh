@@ -38,6 +38,8 @@ fi
 # compute script dir for copying files from here to web directory
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+[ -f "${SCRIPT_DIR}"/../config/docusaurus.config.js.new ] && mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.new "${SCRIPT_DIR}"/../config/docusaurus.config.js.next
+
 # create dir if it does not exist
 [ ! -d "$ARG_BUILD_DIR" ] && mkdir -p "$ARG_BUILD_DIR"
 
@@ -85,16 +87,9 @@ popd || exit
 ##
 # Another Leap Version
 "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -x
+mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js
 # Configure version paths and banners
 pushd "$ARG_BUILD_DIR"/devdocs || exit
-# now version is in place, so uncomment version specific config
-sed "s/path: 'latest', \/\/ switch to 3.2-rc1/path: '3.2-rc1',/" ./docusaurus.config.js > ./temp.docusaurus.config.js
-mv ./temp.docusaurus.config.js ./docusaurus.config.js
-sed "s/lastVersion: 'current', \/\/ switch to 3.1/lastVersion: '3.1',/" ./docusaurus.config.js > ./temp.docusaurus.config.js
-mv ./temp.docusaurus.config.js ./docusaurus.config.js
-sed '/^.*DROPME.*$/d' ./docusaurus.config.js > ./temp.docusaurus.config.js
-mv ./temp.docusaurus.config.js ./docusaurus.config.js
-cp ./docusaurus.config.js ./docusaurus.config.js.backup
 # explict build
 npm run build
 popd || exit

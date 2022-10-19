@@ -105,7 +105,12 @@ Install_Docusaurus() {
     popd || exit
   fi
   # push our own config
-  cp "${SCRIPT_DIR:?}/../config/docusaurus.config.js" "${ARG_BUILD_DIR:?}/devdocs"
+  if [ -f "${SCRIPT_DIR:?}/../config/docusaurus.config.js.new" ]; then
+    cp "${SCRIPT_DIR:?}/../config/docusaurus.config.js.new" "${ARG_BUILD_DIR:?}/devdocs/docusaurus.config.js"
+  else
+    cp "${SCRIPT_DIR:?}/../config/docusaurus.config.js" "${ARG_BUILD_DIR:?}/devdocs"
+  fi
+
   # copy over side sidebars one for each seperly versioned doc-id
   find "${SCRIPT_DIR:?}"/../web/docusaurus/src -type f -name "sidebar*.js" -print0 | while IFS= read -r -d '' sidebar
   do
