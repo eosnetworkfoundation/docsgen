@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'EOS Developer Documenation',
+  title: 'EOS Developer Documentation',
   tagline: 'Documentation for Developing on EOS Blockchain',
   url: 'https://docs.eosnetwork.com/',
   baseUrl: '/',
@@ -152,7 +152,7 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'leap',
-        lastVersion: '3.1', 
+        lastVersion: '3.1',
         path: 'eosdocs/leap',
         routeBasePath: 'leap',
         sidebarPath: require.resolve('./sidebarsLeap.js'),
@@ -221,7 +221,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'EOS Developer Documenation',
+        title: 'EOS Developer Documentation',
         logo: {
           alt: 'EOS Network',
           src: 'img/eosn_logo.png',

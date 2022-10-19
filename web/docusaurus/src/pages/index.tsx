@@ -9,7 +9,7 @@ import styles from './index.module.css';
 
 import Translate, {translate} from '@docusaurus/Translate';
 
-const SiteTitle = <Translate>EOS Developer Documenation</Translate>;
+const SiteTitle = <Translate>EOS Developer Documentation</Translate>;
 const SiteDesc = <Translate>Documentation for Developing on EOS Blockchain</Translate>;
 
 function HomepageHeader() {
