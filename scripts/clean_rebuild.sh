@@ -38,6 +38,11 @@ fi
 # compute script dir for copying files from here to web directory
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+# move script out of the way so it doesn't get picked up
+# generate_documents.sh will pick up
+#   - docusaurus.config.js.new
+# and fall back to
+#   - docusaurus.config.js
 [ -f "${SCRIPT_DIR}"/../config/docusaurus.config.js.new ] && mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.new "${SCRIPT_DIR}"/../config/docusaurus.config.js.next
 
 # create dir if it does not exist
@@ -86,10 +91,11 @@ popd || exit
 
 ##
 # Another Leap Version
-"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -x
 # update config for v3.1
-mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js
 # Configure version paths and banners
+mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js.new
+"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -x
+
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 # explict build
 npm run build
