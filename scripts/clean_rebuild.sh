@@ -87,6 +87,7 @@ popd || exit
 ##
 # Another Leap Version
 "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -x
+# update config for v3.1
 mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js
 # Configure version paths and banners
 pushd "$ARG_BUILD_DIR"/devdocs || exit
@@ -97,6 +98,3 @@ popd || exit
 # Final run to push to production Add Hosts and Identify
 # USE DUNE because it is a one file change and its fast
 # UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -x -f -r "AntelopeIO/DUNE" -h {fedevops@host} -i {fedevops.pem} -c ~/content
-##
-# Preserve our modify config after any final operations
-cp "$ARG_BUILD_DIR"/devdocs/docusaurus.config.js.backup "$ARG_BUILD_DIR"/devdocs/docusaurus.config.js
