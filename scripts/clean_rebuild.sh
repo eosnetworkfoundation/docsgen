@@ -53,7 +53,9 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 [ ! -d "$ARG_BUILD_DIR" ] && mkdir -p "$ARG_BUILD_DIR"
 
 # remove everthing under the build dir
-read -p "Removing All Files under ${ARG_BUILD_DIR:?} Continue? (Y/N): " confirm && [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]] || exit 1
+echo "Removing All Files under ${ARG_BUILD_DIR:?} Continue? (Y/N): "
+read -r confirm 
+[[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]] || exit 1
 rm -rf "${ARG_BUILD_DIR:?}"/* || exit
 # remove working directories
 rm -rf "${SCRIPT_DIR:?}/working/*" || exit
