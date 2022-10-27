@@ -29,6 +29,10 @@ fi
 # better to have absolute paths
 if [[ "${ARG_BUILD_DIR:0:1}" == / || "${ARG_BUILD_DIR:0:2}" == ~[/a-z] ]]
 then
+    if [ "$ARG_BUILD_DIR" == "/" ]; then
+      echo "Root directory is not allowed, it will removal all files under /"
+      exit 1
+    fi
     echo "OK: Build Dir Absolute Path"
 else
     echo -e "Directory must be absolte path starting with / or ~"
@@ -49,6 +53,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 [ ! -d "$ARG_BUILD_DIR" ] && mkdir -p "$ARG_BUILD_DIR"
 
 # remove everthing under the build dir
+read -p "Removing All Files under ${ARG_BUILD_DIR:?} Continue? (Y/N): " confirm && [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]] || exit 1
 rm -rf "${ARG_BUILD_DIR:?}"/* || exit
 # remove working directories
 rm -rf "${SCRIPT_DIR:?}/working/*" || exit
