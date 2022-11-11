@@ -103,6 +103,10 @@ Install_Cdt() {
   mv temp.md markdown_out/05_features/30_binary-extension.md
   cp -R markdown_out/* "$ARG_BUILD_DIR"/devdocs/eosdocs/cdt
 
+  # added meta data for repo and branch to each file
+  source ${SCRIPT_DIR}/add_front_matter.sh
+  Add_Front_Matter $ARG_GIT_REPO $ARG_BRANCH $ARG_TAG
+
   # three args, build_root, doxyfile, and path to logo
   DoxygenCDT "$ARG_BUILD_DIR" \
      "${SCRIPT_DIR}"/../web/eosn_logo.png \

@@ -66,7 +66,6 @@ DoxygenSystemContracts() {
   mv reference/index_files.md reference/Files/index.md
   mv reference/index_namespaces.md reference/Namespaces/index.md
 
-
   if [ "$SUPRESS_EULA" -eq 1 ]; then
     rm -rf reference/Pages
   fi
@@ -91,6 +90,10 @@ MarkdownSystemContracts() {
 
   # pull in markdown docs from git
   cp -R docs/* markdown_out
+
+  # added meta data for repo and branch to each file
+  source ${SCRIPT_DIR}/add_front_matter.sh
+  Add_Front_Matter $ARG_GIT_REPO $ARG_BRANCH $ARG_TAG
 
   # fix relative links
   REPLACE="\/system-contracts\/latest\/reference\/"

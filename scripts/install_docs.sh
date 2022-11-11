@@ -35,6 +35,10 @@ Install_Docs() {
   mkdir markdown_out
   cp -R docs/* markdown_out
 
+  # added meta data for repo and branch to each file
+  source ${SCRIPT_DIR}/add_front_matter.sh
+  Add_Front_Matter $ARG_GIT_REPO $ARG_BRANCH $ARG_TAG
+
   # setup images
   if [ -d markdown_out/01_overview/images ]; then
      cp -r markdown_out/01_overview/images/* "$IMG_DIR"
@@ -131,6 +135,7 @@ Install_Docs() {
   REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosio_1_1wrap"
   sed "s/${FIND}/${REPLACE}/" markdown_out/04_protocol/index.md > tmp_index.md
   mv tmp_index.md markdown_out/04_protocol/index.md
+
 
   # copy in the files to build root
   cp glossary.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs

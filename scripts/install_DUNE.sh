@@ -21,8 +21,16 @@ Install_DUNE() {
 
   # to keep docs clean and process idempotent
   [ ! -d markdown_out ] && mkdir markdown_out
+  cp README.md markdown_out/
+
+  # added meta data for repo and branch to each file
+  source ${SCRIPT_DIR}/add_front_matter.sh
+  Add_Front_Matter $ARG_GIT_REPO $ARG_BRANCH $ARG_TAG
+
   # need to update image paths
-  sed 's/docs\/images\//\/DUNE\/images\//g' README.md > markdown_out/index.md
+  sed 's/docs\/images\//\/DUNE\/images\//g' markdown_out/README.md > markdown_out/index.md
+  # do not need README 
+  rm markdown_out/README.md
   # formally close html angle bracket by adding a slash
   # only happens for eol image tags thus the '$'
   sed 's/">$/"\/>/g' markdown_out/index.md > temp.md

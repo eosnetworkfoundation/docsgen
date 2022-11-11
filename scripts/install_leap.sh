@@ -3,7 +3,6 @@
 # Populates the following directories
 # leap
 #
-
 DoxygenLeap() {
   BUILD_ROOT=$1
   LOGO=$2
@@ -64,6 +63,10 @@ Install_Leap() {
   # process and copy markdown
   find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
   find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
+
+  # added meta data for repo and branch to each file
+  source ${SCRIPT_DIR}/add_front_matter.sh
+  Add_Front_Matter $ARG_GIT_REPO $ARG_BRANCH $ARG_TAG
 
   # fix paths for dev tools
   find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file
