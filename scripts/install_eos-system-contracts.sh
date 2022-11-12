@@ -82,18 +82,31 @@ MarkdownSystemContracts() {
   ARG_TAG=$5
 
   mkdir markdown_out
-  mv README.md markdown_out
   mv LICENSE markdown_out/LICENSE.md
   # quick fix to path for License
-  sed 's/LICENSE/https:\/\/github.com\/eosnetworkfoundation\/eos-system-contracts\/blob\/main\/LICENSE/' markdown_out/README.md > tmp_README.md
-  mv tmp_README.md markdown_out/README.md
+  sed 's/LICENSE/https:\/\/github.com\/eosnetworkfoundation\/eos-system-contracts\/blob\/main\/LICENSE/' README.md > tmp_README.md
 
   # pull in markdown docs from git
   cp -R docs/* markdown_out
 
+  # process markdown
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
+
   # added meta data for repo and branch to each file
   source ${SCRIPT_DIR}/add_front_matter.sh
-  Add_Front_Matter $ARG_GIT_REPO $ARG_BRANCH $ARG_TAG
+  # 2nd arg our working directory
+  Add_Front_Matter "$ARG_GIT_REPO" "markdown_out" "$ARG_BRANCH" "$ARG_TAG"
+
+  # add front matter for README: one off special
+  echo "---" > markdown_out/README.md
+  BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
+  RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/"
+  META="  - ${ARG_GIT_REPO}\n  - ${BRANCH:-main}"
+  THIS_FILE_META=$(echo "tags:\n  - ${RAW_PATH}/README.md\n${META}" | sed 's#///#/#g' | sed 's#//#/#g')
+  printf "${THIS_FILE_META}\n" >> markdown_out/README.md
+  echo "---" >> markdown_out/README.md
+  cat tmp_README.md >> markdown_out/README.md
 
   # fix relative links
   REPLACE="\/system-contracts\/latest\/reference\/"
@@ -133,10 +146,6 @@ MarkdownSystemContracts() {
   sed 's/title: About System Contracts/title: Overview/' markdown_out/index.md > tmp_index.md
   mv tmp_index.md markdown_out/index.md
 
-  # process markdown
-  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
-  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
-
   # copy into serving location
   cp -R markdown_out/* "${ARG_BUILD_DIR}"/devdocs/eosdocs/system-contracts
 }
@@ -151,7 +160,7 @@ Install_Eos-system-contracts() {
   MarkdownSystemContracts "$SCRIPT_DIR" "$ARG_GIT_REPO" "$ARG_BUILD_DIR" "$ARG_BRANCH" "$ARG_TAG"
 
   # three args, build_root, doxyfile, and path to logo
-  DoxygenSystemContracts "$ARG_BUILD_DIR" \
-     "${SCRIPT_DIR}"/../web/eosn_logo.png \
-     "${SCRIPT_DIR}"/../config
+  #DoxygenSystemContracts "$ARG_BUILD_DIR" \
+  #   "${SCRIPT_DIR}"/../web/eosn_logo.png \
+  #   "${SCRIPT_DIR}"/../config
 }

@@ -66,7 +66,8 @@ Install_Leap() {
 
   # added meta data for repo and branch to each file
   source ${SCRIPT_DIR}/add_front_matter.sh
-  Add_Front_Matter $ARG_GIT_REPO $ARG_BRANCH $ARG_TAG
+  # 2nd arg our working directory
+  Add_Front_Matter "$ARG_GIT_REPO" "markdown_out" "$ARG_BRANCH" "$ARG_TAG" 
 
   # fix paths for dev tools
   find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file

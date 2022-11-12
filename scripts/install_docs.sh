@@ -37,7 +37,8 @@ Install_Docs() {
 
   # added meta data for repo and branch to each file
   source ${SCRIPT_DIR}/add_front_matter.sh
-  Add_Front_Matter $ARG_GIT_REPO $ARG_BRANCH $ARG_TAG
+  # 2nd arg our working directory
+  Add_Front_Matter "$ARG_GIT_REPO" "markdown_out" "$ARG_BRANCH" "$ARG_TAG"
 
   # setup images
   if [ -d markdown_out/01_overview/images ]; then
@@ -137,8 +138,17 @@ Install_Docs() {
   mv tmp_index.md markdown_out/04_protocol/index.md
 
 
+  # add front matter for glossary: one off special
+  echo "---" > "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
+  BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
+  RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/"
+  META="  - ${ARG_GIT_REPO}\n  - ${BRANCH:-main}"
+  THIS_FILE_META=$(echo "tags:\n  - ${RAW_PATH}/glossary.md\n${META}" | sed 's#///#/#g' | sed 's#//#/#g')
+  printf "${THIS_FILE_META}\n" >> "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
+  echo "---" >> "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
+  cat glossary.md >> "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
+
   # copy in the files to build root
-  cp glossary.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs
   cp markdown_out/index.md "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs
   cp -r markdown_out/* "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs
 }

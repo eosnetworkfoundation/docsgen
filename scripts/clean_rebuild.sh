@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+
 Help() {
   echo "clean_rebuild.sh -d /path/to/build_root"
   echo "removes everything and rebuilds "
@@ -54,7 +54,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # remove everthing under the build dir
 echo "Removing All Files under ${ARG_BUILD_DIR:?} Continue? (Y/N): "
-read -r confirm 
+read -r confirm
 [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]] || exit 1
 rm -rf "${ARG_BUILD_DIR:?}"/* || exit
 # remove working directories
