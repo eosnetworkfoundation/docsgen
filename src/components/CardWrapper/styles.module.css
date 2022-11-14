@@ -1,0 +1,42 @@
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 25px;
+  margin-bottom: 55px;
+}
+
+.divider {
+  display: none;
+}
+
+@media (min-width: 996px) {
+  .cardWrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin: auto;
+    gap: 40px;
+    padding: 0;
+    margin-bottom: 145px;
+  }
+
+  .divider {
+    display: inline;
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-black);
+    width: 70%;
+    margin: auto;
+  }
+}
+
+@media (min-width: 500px) {
+  .cardWrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

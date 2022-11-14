@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "EOS 개발자 문서화",
+    "description": "The title in the navbar"
+  },
+  "item.label.Smart Contracts": {
+    "message": "스마트 계약",
+    "description": "Navbar item with label Smart Contracts"
+  },
+  "item.label.Client Side": {
+    "message": "클라이언트 사이드",
+    "description": "Navbar item with label Client Side"
+  },
+  "item.label.Developer Tools": {
+    "message": "개발툴",
+    "description": "Navbar item with label Developer Tools"
+  },
+  "item.label.GitHub": {
+    "message": "깃허브",
+    "description": "Navbar item with label GitHub"
+  }
+}

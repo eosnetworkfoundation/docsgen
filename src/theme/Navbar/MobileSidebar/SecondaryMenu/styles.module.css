@@ -1,0 +1,18 @@
+.secondary_menu a {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.secondary_menu ul {
+  gap: 12px;
+}
+
+.secondary_menu li {
+  padding: 0 0 0 24px !important;
+}
+
+.secondary_menu li:not(:first-child) {
+  margin: 0 !important;
+}

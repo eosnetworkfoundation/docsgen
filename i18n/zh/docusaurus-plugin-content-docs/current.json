@@ -1,0 +1,170 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Client-Side": {
+    "message": "Client-Side",
+    "description": "The label for category Client-Side in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Readme": {
+    "message": "Readme",
+    "description": "The label for category Readme in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.classes": {
+    "message": "classes",
+    "description": "The label for category classes in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.enums": {
+    "message": "enums",
+    "description": "The label for category enums in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.interfaces": {
+    "message": "interfaces",
+    "description": "The label for category interfaces in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.modules": {
+    "message": "modules",
+    "description": "The label for category modules in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.EOSIO Overview": {
+    "message": "EOSIO Overview",
+    "description": "The label for category EOSIO Overview in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.EOSIO Software Installation": {
+    "message": "EOSIO Software Installation",
+    "description": "The label for category EOSIO Software Installation in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Nodeos": {
+    "message": "Nodeos",
+    "description": "The label for category Nodeos in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Nodeos Usage": {
+    "message": "Nodeos Usage",
+    "description": "The label for category Nodeos Usage in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Nodeos Common Setups": {
+    "message": "Nodeos Common Setups",
+    "description": "The label for category Nodeos Common Setups in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Development Environment": {
+    "message": "Development Environment",
+    "description": "The label for category Development Environment in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Nodeos Plugins": {
+    "message": "Nodeos Plugins",
+    "description": "The label for category Nodeos Plugins in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Chain Api Plugin": {
+    "message": "Chain Api Plugin",
+    "description": "The label for category Chain Api Plugin in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Db Size Api Plugin": {
+    "message": "Db Size Api Plugin",
+    "description": "The label for category Db Size Api Plugin in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Net Api Plugin": {
+    "message": "Net Api Plugin",
+    "description": "The label for category Net Api Plugin in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Producer Api Plugin": {
+    "message": "Producer Api Plugin",
+    "description": "The label for category Producer Api Plugin in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Producer Plugin": {
+    "message": "Producer Plugin",
+    "description": "The label for category Producer Plugin in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.State History Plugin": {
+    "message": "State History Plugin",
+    "description": "The label for category State History Plugin in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Test Control Api Plugin": {
+    "message": "Test Control Api Plugin",
+    "description": "The label for category Test Control Api Plugin in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Trace Api Plugin": {
+    "message": "Trace Api Plugin",
+    "description": "The label for category Trace Api Plugin in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Nodeos Replays": {
+    "message": "Nodeos Replays",
+    "description": "The label for category Nodeos Replays in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Nodeos Logging": {
+    "message": "Nodeos Logging",
+    "description": "The label for category Nodeos Logging in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Nodeos Concepts": {
+    "message": "Nodeos Concepts",
+    "description": "The label for category Nodeos Concepts in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Cleos": {
+    "message": "Cleos",
+    "description": "The label for category Cleos in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.how-to-guides": {
+    "message": "how-to-guides",
+    "description": "The label for category how-to-guides in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Command-Reference": {
+    "message": "Command-Reference",
+    "description": "The label for category Command-Reference in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Convert": {
+    "message": "Convert",
+    "description": "The label for category Convert in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Create": {
+    "message": "Create",
+    "description": "The label for category Create in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Get": {
+    "message": "Get",
+    "description": "The label for category Get in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Multisig": {
+    "message": "Multisig",
+    "description": "The label for category Multisig in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Net": {
+    "message": "Net",
+    "description": "The label for category Net in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Push": {
+    "message": "Push",
+    "description": "The label for category Push in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Set": {
+    "message": "Set",
+    "description": "The label for category Set in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.System": {
+    "message": "System",
+    "description": "The label for category System in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Version": {
+    "message": "Version",
+    "description": "The label for category Version in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Wallet": {
+    "message": "Wallet",
+    "description": "The label for category Wallet in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Keosd": {
+    "message": "Keosd",
+    "description": "The label for category Keosd in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Keosd Plugins": {
+    "message": "Keosd Plugins",
+    "description": "The label for category Keosd Plugins in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Keosd How-to Guides": {
+    "message": "Keosd How-to Guides",
+    "description": "The label for category Keosd How-to Guides in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Utilities": {
+    "message": "Utilities",
+    "description": "The label for category Utilities in sidebar tutorialSidebar"
+  }
+}

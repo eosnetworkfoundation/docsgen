@@ -1,0 +1,20 @@
+---
+tags:
+  - AntelopeIO/leap/tree/v3.2.0-rc1/docs/01_nodeos/06_logging/00_setup-logging.json.md
+  - AntelopeIO/leap
+  - v3.2.0-rc1
+title: Setup logging.json
+---
+
+The `logging.json` file is usually located in the specified `--config-dir`, the same directory as the `config.ini` file. This path can be explicitly defined using the `-l` or `--logconf` options when starting `nodeos`.
+ 
+```sh
+nodeos --help
+```
+```console
+...
+Application Command Line Options:
+...
+--config-dir arg                      Directory containing configuration files such as config.ini
+-l [ --logconf ] arg (=logging.json)  Logging configuration file name/path for library users
+```

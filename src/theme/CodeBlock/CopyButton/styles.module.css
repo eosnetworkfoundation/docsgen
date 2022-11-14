@@ -1,0 +1,59 @@
+:global(.theme-code-block:hover) .copyButtonCopied {
+  opacity: 1 !important;
+}
+
+.copyButton {
+  display: flex;
+  font-size: unset;
+}
+
+.copyButtonIcons {
+  position: relative;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.copyButtonIcon,
+.copyButtonSuccessIcon {
+  fill: currentColor;
+  opacity: inherit;
+  width: inherit;
+  height: inherit;
+  transition: all 0.15s ease;
+}
+
+.copyButtonSuccessIcon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.33);
+  opacity: 0;
+  color: #00d600;
+}
+
+.copyButtonSuccessIconWithTitle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.33);
+  opacity: 0;
+}
+
+.copyButtonSuccessIconWithTitle path {
+  fill: #00d600;
+}
+
+.copyButtonCopied .copyButtonIcon {
+  transform: scale(0.33);
+  opacity: 0;
+}
+
+.copyButtonCopied .copyButtonSuccessIcon {
+  transform: translate(0%, -100%) scale(1);
+  opacity: 1;
+  transition-delay: 0.075s;
+}
+
+.copyButtonCopied .copyButtonSuccessIconWithTitle {
+  transform: translate(0%, -125%) scale(1);
+  opacity: 1;
+  transition-delay: 0.075s;
+}

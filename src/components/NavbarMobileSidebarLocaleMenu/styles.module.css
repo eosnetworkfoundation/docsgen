@@ -1,0 +1,13 @@
+.localeItem a {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+
+  letter-spacing: 0.5px;
+
+  color: #000000;
+}
+
+.localeItem .menu__list-item svg {
+  background-color: red;
+}

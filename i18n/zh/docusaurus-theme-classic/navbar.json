@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "EOS 程序员 文档",
+    "description": "The title in the navbar"
+  },
+  "item.label.Smart Contracts": {
+    "message": "智能合约",
+    "description": "Navbar item with label Smart Contracts"
+  },
+  "item.label.Client Side": {
+    "message": "在客户端",
+    "description": "Navbar item with label Client Side"
+  },
+  "item.label.Developer Tools": {
+    "message": "開發工具",
+    "description": "Navbar item with label Developer Tools"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub (版本库托管)",
+    "description": "Navbar item with label GitHub"
+  }
+}
