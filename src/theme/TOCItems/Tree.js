@@ -9,7 +9,6 @@ function TOCItemTree({toc, className, linkClassName, isChild}) {
     return null;
   }
 
-  console.log(toc, isChild)
   return (
     <ul className={clsx(isChild ? undefined : className, styles.tocUl, isChild && styles.tocUlChild)}>
       {toc.map((heading) => (

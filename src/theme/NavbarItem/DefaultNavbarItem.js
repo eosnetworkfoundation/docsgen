@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import NavbarNavLink from '@theme/NavbarItem/NavbarNavLink';
+import { useLocation } from '@docusaurus/router';
 function DefaultNavbarItemDesktop({
   className,
   isDropdownItem = false,
@@ -38,27 +39,28 @@ export default function DefaultNavbarItem({
   ...props
 }) {
   const [isActive, setIsActive] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    if (props.href === window.location.pathname || props.to === window.location.pathname) {
+    if (props.href === location.pathname || props.to === location.pathname) {
       setIsActive(true);
     }
 
     return () => {
       setIsActive(false);
     }
-  }, [window.location.pathname]);
+  }, [location.pathname]);
 
   const Comp = mobile ? DefaultNavbarItemMobile : DefaultNavbarItemDesktop;
 
   return (
     <Comp
-      {...props}
-      activeClassName={
-        props.activeClassName ??
-        (mobile ? 'menu__link--active' : 'navbar__link--active')
-      }
-      isActive={() => isActive}
-    />
+        {...props}
+        activeClassName={
+          props.activeClassName ??
+          (mobile ? 'menu__link--active' : 'navbar__link--active')
+        }
+        isActive={() => isActive}
+      />
   );
 }

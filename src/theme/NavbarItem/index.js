@@ -9,7 +9,6 @@ function normalizeComponentType(type, props) {
   return type;
 }
 export default function NavbarItem({type, ...props}) {
-  console.log(type)
   const componentType = normalizeComponentType(type, props);
   const NavbarItemComponent = ComponentTypes[componentType];
   if (!NavbarItemComponent) {

@@ -1032,7 +1032,7 @@ aside {
 
   .pagination-nav__link__content-prev {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     gap: 16px;
   }
@@ -1040,7 +1040,7 @@ aside {
   .pagination-nav__link__content-next {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     gap: 16px;
   }
