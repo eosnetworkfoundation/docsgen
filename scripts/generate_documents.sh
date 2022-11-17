@@ -36,6 +36,7 @@ Help() {
   echo "-i: private key for web host, needed to install files"
   echo "-h: destination user@host(s) where to install files"
   echo "-c: content directory on remote host for tar archives"
+  echo "-s: staging, put content into staging web root"
   echo "-x: suppress build statics process"
   echo "-f: fast, skip git clone if files less then 1 hour old"
   echo ""
