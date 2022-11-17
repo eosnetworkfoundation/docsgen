@@ -66,11 +66,12 @@ options:
 -i: private key for web host, needed to install files
 -h: destination user@host(s) where to install files
 -c: context directory for backups and archives
+-s: staging, put content into staging web root
 -x: suppress build statics process
 -f: fast, skip git checkout if files less then 1 hour old
 
-example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB -c /path/to/backup_dir
-Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version
+example: generate_documents.sh -r eosnetworkfoundation/mandel -b ehp-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB -c /path/to/backup_dir
+Run script to build mandel docs and update production site , with branch ehp-working and tag v3.1.1. This updates latest documentation version
 ```
 
 After running there will be many static HTML, CSS, JS files under `/path/to/build_dir/devdocs/build`. The files are served as the current production version.

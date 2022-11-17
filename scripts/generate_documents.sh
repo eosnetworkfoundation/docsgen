@@ -269,12 +269,14 @@ Remote_Upload() {
         base_tar_file=$(basename "${archive}")
         # on remote move into content directory
         move_cmd="mv ${base_tar_file} ${ARG_CONTENT:-~/content}"
-        # on remote backup existing
-        backup_cmd="cd /var/www/html && tar czf ${ARG_CONTENT:-~/content}/devdocs_${bdate}_backup.tgz -- *"
+        # on remote backup existing, only run is ARG_STAGING is not set (aka production)
+        if [ -z "$ARG_STAGING" ]; then
+          backup_cmd="if [ ! -d ${WEBROOT:-/var/www/html} ]; then mkdir ${WEBROOT:-/var/www/html}; fi && cd ${WEBROOT:-/var/www/html} && tar czf ${ARG_CONTENT:-~/content}/devdocs_${BUILD_TYPE:-production}_${bdate}_backup.tgz -- *"
+        fi
         # loop over tar 1st level and delete on remote host
-        delete_cmd="cd /var/www/html && tar tfz ${ARG_CONTENT:-~/content}/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
+        delete_cmd="cd ${WEBROOT:-/var/www/html} && tar tfz ${ARG_CONTENT:-~/content}/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
         # un-pack tar populate new things
-        update_cmd="cd /var/www/html && tar xzf ${ARG_CONTENT:-~/content}/${base_tar_file}"
+        update_cmd="cd ${WEBROOT:-/var/www/html} && tar xzf ${ARG_CONTENT:-~/content}/${base_tar_file}"
         ### sftp copy over
         echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
         ### move
@@ -313,7 +315,7 @@ Reset_Color='\033[0m' # No Color
 
 ############################################################################
 # Get the options
-while getopts "r:d:b:t:i:h:c:xf" option; do
+while getopts "r:d:b:t:i:h:c:sxf" option; do
    case $option in
       r) # repository
         ARG_GIT_REPO=${OPTARG}
@@ -336,6 +338,9 @@ while getopts "r:d:b:t:i:h:c:xf" option; do
       c) # set content dir
         ARG_CONTENT=${OPTARG}
         ;;
+      s) # set staging
+        ARG_STAGING="True"
+        ;;
       x) # set fast
         ARG_SUPPRESS_BUILD="True"
         ;;
@@ -357,6 +362,12 @@ if [ -z "$ARG_GIT_REPO" ] || [ -z "$ARG_BUILD_DIR" ]; then
   Help;
 fi
 
+## STAGING CHANGES
+if [ -n "$ARG_STAGING" ]; then
+  WEBROOT='/var/www/html/devrel_staging'
+  BUILD_TYPE='staging'
+fi
+
 ##############################################################################
 # Initialize
 ##############################################################################
@@ -375,6 +386,10 @@ if [ "$DEBUG" ]; then
   for val in "${ARG_HOST[@]}"; do
       echo " $val"
     done
+  echo "webroot "
+  echo "${WEBROOT:-/var/www/html}"
+  echo "build type"
+  echo "${BUILD_TYPE}:-production"
 fi
 
 # if host and id exist check content directory exists
