@@ -65,9 +65,10 @@ Install_Leap() {
   find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
 
   # added meta data for repo and branch to each file
-  source ${SCRIPT_DIR}/add_front_matter.sh
+  # shellcheck source=scripts/add_front_matter.sh
+  source "${SCRIPT_DIR}"/add_front_matter.sh
   # 2nd arg our working directory
-  Add_Front_Matter "$ARG_GIT_REPO" "markdown_out" "$ARG_BRANCH" "$ARG_TAG" 
+  Add_Front_Matter "$ARG_GIT_REPO" "markdown_out" "$ARG_BRANCH" "$ARG_TAG"
 
   # fix paths for dev tools
   find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file

@@ -36,7 +36,8 @@ Install_Docs() {
   cp -R docs/* markdown_out
 
   # added meta data for repo and branch to each file
-  source ${SCRIPT_DIR}/add_front_matter.sh
+  # shellcheck source=scripts/add_front_matter.sh
+  source "${SCRIPT_DIR}"/add_front_matter.sh
   # 2nd arg our working directory
   Add_Front_Matter "$ARG_GIT_REPO" "markdown_out" "$ARG_BRANCH" "$ARG_TAG"
 
@@ -143,8 +144,9 @@ Install_Docs() {
   BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
   RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/"
   META="  - ${ARG_GIT_REPO}\n  - ${BRANCH:-main}"
-  THIS_FILE_META=$(echo "tags:\n  - ${RAW_PATH}/glossary.md\n${META}" | sed 's#///#/#g' | sed 's#//#/#g')
-  printf "${THIS_FILE_META}\n" >> "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
+  THIS_FILE_META=$(printf 'tags:\n  - %s/glossary.md\n%s' "${RAW_PATH}" "${META}" | sed 's#///#/#g' | sed 's#//#/#g')
+  # shellcheck disable=SC2129
+  printf '%s\n' "${THIS_FILE_META}" >> "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
   echo "---" >> "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
   cat glossary.md >> "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
 

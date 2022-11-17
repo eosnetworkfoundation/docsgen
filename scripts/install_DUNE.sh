@@ -27,8 +27,9 @@ Install_DUNE() {
   BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
   RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/"
   META="  - ${ARG_GIT_REPO}\n  - ${BRANCH:-main}"
-  THIS_FILE_META=$(echo "tags:\n  - ${RAW_PATH}/README.md\n${META}" | sed 's#///#/#g' | sed 's#//#/#g')
-  printf "${THIS_FILE_META}\n" >> markdown_out/README.md
+  THIS_FILE_META=$(printf 'tags:\n  - %s/README.md\n%s' "${RAW_PATH}" "${META}" | sed 's#///#/#g' | sed 's#//#/#g')
+  # shellcheck disable=SC2129
+  printf '%s\n' "${THIS_FILE_META}" >> markdown_out/README.md
   echo "---" >> markdown_out/README.md
   cat README.md >> markdown_out/README.md
 

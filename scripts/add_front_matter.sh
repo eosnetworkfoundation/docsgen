@@ -37,11 +37,12 @@ Add_Front_Matter() {
   do
     # add raw path
     THIS_FILE_META=""
-    # remove working directory
+    # remove working directory, ignore SC2001 because sed replace is complex
+    # shellcheck disable=SC2001
     git_file=$(echo "$file" | sed "s#${CONTENT_DIR}##")
     # sed cleans up excess directory slashes
-    THIS_FILE_META=$(echo "tags:\n  - ${RAW_PATH}/${git_file}\n${META}" | sed 's#///#/#g' | sed 's#//#/#g')
-    HAS_FRONT_MATTER=$(head -10 $file | egrep '^\---$' | wc -l)
+    THIS_FILE_META=$(printf 'tags:\n  - %s/%s\n%s' "${RAW_PATH}" "${git_file}" "${META}" | sed 's#///#/#g' | sed 's#//#/#g')
+    HAS_FRONT_MATTER=$(head -10 "$file" | grep -Ec '^\---$')
     # Replace
     if [ "$HAS_FRONT_MATTER" -eq 2 ]; then
       awk -v THIS_META="$THIS_FILE_META" '/^---$/ && !done { gsub(/^---$/, "---\n"THIS_META); done=1 }; 1;' "$file" > "${file}_tmp"
@@ -50,7 +51,8 @@ Add_Front_Matter() {
     # no front matter add it
     if [ "$HAS_FRONT_MATTER" -eq 0 ]; then
       echo "---" > "${file}_tmp"
-      printf "${THIS_FILE_META}\n" >> "${file}_tmp"
+      # shellcheck disable=SC2129
+      printf '%s\n' "${THIS_FILE_META}" >> "${file}_tmp"
       echo "---" >> "${file}_tmp"
       cat "$file" >> "${file}_tmp"
       mv "${file}_tmp" "$file"
