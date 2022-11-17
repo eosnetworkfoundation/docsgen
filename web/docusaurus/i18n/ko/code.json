@@ -250,7 +250,7 @@
     "message": "사이드바 열기",
     "description": "The ARIA label and title attribute for expand button of doc sidebar"
   },
-  "EOS Developer Documenation": {
+  "Antelope Developer Documentation": {
     "message": "EOS 개발자 문서화",
     "description": "Title of site on homepage in index.tsx code"
   },

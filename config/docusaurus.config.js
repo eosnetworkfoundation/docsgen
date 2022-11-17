@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'EOS Developer Documenation',
+  title: 'Antelope Developer Documentation',
   tagline: 'Documentation for Developing on EOS Blockchain',
   url: 'https://docs.eosnetwork.com/',
   baseUrl: '/',
@@ -215,7 +215,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'EOS Developer Documenation',
+        title: 'Antelope Developer Documentation',
         logo: {
           alt: 'EOS Network',
           src: 'img/eosn_logo.png',
