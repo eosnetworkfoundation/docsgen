@@ -31,7 +31,6 @@ Add_Front_Matter() {
   BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
 
   RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/docs/"
-  META="  - ${ARG_GIT_REPO}\n  - ${BRANCH}"
 
   find "$CONTENT_DIR" -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
@@ -41,7 +40,7 @@ Add_Front_Matter() {
     # shellcheck disable=SC2001
     git_file=$(echo "$file" | sed "s#${CONTENT_DIR}##")
     # sed cleans up excess directory slashes
-    THIS_FILE_META=$(printf 'tags:\n  - %s/%s\n%s' "${RAW_PATH}" "${git_file}" "${META}" | sed 's#///#/#g' | sed 's#//#/#g')
+    THIS_FILE_META=$(printf 'tags:\n  - %s/%s\n  - %s\n  - %s' "${RAW_PATH}" "${git_file}" "${ARG_GIT_REPO}" "${BRANCH:-main}" | sed 's#///#/#g' | sed 's#//#/#g')
     HAS_FRONT_MATTER=$(head -10 "$file" | grep -Ec '^\---$')
     # Replace
     if [ "$HAS_FRONT_MATTER" -eq 2 ]; then

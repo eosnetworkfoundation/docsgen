@@ -103,8 +103,7 @@ MarkdownSystemContracts() {
   echo "---" > markdown_out/README.md
   BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
   RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/"
-  META="  - ${ARG_GIT_REPO}\n  - ${BRANCH:-main}"
-  THIS_FILE_META=$(printf 'tags:\n  - %s/README.md\n%s' "${RAW_PATH}" "${META}" | sed 's#///#/#g' | sed 's#//#/#g')
+  THIS_FILE_META=$(printf 'tags:\n  - %s/README.md\n  - %s\n  - %s' "${RAW_PATH}" "${ARG_GIT_REPO}" "${BRANCH:-main}" | sed 's#///#/#g' | sed 's#//#/#g')
   # shellcheck disable=SC2129
   printf '%s\n' "${THIS_FILE_META}" >> markdown_out/README.md
   echo "---" >> markdown_out/README.md
