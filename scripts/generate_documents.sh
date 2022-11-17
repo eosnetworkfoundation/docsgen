@@ -270,10 +270,8 @@ Remote_Upload() {
         base_tar_file=$(basename "${archive}")
         # on remote move into content directory
         move_cmd="mv ${base_tar_file} ${ARG_CONTENT:-~/content}"
-        # on remote backup existing, only run is ARG_STAGING is not set (aka production)
-        if [ -z "$ARG_STAGING" ]; then
-          backup_cmd="if [ ! -d ${WEBROOT:-/var/www/html} ]; then mkdir ${WEBROOT:-/var/www/html}; fi && cd ${WEBROOT:-/var/www/html} && tar czf ${ARG_CONTENT:-~/content}/devdocs_${BUILD_TYPE:-production}_${bdate}_backup.tgz -- *"
-        fi
+        # on remote backup existing
+        backup_cmd="if [ ! -d ${WEBROOT:-/var/www/html} ]; then mkdir ${WEBROOT:-/var/www/html}; fi && cd ${WEBROOT:-/var/www/html} && tar czf ${ARG_CONTENT:-~/content}/devdocs_${BUILD_TYPE:-production}_${bdate}_backup.tgz -- *"
         # loop over tar 1st level and delete on remote host
         delete_cmd="cd ${WEBROOT:-/var/www/html} && tar tfz ${ARG_CONTENT:-~/content}/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
         # un-pack tar populate new things
@@ -282,15 +280,18 @@ Remote_Upload() {
         echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
         ### move
         ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$move_cmd"
-        ### backup
-        ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$backup_cmd"
+        ### backup, only run is ARG_STAGING is not set (aka production)
+        if [ -z "$ARG_STAGING" ]; then
+          ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$backup_cmd"
+        fi
         ### delete
         ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$delete_cmd"
         ### update
         ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$update_cmd"
         ### clean old files in content directory
+        ### content/ requires trailing slash, it is a symlink 
         ssh -t -t -i "$ARG_ID_FILE" -l "$user" "$machine" <<EOF
-find content -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
+find content/ -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
 do
   rm \$oldfile
 done
