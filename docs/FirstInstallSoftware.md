@@ -121,7 +121,7 @@ Need to make sure python 3.4 or better is installed. It is assumed the executabl
 Clone the engineering repo.
 
 ```
-git clone https://github.com/eosnetworkfoundation/devdocs
+git clone https://github.com/AntelopeIO/devdocs
 cd devdocs
 ```
 Follow the instructions in the README.md to

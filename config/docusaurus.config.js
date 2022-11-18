@@ -284,7 +284,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/eosnetworkfoundation',
+            href: 'https://github.com/AntelopeIO',
             label: 'GitHub',
             position: 'right',
           },

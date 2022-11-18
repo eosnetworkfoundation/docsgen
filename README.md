@@ -36,13 +36,13 @@ Testing utilizes [Cypress](https://www.cypress.io/), while search is powered by 
 | Swift API Documentation | [mandel-swift](https://github.com/eosnetworkfoundation/mandel-swift) | reference/swiftdocs | static html |
 | Swift API Manuals | [mandel-swift](https://github.com/eosnetworkfoundation/mandel-swift) | swift-sdk | Docusaurus |
 | Java API Documentation | [mandel-java](https://github.com/eosnetworkfoundation/mandel-java) | reference/javadocs | static html |
-| EOS System Contracts | [eos-system-contracts](https://github.com/eosnetworkfoundation/eos-system-contracts) | system-contracts | Docusaurus |
+| EOS System Contracts | [eos-system-contracts](https://github.com/AntelopeIO/reference-contracts) | system-contracts | Docusaurus |
 | Contract Developer Tools | [cdt](https://github.com/AntelopeIO/cdt) | cdt | Docusarus |
 | DUNE | [DUNE](https://github.com/AntelopeIO/DUNE.git) | DUNE | Docusarus |
 | Nodeos, Cleos, Kloes Manuals | [Leap](https://github.com/AntelopeIO/leap) | leap | Docusarus |
-| Tutorials | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs/tutorials | Docusarus |
-| Glossary | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | glossary | Docusarus |
-| Docs | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs | docusarus |
+| Tutorials | [Docs](https://github.com/AntelopeIO/docs.git) | docs/tutorials | Docusarus |
+| Glossary | [Docs](https://github.com/AntelopeIO/docs.git) | glossary | Docusarus |
+| Docs | [Docs](https://github.com/AntelopeIO/docs.git) | docs | docusarus |
 
 ## Initialize Content Repository ##
 See [First Install Software](docs/FirstInstallSoftware.md) for all the dependancies.
@@ -69,7 +69,7 @@ options:
 -x: suppress build statics process
 -f: fast, skip git checkout if files less then 1 hour old
 
-example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB
+example: generate_documents.sh -r AntelopeIO/leap -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB
 Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version
 ```
 

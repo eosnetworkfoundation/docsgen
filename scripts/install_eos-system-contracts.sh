@@ -86,7 +86,7 @@ MarkdownSystemContracts() {
   mv README.md markdown_out
   mv LICENSE markdown_out/LICENSE.md
   # quick fix to path for License
-  sed 's/LICENSE/https:\/\/github.com\/eosnetworkfoundation\/eos-system-contracts\/blob\/main\/LICENSE/' markdown_out/README.md > tmp_README.md
+  sed 's/LICENSE/https:\/\/github.com\/AntelopeIO\/reference-contracts\/blob\/main\/LICENSE/' markdown_out/README.md > tmp_README.md
   mv tmp_README.md markdown_out/README.md
 
   # pull in markdown docs from git

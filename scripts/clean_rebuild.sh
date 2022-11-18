@@ -34,9 +34,9 @@ rm -rf "${ARG_BUILD_DIR:?}"/* || exit
 # remove working directories
 rm -rf ../working/*
 
-for gitrepo in eosnetworkfoundation/docs \
+for gitrepo in AntelopeIO/docs \
     AntelopeIO/cdt \
-    eosnetworkfoundation/eos-system-contracts \
+    AntelopeIO/reference-contracts \
     AntelopeIO/leap \
     AntelopeIO/DUNE \
     eosnetworkfoundation/mandel-eosjs \

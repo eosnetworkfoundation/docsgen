@@ -14,7 +14,7 @@ This document goes over how to build a new document repository, staring from not
 ## Checkout DevDocs  
 Main branch is the production version
 ```
-git clone https://github.com/eosnetworkfoundation/devdocs.git
+git clone https://github.com/AntelopeIO/devdocs.git
 ```
 
 ## Update Config
@@ -62,13 +62,13 @@ Run the `generate_documents.sh` script. You will need an empty build directory, 
 **NOTE** in your first pass do the `oldest` version of your documents first. Makes it easier to set the versions and update.
 
 For example:
-- Build Directory: $HOME/eosnetworkfoundation/build_root
+- Build Directory: $HOME/AntelopeIO/build_root
 - Repository: AntelopeIO/leap
 - Tag: v3.1.0
 
 Command: Note to save time the `-x` suppresses the `npm run build`. We will do many repos, and run the build at the end.
 ```
-./generate_documents.sh -d $HOME/eosnetworkfoundation/build_root -r AntelopeIO/leap -t v3.1.0 -x
+./generate_documents.sh -d $HOME/AntelopeIO/build_root -r AntelopeIO/leap -t v3.1.0 -x
 ```
 
 The first run of `generate_documents.sh` will install docusaurus and any needed packages.
@@ -77,10 +77,10 @@ The first run of `generate_documents.sh` will install docusaurus and any needed 
 
 The last repo is run without the `-x` flag and that will run the build that generates the static files.
 ```
-BUILD_DIR=$HOME/eosnetworkfoundation/build_root
-for gitrepo in eosnetworkfoundation/welcome \
+BUILD_DIR=$HOME/AntelopeIO/build_root
+for gitrepo in AntelopeIO/docs \
     AntelopeIO/cdt \
-    eosnetworkfoundation/eos-system-contracts \
+    AntelopeIO/reference-contracts \
     AntelopeIO/leap \
     AntelopeIO/DUNE \
     eosnetworkfoundation/mandel-eosjs \
@@ -119,5 +119,5 @@ Running the generate script with a `-i` identify file and `-h` host will push th
 
 
 ```
-./generate_documents.sh -d $HOME/eosnetworkfoundation/build_root -r AntelopeIO/DUNE -i $HOME/me.pem -h me@host.compute-000.amazonaws.com
+./generate_documents.sh -d $HOME/AntelopeIO/build_root -r AntelopeIO/DUNE -i $HOME/me.pem -h me@host.compute-000.amazonaws.com
 ```

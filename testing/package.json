@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eosnetworkfoundation/devdocs.git"
+    "url": "git+https://github.com/AntelopeIO/devdocs.git"
   },
   "author": "ericpassmore",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eosnetworkfoundation/devdocs/issues"
+    "url": "https://github.com/AntelopeIO/devdocs/issues"
   },
-  "homepage": "https://github.com/eosnetworkfoundation/devdocs#readme",
+  "homepage": "https://github.com/AntelopeIO/devdocs#readme",
   "devDependencies": {
     "cypress": "^10.9.0"
   }
