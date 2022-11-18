@@ -8,10 +8,16 @@ Help() {
 }
 
 # Get the options
-while getopts "d:" option; do
+while getopts "d:sy" option; do
    case $option in
       d) # set build dir
         ARG_BUILD_DIR=${OPTARG}
+        ;;
+      s) # set staging
+        ARG_STAGING="True"
+        ;;
+      y) # no prompt
+        ARG_YES="TRUE"
         ;;
       :) # no args
         Help;
@@ -33,11 +39,36 @@ then
       echo "Root directory is not allowed, it will removal all files under /"
       exit 1
     fi
-    echo "OK: Build Dir Absolute Path"
+    echo "OK: Passed Build Path Checks"
 else
     echo -e "Directory must be absolte path starting with / or ~"
     Help;
 fi
+## STAGING CHANGES
+if [ -n "$ARG_STAGING" ]; then
+  WEBROOT='/var/www/html/devrel_staging'
+fi
+
+# Remove Last Updates while we run job
+# Set Lock File
+UPDATE_DATETIME_FILE="${WEBROOT:-/var/www/html}"/updated.html
+LOCK_FILE="${WEBROOT:-/var/www/html}"/clean_rebuild.lock
+
+## Exit if lock file exists
+#  Else Set lock file
+#  remove date time file
+#  add message that run has started
+if [ -f "$LOCK_FILE" ]; then
+  LOCK_PID=$(cat "$LOCK_FILE")
+  printf 'EXITING Lock file %s exists with pid: %s\n' "$LOCK_FILE" "$LOCK_PID" && exit 1
+else
+  printf '%s\n', "$$" > "$LOCK_FILE"
+  rm "$UPDATE_DATETIME_FILE"
+  NOW=$(date -u "+%a %b %d %r")
+  printf '\nCurrently Running Full Rebuild Started Run at UTC %s\n' "$NOW"
+fi
+
+printf '%s\n' "$$" > "$LOCK_FILE"
 
 # compute script dir for copying files from here to web directory
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -52,10 +83,15 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # create dir if it does not exist
 [ ! -d "$ARG_BUILD_DIR" ] && mkdir -p "$ARG_BUILD_DIR"
 
-# remove everthing under the build dir
-echo "Removing All Files under ${ARG_BUILD_DIR:?} Continue? (Y/N): "
-read -r confirm
-[[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]] || exit 1
+# if ARG_YES not set do it
+# if ARG_YES set skip
+if [ -z "$ARG_YES" ]; then
+  # remove everthing under the build dir
+  echo "Removing All Files under ${ARG_BUILD_DIR:?} Continue? (Y/N): "
+  read -r confirm
+  [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]] || exit 1
+fi
+
 rm -rf "${ARG_BUILD_DIR:?}"/* || exit
 # remove working directories
 rm -rf "${SCRIPT_DIR:?}/working/*" || exit
@@ -111,3 +147,12 @@ popd || exit
 # Final run to push to production Add Hosts and Identify
 # USE DUNE because it is a one file change and its fast
 # UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -x -f -r "AntelopeIO/DUNE" -h {fedevops@host} -i {fedevops.pem} -c ~/content
+
+## All done, remove the lock file, and set last updated times
+if [ -f "$LOCK_FILE" ]; then
+  rm -f $LOCK_FILE
+fi
+if [ -f "$UPDATE_DATETIME_FILE" ]; then
+  rm "$UPDATE_DATETIME_FILE"
+fi
+"${SCRIPT_DIR}"/set_update_time.sh > "$UPDATE_DATETIME_FILE"
