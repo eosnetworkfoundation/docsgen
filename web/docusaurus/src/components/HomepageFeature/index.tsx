@@ -23,7 +23,7 @@ const FeatureList: FeatureItem[] = [
     link: '/docs/latest/',
   },
   {
-    title: <Translate>Geting Starting </Translate>,
+    title: <Translate>Getting Starting </Translate>,
     description: (
       <Translate>
         Step by step instructions for setting up your environment.
