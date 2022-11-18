@@ -194,7 +194,7 @@ h6 {
   margin-top: 20px;
 }
 
-.searchBox_node_modules-@docusaurus-theme-classic-lib-theme-Navbar-Search-styles-module {
+.searchBox_node_modules-\@docusaurus-theme-classic-lib-theme-Navbar-Search-styles-module {
   display: none;
 }
 
@@ -467,6 +467,127 @@ article .markdown {
   width: 9px;
 }
 
+/* DocSidebar overwrite */
+
+.menu__link {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+
+  letter-spacing: 0.5px;
+  background-color: transparent;
+  color: #000000;
+}
+
+.menu__list-item-collapsible {
+  background-color: transparent !important;
+}
+
+.menu__list-item-collapsible--active {
+  background-color: transparent !important;
+}
+
+.menu__list-item-collapsible--active:hover {
+  background-color: transparent !important;
+}
+
+.menu__list-item-collapsible .menu__link:hover {
+  background-color: transparent !important;
+}
+
+.menu__link:hover {
+  color: #3F65C2;
+  background-color: transparent;
+}
+
+.menu__link--active {
+  color: #3F65C2;
+  background-color: transparent;
+}
+
+.menu__link--active:hover {
+  color: #3a5baf;
+  background-color: transparent;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background-color: transparent;
+}
+
+.theme-doc-sidebar-item-link-level-2 > a,
+.theme-doc-sidebar-item-link-level-3 > a,
+.theme-doc-sidebar-item-link-level-4 > a {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  letter-spacing: 0.5px;
+  color: #666666;
+}
+
+.theme-doc-sidebar-item-category-level-2 .menu__link,
+.theme-doc-sidebar-item-category-level-3 .menu__link,
+.theme-doc-sidebar-item-category-level-4 .menu__link {
+  color: #666666;
+}
+
+.theme-doc-sidebar-item-category-level-2 .menu__link--active,
+.theme-doc-sidebar-item-category-level-3 .menu__link--active,
+.theme-doc-sidebar-item-category-level-4 .menu__link--active {
+  color: #3F65C2;
+}
+
+.theme-doc-sidebar-item-category-level-2 .menu__link:hover,
+.theme-doc-sidebar-item-category-level-3 .menu__link:hover,
+.theme-doc-sidebar-item-category-level-4 .menu__link:hover {
+  color: #3F65C2;
+}
+
+.menu__caret {
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F4F5F6;
+  padding: 4px 4px 2px 4px;
+  transition: rotate 0.3s ease;
+  filter: none;
+}
+
+.menu__list {
+  padding: 0 24px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.theme-doc-sidebar-item-category .menu__list {
+  padding: 0;
+}
+
+.menu__list .menu__list {
+  border-left: 2px solid #D1DAF0;
+  padding-left: 0;
+  margin-left: 12px;
+}
+
+.menu__list-item-collapsible {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.menu__list-item--collapsed .menu__caret {
+  rotate: -90deg;
+  filter: grayscale(100%);
+}
+
+.menu__caret::before {
+  content: none;
+}
+
 /* applies to light and dark */
 .footer--dark {
   --ifm-footer-background-color: #222222;
@@ -533,13 +654,12 @@ aside {
   flex-direction: column;
   gap: 40px;
   height: 100%;
-  border-right: 1px solid var(--ifm-toc-border-color);
 }
 
 @media (max-width: 1600px) {
   aside {
     border-right: none !important;
-    width: 320px !important;
+    width: 350px !important;
   }
 
   .col {
@@ -548,7 +668,7 @@ aside {
   }
   
   .sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
-    width: 320px !important;
+    width: 350px !important;
   }
   
   .container {
@@ -642,6 +762,11 @@ aside {
     display: none;
   }
 
+  .row .docItemCol_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module {
+    max-width: 90% !important;
+    margin: 0 auto;
+  }
+
   .navbar {
     padding: 8px 16px;
     height: 54px;
@@ -693,6 +818,10 @@ aside {
     transform: translate3d(-100vw, 0, 0);
   }
 
+  .main-wrapper {
+    padding-top: 0;
+  }
+
   .menu__divider {
     border: 1px solid #B6B4B4;
     margin: 12px 0 16.5px;
@@ -702,6 +831,14 @@ aside {
     gap: 12px;
     display: flex;
     flex-direction: column;
+    max-height: unset;
+    overflow: hidden;
+  }
+
+  .menu__list .menu__list {
+    border-left: none;
+    margin-left: 0;
+    overflow: hidden;
   }
 
   .menu__list-item {

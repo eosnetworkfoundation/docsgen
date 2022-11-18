@@ -1,8 +1,5 @@
 .tableOfContents {
-  max-height: 70vh;
   overflow-y: auto;
-  position: sticky;
-  top: 144px;
   width: 350px;
   border: 1px solid #B6B4B4;
   border-radius: 8px;

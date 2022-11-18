@@ -1,7 +1,5 @@
 .tocUl {
   border-left: none;
-  overflow-y: auto;
-  max-height: 30vh;
 }
 
 .tocUlChild {

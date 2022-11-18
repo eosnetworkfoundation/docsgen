@@ -468,7 +468,7 @@ const config = {
       },
       docs: {
         /* closes sibling categories when expanding a category */
-        sidebar: { autoCollapseCategories: true, },
+        sidebar: { autoCollapseCategories: true },
       },
       footer: {
         style: 'dark',
