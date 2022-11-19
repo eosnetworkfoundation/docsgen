@@ -22,6 +22,8 @@ Install_DUNE() {
   # to keep docs clean and process idempotent
   [ ! -d markdown_out ] && mkdir markdown_out
 
+  # shellcheck source=scripts/add_front_matter.sh
+  source "${SCRIPT_DIR}"/add_front_matter.sh
   # add front matter for README: one off special
   echo "---" > markdown_out/README.md
   BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")

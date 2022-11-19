@@ -31,6 +31,8 @@ Add_Front_Matter() {
   BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
 
   RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/docs/"
+  # remove all trailing slashes
+  RAW_PATH=$(echo "$RAW_PATH" | sed 's#/*$##')
 
   find "$CONTENT_DIR" -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
@@ -40,11 +42,16 @@ Add_Front_Matter() {
     # shellcheck disable=SC2001
     git_file=$(echo "$file" | sed "s#${CONTENT_DIR}##")
     # sed cleans up excess directory slashes
-    THIS_FILE_META=$(printf 'tags:\n  - %s/%s\n  - %s\n  - %s' "${RAW_PATH}" "${git_file}" "${ARG_GIT_REPO}" "${BRANCH:-main}" | sed 's#///#/#g' | sed 's#//#/#g')
     HAS_FRONT_MATTER=$(head -10 "$file" | grep -Ec '^\---$')
-    # Replace
+    # enhance existing front matter
+    # note ${myvar#/} expansion removes leading slash
     if [ "$HAS_FRONT_MATTER" -eq 2 ]; then
-      awk -v THIS_META="$THIS_FILE_META" '/^---$/ && !done { gsub(/^---$/, "---\n"THIS_META); done=1 }; 1;' "$file" > "${file}_tmp"
+      awk -v RAW_PATH="${RAW_PATH}" \
+        -v GIT_FILE="${git_file#/}" \
+        -v GIT_REPO="${ARG_GIT_REPO}" \
+        -v BRANCH="${BRANCH:-main}" \
+        '/^---$/ && !done { gsub(/^---$/, "---\ntags:\n  - "RAW_PATH"/"GIT_FILE"\n  - "GIT_REPO"\n  - "BRANCH); done=1 }; 1;' \
+        "$file" > "${file}_tmp"
       mv "${file}_tmp" "$file"
     fi
     # no front matter add it

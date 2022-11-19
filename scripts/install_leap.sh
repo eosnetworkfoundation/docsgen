@@ -98,11 +98,6 @@ Install_Leap() {
     mv tempTT.md "$file"
   done
 
-  # fix reasource path
-  sed 's/\/resources\/index.md/\/docs\/latest\/resources\//' \
-      markdown_out/02_cleos/02_how-to-guides/how-to-get-block-information.md > tempRes.md
-  mv tempRes.md markdown_out/02_cleos/02_how-to-guides/how-to-get-block-information.md
-
   # move tutorial to docs
   cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"
 

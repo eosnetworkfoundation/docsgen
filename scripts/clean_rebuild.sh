@@ -62,13 +62,17 @@ if [ -f "$LOCK_FILE" ]; then
   LOCK_PID=$(cat "$LOCK_FILE")
   printf 'EXITING Lock file %s exists with pid: %s\n' "$LOCK_FILE" "$LOCK_PID" && exit 1
 else
-  printf '%s\n', "$$" > "$LOCK_FILE"
-  rm "$UPDATE_DATETIME_FILE"
-  NOW=$(date -u "+%a %b %d %r")
-  printf '\nCurrently Running Full Rebuild Started Run at UTC %s\n' "$NOW"
+  # local builds do not have WEBROOT
+  if [ -d "$WEBROOT" ]; then
+    printf '%s\n', "$$" > "$LOCK_FILE"
+    [ -f "$UPDATE_DATETIME_FILE" ] && rm "$UPDATE_DATETIME_FILE"
+    NOW=$(date -u "+%a %b %d %r")
+    printf '\nCurrently Running Full Rebuild Started Run at UTC %s\n' "$NOW" > "$UPDATE_DATETIME_FILE"
+  fi
 fi
 
-printf '%s\n' "$$" > "$LOCK_FILE"
+# local builds do not have WEBROOT
+[ -d "$WEBROOT" ] && printf '%s\n' "$$" > "$LOCK_FILE"
 
 # compute script dir for copying files from here to web directory
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -149,10 +153,13 @@ popd || exit
 # UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -x -f -r "AntelopeIO/DUNE" -h {fedevops@host} -i {fedevops.pem} -c ~/content
 
 ## All done, remove the lock file, and set last updated times
-if [ -f "$LOCK_FILE" ]; then
-  rm -f $LOCK_FILE
+# local builds do not have webroot so skip 
+if [ -d "$WEBROOT" ]; then
+  if [ -f "$LOCK_FILE" ]; then
+    rm -f $LOCK_FILE
+  fi
+  if [ -f "$UPDATE_DATETIME_FILE" ]; then
+    rm "$UPDATE_DATETIME_FILE"
+  fi
+  "${SCRIPT_DIR}"/set_update_time.sh > "$UPDATE_DATETIME_FILE"
 fi
-if [ -f "$UPDATE_DATETIME_FILE" ]; then
-  rm "$UPDATE_DATETIME_FILE"
-fi
-"${SCRIPT_DIR}"/set_update_time.sh > "$UPDATE_DATETIME_FILE"

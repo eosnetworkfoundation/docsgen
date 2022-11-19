@@ -289,7 +289,7 @@ Remote_Upload() {
         ### update
         ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$update_cmd"
         ### clean old files in content directory
-        ### content/ requires trailing slash, it is a symlink 
+        ### content/ requires trailing slash, it is a symlink
         ssh -t -t -i "$ARG_ID_FILE" -l "$user" "$machine" <<EOF
 find content/ -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
 do
@@ -391,7 +391,7 @@ if [ "$DEBUG" ]; then
   echo "webroot "
   echo "${WEBROOT:-/var/www/html}"
   echo "build type"
-  echo "${BUILD_TYPE}:-production"
+  echo "${BUILD_TYPE:-production}"
 fi
 
 # if host and id exist check content directory exists
