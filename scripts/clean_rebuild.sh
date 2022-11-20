@@ -100,6 +100,13 @@ rm -rf "${ARG_BUILD_DIR:?}"/* || exit
 # remove working directories
 rm -rf "${SCRIPT_DIR:?}/working/*" || exit
 
+# build up arguments no npm build
+CMD_FLAGS="-x"
+if [ -n "$ARG_STAGING" ]; then
+  # add staging flag
+  CMD_FLAGS="-xs"
+fi
+
 for gitrepo in eosnetworkfoundation/docs \
     AntelopeIO/cdt \
     eosnetworkfoundation/eos-system-contracts \
@@ -124,9 +131,9 @@ do
   fi
 
   if [ -z "$branch" ]; then
-    "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r ${gitrepo} -x
+    "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r ${gitrepo} "$CMD_FLAGS"
   else
-    "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "${gitrepo}" -b "$branch" -x
+    "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "${gitrepo}" -b "$branch" "$CMD_FLAGS"
   fi
 done
 
@@ -141,7 +148,7 @@ popd || exit
 # update config for v3.1
 # Configure version paths and banners
 mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js.new
-"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" -x
+"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" "$CMD_FLAGS"
 
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 # explict build
@@ -150,10 +157,10 @@ popd || exit
 
 # Final run to push to production Add Hosts and Identify
 # USE DUNE because it is a one file change and its fast
-# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -x -f -r "AntelopeIO/DUNE" -h {fedevops@host} -i {fedevops.pem} -c ~/content
+# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -x -f -r "AntelopeIO/DUNE" -h {fedevops@host} -i {fedevops.pem} -c ~/content "$CMD_FLAGS"
 
 ## All done, remove the lock file, and set last updated times
-# local builds do not have webroot so skip 
+# local builds do not have webroot so skip
 if [ -d "$WEBROOT" ]; then
   if [ -f "$LOCK_FILE" ]; then
     rm -f $LOCK_FILE
