@@ -32,6 +32,7 @@ Add_Front_Matter() {
 
   RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/docs/"
   # remove all trailing slashes
+  # shellcheck disable=SC2001
   RAW_PATH=$(echo "$RAW_PATH" | sed 's#/*$##')
 
   find "$CONTENT_DIR" -type f -name "*.md" -print0 | while IFS= read -r -d '' file
