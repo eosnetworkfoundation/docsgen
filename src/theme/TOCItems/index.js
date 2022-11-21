@@ -12,6 +12,8 @@ export default function TOCItems({
   linkActiveClassName = undefined,
   minHeadingLevel: minHeadingLevelOption,
   maxHeadingLevel: maxHeadingLevelOption,
+  isMobile,
+  onClick,
   ...props
 }) {
   const themeConfig = useThemeConfig();
@@ -36,11 +38,14 @@ export default function TOCItems({
     return undefined;
   }, [linkClassName, linkActiveClassName, minHeadingLevel, maxHeadingLevel]);
   useTOCHighlight(tocHighlightConfig);
+
   return (
     <TOCItemTree
       toc={tocTree}
       className={className}
       linkClassName={linkClassName}
+      onClick={onClick}
+      isMobile={isMobile}
       {...props}
     />
   );

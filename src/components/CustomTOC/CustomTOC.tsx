@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select'
 import clsx from 'clsx';
 import { useAllDocsData } from '@docusaurus/plugin-content-docs/client';
-import {useDoc} from '@docusaurus/theme-common/internal';
 import TOCItems from '@theme/TOCItems';
 import styles from './styles.module.css';
 import { useLocation, useHistory } from '@docusaurus/router';
@@ -47,11 +46,10 @@ const getPathKey = (path) => {
 const LINK_CLASS_NAME = 'table-of-contents__link toc-highlight';
 const LINK_ACTIVE_CLASS_NAME = 'table-of-contents__link--active';
 
-export default function TOC({className, ...props}) {
+export default function CustomTOC({ doc, onClick }) {
   const [options, setOptions] = useState([]);
   const [currentVersion, setCurrentVersion] = useState({});
   const { allDocsData } = useDocsSearchVersionsHelpers();
-  const doc = useDoc();
   const location = useLocation();
   const history = useHistory();
   const {pathname} = location;
@@ -85,11 +83,15 @@ export default function TOC({className, ...props}) {
     const { pluginId, version } = getPathKey(pathname);
     const newPath = pathname.replace(`/${pluginId}/${version}`, path);
     
+    if (newPath === pathname) {
+      return;
+    }
+
     history.push(newPath);
   }
 
   return (
-    <div className={clsx(styles.tableOfContents, 'thin-scrollbar', className)}>
+    <div className={clsx(styles.tableOfContents, 'thin-scrollbar')}>
       <Select
         options={options}
         value={currentVersion}
@@ -102,7 +104,7 @@ export default function TOC({className, ...props}) {
             background: '#F4F5F6',
             borderRadius: '6px',
             height: '60px',
-            width: '310px',
+            width: '100%',
             margin: 'auto',
             outline: 'none',
             padding: '10px 24px'
@@ -130,15 +132,19 @@ export default function TOC({className, ...props}) {
           }),
         }}
         />
-      <div className={clsx(styles.linkContainer, props.toc.length && styles.linkContainerWithTOC)}>
+      <div className={clsx(styles.linkContainer, doc.toc.length && styles.linkContainerWithTOC)}>
         {tags.length > 0 && <a className={styles.link} href={`https://github.com/${suggestLink}`} target="_blank">Suggest Edits</a>}
         <a className={styles.link} href="https://github.com/eosnetworkfoundation/docs/issues/new?body=sometexthere&title=sometitle" target="_blank">Request Changes</a>
       </div>
-      <TOCItems
-        {...props}
+      {doc.toc && doc.toc.length > 0 && (
+        <TOCItems
+        {...doc}
+        onClick={onClick}
+        isMobile
         linkClassName={LINK_CLASS_NAME}
         linkActiveClassName={LINK_ACTIVE_CLASS_NAME}
       />
+      )}
     </div>
   );
 }

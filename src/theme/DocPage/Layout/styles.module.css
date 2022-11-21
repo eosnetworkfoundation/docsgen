@@ -11,13 +11,13 @@
   display: none;
 }
 
-@media (min-width: 997px) {
+@media (min-width: 996px) {
   .collapseSidebarContainer {
     display: block;
     width: 0;
     z-index: 9999;
     position: relative;
-    left: 335px;
+    left: 305px;
     transition: all 0.5s ease;
   }
 
@@ -54,5 +54,15 @@
   .collapsedSidebar svg {
     transform: rotate(-90deg);
     transition: transform 0.5s ease;
+  }
+}
+
+@media (min-width: 1600px) {
+  .collapseSidebarContainer {
+    left: 355px;
+  }
+
+  .collapsedSidebarContainer {
+    left: 6px;
   }
 }

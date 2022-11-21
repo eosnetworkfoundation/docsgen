@@ -76,9 +76,9 @@ html {
   scroll-padding-top: 60px;
 }
 
-main {
+/* main {
   margin: 0 auto auto;
-}
+} */
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
@@ -314,13 +314,20 @@ article table td {
   border-top: none;
 }
 
-article table td:nth-child(2n) {
+article tbody tr:last-of-type td:first-child {
+  border-bottom-left-radius: 4px;
+}
+
+article tbody tr:last-of-type td:last-child {
+  border-bottom-right-radius: 4px;
+}
+
+article table td:not(:first-child) {
   border-left: none;
 }
 
-article table td:nth-last-child(-n+2) {
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+article table th:first-of-type {
+  border-left:1px solid var(--ifm-table-border-color);
 }
 
 article table th {
@@ -329,6 +336,7 @@ article table th {
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-large);
   line-height: 27px;
+  border-left: none;
 
   color: var(--eos-color-dark);
 }
@@ -445,8 +453,12 @@ article .markdown {
 }
 
 .container {
-  max-width: 90%;
+  max-width: unset !important;
   padding: 0;
+}
+
+.col--3 {
+  --ifm-col-width: 350px !important;
 }
 
 /* Article updates: reduce title size */
@@ -588,6 +600,10 @@ article .markdown {
   content: none;
 }
 
+.theme-doc-footer-tags-row {
+  display: none !important;
+}
+
 /* applies to light and dark */
 .footer--dark {
   --ifm-footer-background-color: #222222;
@@ -614,6 +630,28 @@ article .markdown {
   columns: 2;
 }
 
+.search-input {
+  outline: none;
+  border: none;
+  background: #F4F5F6;
+  border-radius: 6px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 16.5px 24px 16.5px 60px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  color: #666666;
+  background-image: url('/icons/search-icon.svg');
+  background-repeat: no-repeat;
+  background-position: 24px 18px;
+}
+
+.search-input::placeholder {
+  color: #666666;
+}
+
 /* overriding Desktop menu styles */
 
 .main-wrapper {
@@ -627,16 +665,14 @@ aside {
 
 .sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
   width: 370px !important;
+  max-height: 90vh !important;
 }
 
 .row {
   display: flex;
   justify-content: space-between;
   padding: 0 24px;
-}
-
-.row .docItemCol_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module {
-  max-width: 65% !important;
+  margin: 0 !important;
 }
 
 .sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
@@ -656,10 +692,63 @@ aside {
   height: 100%;
 }
 
+.breadcrumbs {
+  padding: 0 !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.breadcrumbs__item:first-child a {
+  padding-left: 0;
+}
+
+.breadcrumbs__link {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #B6B4B4;
+  border-radius: 6px;
+}
+
+.breadcrumbs__link:any-link:hover {
+  color: #3F65C2;
+  background-color: transparent;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: black;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+.breadcrumbs__item:not(:last-child):after {
+  margin: 0;
+  color: #B6B4B4;
+  opacity: 1;
+  filter: contrast(0.5) brightness(2);
+}
+
+.breadcrumbHomeIcon_src-theme-DocBreadcrumbs-styles-module {
+  top: -1px !important;
+}
+
+.theme-doc-version-badge {
+  display: none;
+}
+
 @media (max-width: 1600px) {
   aside {
     border-right: none !important;
     width: 350px !important;
+  }
+
+  .container {
+    max-width: 100%;
   }
 
   .col {
@@ -668,11 +757,11 @@ aside {
   }
   
   .sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
-    width: 350px !important;
+    width: 320px !important;
   }
-  
-  .container {
-    max-width: var(--ifm-container-width);
+
+  .menu__list {
+    padding: 0 12px;
   }
 
   article h1 {
@@ -742,6 +831,15 @@ aside {
 }
 
 @media (max-width: 996px) {
+  .tableOfContents_src-components-CustomTOC-styles-module {
+    display: block !important;
+    margin: 0 auto 24px;
+    width: 95% !important;
+  }
+  .tocCollapsible_src-theme-TOCCollapsible-styles-module {
+    display: none !important;
+  }
+
   .col--4 h3 {
     font-size: 1rem;
   }
@@ -760,11 +858,6 @@ aside {
 
   #long-line-bg {
     display: none;
-  }
-
-  .row .docItemCol_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module {
-    max-width: 90% !important;
-    margin: 0 auto;
   }
 
   .navbar {
@@ -793,7 +886,7 @@ aside {
     left: unset;
     right: 0;
     transform: translate3d(100%, 0, 0);
-    width: 100vw;
+    width: 100%;
   }
 
   .navbar-sidebar__item {
@@ -808,6 +901,7 @@ aside {
     background: #FFFFFF;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
     border: 0;
+    width: 100vw;
   }
 
   .navbar-sidebar__item.menu {
@@ -903,7 +997,7 @@ aside {
   .theme-doc-sidebar-item-category .theme-doc-sidebar-item-category-level-4 a,
   .theme-doc-sidebar-item-category .theme-doc-sidebar-item-link-level-5 a,
   .theme-doc-sidebar-item-category .theme-doc-sidebar-item-category-level-5 a {
-    padding: 0 12px 0 0;
+    padding: 0 24px 0 0;
     font-weight: 400 !important;
     font-size: 16px !important;
     line-height: 24px !important;
@@ -967,6 +1061,10 @@ aside {
     background:linear-gradient(var(--eos-color-darkest), var(--eos-color-darkest)) bottom no-repeat;
     background-size: 80% 1px;
     border-radius: 0;
+  }
+
+  .breadcrumbHomeIcon_src-theme-DocBreadcrumbs-styles-module {
+    top: 0px !important;
   }
 }
 
@@ -1076,7 +1174,7 @@ aside {
 
   article ul {
     margin: 0 !important;
-    padding: 0 14px !important;
+    padding: 0 24px !important;
   }
 
   article li {
@@ -1177,7 +1275,7 @@ aside {
   .pagination-nav__link__content-next {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     gap: 16px;
   }
@@ -1210,5 +1308,34 @@ aside {
 
   .dropdown-icon-rotated-left {
     transform: rotate(90deg);
+  }
+
+  .menu {
+    gap: 12px;
+  }
+
+  .navbar-sidebar__back {
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    color: #3F65C2;
+    padding: 0.5rem 24px;
+    position: relative;
+    top: 0;
+  }
+
+  .navbar__toggle {
+    margin: 0;
+  }
+  
+  article table {
+    overflow: auto;
+    display: block;
+  }
+
+  .search-input {
+    width: 100%;
   }
 }

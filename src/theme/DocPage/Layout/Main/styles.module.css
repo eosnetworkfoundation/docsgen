@@ -6,17 +6,70 @@
 @media (min-width: 997px) {
   .docMainContainer {
     flex-grow: 1;
-    max-width: calc(100% - var(--doc-sidebar-width));
   }
 
   .docMainContainerEnhanced {
-    max-width: calc(100% - var(--doc-sidebar-width) + 100px);
+    max-width: 1600px;
     transition: width 0.5s ease;
+    margin: 0 auto;
   }
 
   .docItemWrapperEnhanced {
-    max-width: calc(
-      var(--ifm-container-width) + var(--doc-sidebar-width)
-    ) !important;
+    max-width: 1600px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .docMainContainer {
+    max-width: 70%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .docMainContainer {
+    max-width: 75%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .docMainContainer {
+    max-width: 76%;
+  }
+}
+
+@media (min-width: 2600px) {
+  .docMainContainer {
+    max-width: 2000px;
+    margin: 0 auto auto 5%;
+  }
+
+  .docMainContainerEnhanced {
+    max-width: 2000px;
+    transition: width 0.5s ease;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 3000px) {
+  .docMainContainer {
+    max-width: 2000px;
+    margin: 0 auto auto 10%;
+  }
+  .docMainContainerEnhanced {
+    max-width: 2000px;
+    transition: width 0.5s ease;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 3500px) {
+  .docMainContainer {
+    max-width: 2000px;
+    margin: 0 auto auto 15%;
+  }
+  .docMainContainerEnhanced {
+    max-width: 2000px;
+    transition: width 0.5s ease;
+    margin: 0 auto;
   }
 }
