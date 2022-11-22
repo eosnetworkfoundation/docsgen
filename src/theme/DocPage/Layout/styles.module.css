@@ -57,6 +57,12 @@
   }
 }
 
+@media (min-width: 1200px) {
+  .collapseSidebarContainer {
+    left: 335px;
+  }
+}
+
 @media (min-width: 1600px) {
   .collapseSidebarContainer {
     left: 355px;
