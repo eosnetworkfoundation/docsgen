@@ -8,6 +8,7 @@ import {
 import DocSidebarItems from '@theme/DocSidebarItems';
 import styles from './styles.module.css';
 import SearchBar from '../../../SearchBar';
+
 function useShowAnnouncementBar() {
   const {isActive} = useAnnouncementBar();
   const [showAnnouncementBar, setShowAnnouncementBar] = useState(isActive);

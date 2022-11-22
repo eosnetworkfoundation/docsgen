@@ -6,6 +6,17 @@
   padding: 20px;
 }
 
+.tableOfContents ul {
+  list-style: none;
+  padding: 0 !important;
+}
+
+.tableOfContents ul li {
+  padding: 0 !important;
+  padding-left: 0.5rem !important;
+  margin: 0.5rem 0.5rem !important;
+}
+
 .select {
   margin-bottom: 20px;
   font-weight: 400;

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import styles from './styles.module.css';
 
 // Recursive component rendering the toc tree
-function TOCItemTree({toc, className, linkClassName, isChild}) {
+function TOCItemTree({toc, className, linkClassName, isChild, isMobile, onClick}) {
   if (!toc.length) {
     return null;
   }
@@ -12,7 +12,7 @@ function TOCItemTree({toc, className, linkClassName, isChild}) {
   return (
     <ul className={clsx(isChild ? undefined : className, styles.tocUl, isChild && styles.tocUlChild)}>
       {toc.map((heading) => (
-        <li key={heading.id}>
+        <li key={heading.id} onClick={isMobile ? onClick : undefined}>
           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <a
             href={`#${heading.id}`}

@@ -422,7 +422,7 @@ const config = {
         action: 'https://eosnetwork.us8.list-manage.com/subscribe/post',
         buttonText: 'SIGN ME UP SCOTTY',
       }
-    }
+    },
   },
 
   themeConfig:
@@ -442,6 +442,9 @@ const config = {
             label: 'Welcome',
           },
         ]
+      },
+      colorMode: {
+        disableSwitch: true,
       },
       algolia: {
           // The application ID provided by Algolia
@@ -468,7 +471,7 @@ const config = {
       },
       docs: {
         /* closes sibling categories when expanding a category */
-        sidebar: { autoCollapseCategories: true, },
+        sidebar: { autoCollapseCategories: true },
       },
       footer: {
         style: 'dark',

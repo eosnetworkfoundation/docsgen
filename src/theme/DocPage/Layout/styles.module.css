@@ -1,0 +1,74 @@
+.docPage {
+  display: flex;
+  width: 100%;
+}
+
+.docsWrapper {
+  display: flex;
+}
+
+.collapseSidebarContainer {
+  display: none;
+}
+
+@media (min-width: 996px) {
+  .collapseSidebarContainer {
+    display: block;
+    width: 0;
+    z-index: 9999;
+    position: relative;
+    left: 305px;
+    transition: all 0.5s ease;
+  }
+
+  .collapseSidebar {
+    position: sticky;
+    top: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 31px;
+    height: 31px;
+    border-radius: 100%;
+    border: 1px solid hsl(0, 0%, 80%);
+    background: white;
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
+
+  .collapseSidebar:hover {
+    background: #f5f5f5;
+  }
+
+  .collapsedSidebarContainer {
+    left: 6px;
+    transition: all 0.5s ease;
+  }
+
+  .collapseSidebar svg {
+    width: 20px;
+    height: 20px;
+    transform: rotate(90deg);
+  }
+
+  .collapsedSidebar svg {
+    transform: rotate(-90deg);
+    transition: transform 0.5s ease;
+  }
+}
+
+@media (min-width: 1200px) {
+  .collapseSidebarContainer {
+    left: 335px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .collapseSidebarContainer {
+    left: 355px;
+  }
+
+  .collapsedSidebarContainer {
+    left: 6px;
+  }
+}

@@ -1,7 +1,10 @@
 import React from 'react';
 import {useThemeConfig} from '@docusaurus/theme-common';
-import {useNavbarSecondaryMenu} from '@docusaurus/theme-common/internal';
+import {useNavbarSecondaryMenu, useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import Translate from '@docusaurus/Translate';
+import SearchBar from '@site/src/theme/SearchBar';
+import CustomTOC from '@site/src/components/CustomTOC/CustomTOC';
+import { useLocation } from '@docusaurus/router';
 
 import styles from './styles.module.css';
 
@@ -21,16 +24,26 @@ function SecondaryMenuBackButton(props) {
 // such as the docs sidebar
 export default function NavbarMobileSidebarSecondaryMenu() {
   const isPrimaryMenuEmpty = useThemeConfig().navbar.items.length === 0;
+  const mobileSidebar = useNavbarMobileSidebar();
   const secondaryMenu = useNavbarSecondaryMenu();
-  return (
-    <>
-      {/* edge-case: prevent returning to the primaryMenu when it's empty */}
-      {!isPrimaryMenuEmpty && (
-        <SecondaryMenuBackButton onClick={() => secondaryMenu.hide()} />
-      )}
-      <div className={styles.secondary_menu}>
-        {secondaryMenu.content}
-      </div>
-    </>
-  );
+  const location = useLocation();
+
+  const onClick = () => mobileSidebar.toggle();
+  
+  if (location.state) {
+    const {doc} = location.state;
+
+    return (
+      <>
+        {!isPrimaryMenuEmpty && (
+          <SecondaryMenuBackButton onClick={() => secondaryMenu.hide()} />
+        )}
+        <div className={styles.secondary_menu}>
+          <SearchBar />
+          {secondaryMenu.content}
+          <CustomTOC doc={location.state.doc} className="theme-doc-toc-desktop" onClic={onClick} />
+        </div>
+      </>
+    );
+  } else return null
 }
