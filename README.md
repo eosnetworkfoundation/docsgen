@@ -66,6 +66,7 @@ options:
 -i: private key for web host, needed to install files
 -h: destination user@host(s) where to install files
 -c: context directory for backups and archives
+-s: staging, put content into staging web root
 -x: suppress build statics process
 -f: fast, skip git checkout if files less then 1 hour old
 

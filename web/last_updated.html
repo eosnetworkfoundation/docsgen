@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Last Updated</title>
+<style>
+body, html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+body {
+  background-image: linear-gradient(#F8F0A6, #F0E2B6);
+  font-family: 'Courier New';
+  margin-left: 2em;
+}
+h3 {
+  font-size: 3em;
+}
+ul {
+  font-size: 2em;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.innerbox
+{
+   width:5.5em; /* or whatever width you want. */
+   max-width:5.5em; /* or whatever width you want. */
+   text-align: right;
+   display: inline-block;
+   margin-right: 1em;
+}
+</style>
+</head>
+
+<body>
+  <h3>Last Updated</h3>
+  <ul>
+    <!-- TZ=America/Los_Angeles -->
+    <li><span class="innerbox">Seattle</span><span class="time">##America/Los_Angeles##</span></li>
+    <!-- TZ=America/New_York -->
+    <li><span class="innerbox">New York</span><span class="time">##America/New_York##</span></li>
+    <!-- TZ=Asia/Hong_Kong -->
+    <li><span class="innerbox">Hong Kong</span><span class="time">##Asia/Hong_Kong##</span></li>
+    <!-- TZ=Europe/Budapest -->
+    <li><span class="innerbox">Budapest</span><span class="time">##Europe/Budapest##</span></li>
+  </ul>
+</body>
+
+</html>

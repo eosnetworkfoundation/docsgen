@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Antelope Developer Documentation',
+  title: 'EOS Developer Documentation',
   tagline: 'Documentation for Developing on EOS Blockchain',
   url: 'https://docs.eosnetwork.com/',
   baseUrl: '/',
@@ -152,23 +152,21 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'leap',
-        lastVersion: 'current', // switch to 3.1
+        lastVersion: '3.1',
         path: 'eosdocs/leap',
         routeBasePath: 'leap',
         sidebarPath: require.resolve('./sidebarsLeap.js'),
         versions: {
           current: {
             label: '3.2-rc1',
-            path: 'latest', // switch to 3.2-rc1
+            path: '3.2-rc1',
             banner: 'unreleased',
           },
-          /* DROPME
           '3.1' : {
             label: '3.1',
             path: 'latest',
             banner: 'none',
           }
-          DROPME */
         },
         // ... other options
       },
@@ -223,7 +221,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Antelope Developer Documentation',
+        title: 'EOS Developer Documentation',
         logo: {
           alt: 'EOS Network',
           src: 'img/eosn_logo.png',
@@ -296,7 +294,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/AntelopeIO',
+            href: 'https://github.com/eosnetworkfoundation',
             label: 'GitHub',
             position: 'right',
           },

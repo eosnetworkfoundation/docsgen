@@ -66,7 +66,6 @@ DoxygenSystemContracts() {
   mv reference/index_files.md reference/Files/index.md
   mv reference/index_namespaces.md reference/Namespaces/index.md
 
-
   if [ "$SUPRESS_EULA" -eq 1 ]; then
     rm -rf reference/Pages
   fi
@@ -83,7 +82,6 @@ MarkdownSystemContracts() {
   ARG_TAG=$5
 
   mkdir markdown_out
-  mv README.md markdown_out
   mv LICENSE markdown_out/LICENSE.md
   # quick fix to path for License
   sed 's/LICENSE/https:\/\/github.com\/AntelopeIO\/reference-contracts\/blob\/main\/LICENSE/' markdown_out/README.md > tmp_README.md
@@ -91,6 +89,26 @@ MarkdownSystemContracts() {
 
   # pull in markdown docs from git
   cp -R docs/* markdown_out
+
+  # process markdown
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
+  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
+
+  # added meta data for repo and branch to each file
+  # shellcheck source=scripts/add_front_matter.sh
+  source "${SCRIPT_DIR}"/add_front_matter.sh
+  # 2nd arg our working directory
+  Add_Front_Matter "$ARG_GIT_REPO" "markdown_out" "$ARG_BRANCH" "$ARG_TAG"
+
+  # add front matter for README: one off special
+  echo "---" > markdown_out/README.md
+  BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
+  RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/"
+  THIS_FILE_META=$(printf 'tags:\n  - %s/README.md\n  - %s\n  - %s' "${RAW_PATH}" "${ARG_GIT_REPO}" "${BRANCH:-main}" | sed 's#///#/#g' | sed 's#//#/#g')
+  # shellcheck disable=SC2129
+  printf '%s\n' "${THIS_FILE_META}" >> markdown_out/README.md
+  echo "---" >> markdown_out/README.md
+  cat tmp_README.md >> markdown_out/README.md
 
   # fix relative links
   REPLACE="\/system-contracts\/latest\/reference\/"
@@ -130,10 +148,6 @@ MarkdownSystemContracts() {
   sed 's/title: About System Contracts/title: Overview/' markdown_out/index.md > tmp_index.md
   mv tmp_index.md markdown_out/index.md
 
-  # process markdown
-  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
-  find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
-
   # copy into serving location
   cp -R markdown_out/* "${ARG_BUILD_DIR}"/devdocs/eosdocs/system-contracts
 }
@@ -148,7 +162,7 @@ Install_Eos-system-contracts() {
   MarkdownSystemContracts "$SCRIPT_DIR" "$ARG_GIT_REPO" "$ARG_BUILD_DIR" "$ARG_BRANCH" "$ARG_TAG"
 
   # three args, build_root, doxyfile, and path to logo
-  DoxygenSystemContracts "$ARG_BUILD_DIR" \
-     "${SCRIPT_DIR}"/../web/eosn_logo.png \
-     "${SCRIPT_DIR}"/../config
+  #DoxygenSystemContracts "$ARG_BUILD_DIR" \
+  #   "${SCRIPT_DIR}"/../web/eosn_logo.png \
+  #   "${SCRIPT_DIR}"/../config
 }

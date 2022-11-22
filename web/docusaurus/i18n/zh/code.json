@@ -251,7 +251,7 @@
     "description": "The ARIA label and title attribute for expand button of doc sidebar"
   },
   "Antelope Developer Documentation": {
-    "message": "EOS 程序员 文档",
+    "message": "Antelope 程序员 文档",
      "description": "Title of site on homepage in index.tsx code"
   },
   "Documentation for Developing on EOS Blockchain": {

@@ -36,6 +36,7 @@ Help() {
   echo "-i: private key for web host, needed to install files"
   echo "-h: destination user@host(s) where to install files"
   echo "-c: content directory on remote host for tar archives"
+  echo "-s: staging, put content into staging web root"
   echo "-x: suppress build statics process"
   echo "-f: fast, skip git clone if files less then 1 hour old"
   echo ""
@@ -105,7 +106,12 @@ Install_Docusaurus() {
     popd || exit
   fi
   # push our own config
-  cp "${SCRIPT_DIR:?}/../config/docusaurus.config.js" "${ARG_BUILD_DIR:?}/devdocs"
+  if [ -f "${SCRIPT_DIR:?}/../config/docusaurus.config.js.new" ]; then
+    cp "${SCRIPT_DIR:?}/../config/docusaurus.config.js.new" "${ARG_BUILD_DIR:?}/devdocs/docusaurus.config.js"
+  else
+    cp "${SCRIPT_DIR:?}/../config/docusaurus.config.js" "${ARG_BUILD_DIR:?}/devdocs"
+  fi
+
   # copy over side sidebars one for each seperly versioned doc-id
   find "${SCRIPT_DIR:?}"/../web/docusaurus/src -type f -name "sidebar*.js" -print0 | while IFS= read -r -d '' sidebar
   do
@@ -265,24 +271,27 @@ Remote_Upload() {
         # on remote move into content directory
         move_cmd="mv ${base_tar_file} ${ARG_CONTENT:-~/content}"
         # on remote backup existing
-        backup_cmd="cd /var/www/html && tar czf ${ARG_CONTENT:-~/content}/devdocs_${bdate}_backup.tgz -- *"
+        backup_cmd="if [ ! -d ${WEBROOT:-/var/www/html} ]; then mkdir ${WEBROOT:-/var/www/html}; fi && cd ${WEBROOT:-/var/www/html} && tar czf ${ARG_CONTENT:-~/content}/devdocs_${BUILD_TYPE:-production}_${bdate}_backup.tgz -- *"
         # loop over tar 1st level and delete on remote host
-        delete_cmd="cd /var/www/html && tar tfz ${ARG_CONTENT:-~/content}/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
+        delete_cmd="cd ${WEBROOT:-/var/www/html} && tar tfz ${ARG_CONTENT:-~/content}/${base_tar_file} | cut -d'/' -f1 | sort -u | xargs rm -rf"
         # un-pack tar populate new things
-        update_cmd="cd /var/www/html && tar xzf ${ARG_CONTENT:-~/content}/${base_tar_file}"
+        update_cmd="cd ${WEBROOT:-/var/www/html} && tar xzf ${ARG_CONTENT:-~/content}/${base_tar_file}"
         ### sftp copy over
         echo "put ${archive}" | sftp -i "$ARG_ID_FILE" "$host"
         ### move
         ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$move_cmd"
-        ### backup
-        ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$backup_cmd"
+        ### backup, only run is ARG_STAGING is not set (aka production)
+        if [ -z "$ARG_STAGING" ]; then
+          ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$backup_cmd"
+        fi
         ### delete
         ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$delete_cmd"
         ### update
         ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$update_cmd"
         ### clean old files in content directory
+        ### content/ requires trailing slash, it is a symlink
         ssh -t -t -i "$ARG_ID_FILE" -l "$user" "$machine" <<EOF
-find content -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
+find content/ -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
 do
   rm \$oldfile
 done
@@ -308,7 +317,7 @@ Reset_Color='\033[0m' # No Color
 
 ############################################################################
 # Get the options
-while getopts "r:d:b:t:i:h:c:xf" option; do
+while getopts "r:d:b:t:i:h:c:sxf" option; do
    case $option in
       r) # repository
         ARG_GIT_REPO=${OPTARG}
@@ -331,6 +340,9 @@ while getopts "r:d:b:t:i:h:c:xf" option; do
       c) # set content dir
         ARG_CONTENT=${OPTARG}
         ;;
+      s) # set staging
+        ARG_STAGING="True"
+        ;;
       x) # set fast
         ARG_SUPPRESS_BUILD="True"
         ;;
@@ -352,6 +364,12 @@ if [ -z "$ARG_GIT_REPO" ] || [ -z "$ARG_BUILD_DIR" ]; then
   Help;
 fi
 
+## STAGING CHANGES
+if [ -n "$ARG_STAGING" ]; then
+  WEBROOT='/var/www/html/devrel_staging'
+  BUILD_TYPE='staging'
+fi
+
 ##############################################################################
 # Initialize
 ##############################################################################
@@ -370,6 +388,10 @@ if [ "$DEBUG" ]; then
   for val in "${ARG_HOST[@]}"; do
       echo " $val"
     done
+  echo "webroot "
+  echo "${WEBROOT:-/var/www/html}"
+  echo "build type"
+  echo "${BUILD_TYPE:-production}"
 fi
 
 # if host and id exist check content directory exists

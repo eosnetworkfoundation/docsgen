@@ -3,7 +3,6 @@
 # Populates the following directories
 # leap
 #
-
 DoxygenLeap() {
   BUILD_ROOT=$1
   LOGO=$2
@@ -65,6 +64,12 @@ Install_Leap() {
   find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/add_title.py {}
   find markdown_out -type f -print0 | xargs -0 -I{} "${SCRIPT_DIR}"/process_admonitions.py {}
 
+  # added meta data for repo and branch to each file
+  # shellcheck source=scripts/add_front_matter.sh
+  source "${SCRIPT_DIR}"/add_front_matter.sh
+  # 2nd arg our working directory
+  Add_Front_Matter "$ARG_GIT_REPO" "markdown_out" "$ARG_BRANCH" "$ARG_TAG"
+
   # fix paths for dev tools
   find markdown_out -type f -name "*.md" -print0 | while IFS= read -r -d '' file
   do
@@ -92,11 +97,6 @@ Install_Leap() {
 
     mv tempTT.md "$file"
   done
-
-  # fix reasource path
-  sed 's/\/resources\/index.md/\/docs\/latest\/resources\//' \
-      markdown_out/02_cleos/02_how-to-guides/how-to-get-block-information.md > tempRes.md
-  mv tempRes.md markdown_out/02_cleos/02_how-to-guides/how-to-get-block-information.md
 
   # move tutorial to docs
   cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"

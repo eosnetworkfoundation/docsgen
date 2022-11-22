@@ -21,8 +21,23 @@ Install_DUNE() {
 
   # to keep docs clean and process idempotent
   [ ! -d markdown_out ] && mkdir markdown_out
+
+  # shellcheck source=scripts/add_front_matter.sh
+  source "${SCRIPT_DIR}"/add_front_matter.sh
+  # add front matter for README: one off special
+  echo "---" > markdown_out/README.md
+  BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
+  RAW_PATH="${ARG_GIT_REPO:?}/tree/${BRANCH:-main}/"
+  THIS_FILE_META=$(printf 'tags:\n  - %s/README.md\n  - %s\n  - %s' "${RAW_PATH}" "${ARG_GIT_REPO}" "${BRANCH:-main}" | sed 's#///#/#g' | sed 's#//#/#g')
+  # shellcheck disable=SC2129
+  printf '%s\n' "${THIS_FILE_META}" >> markdown_out/README.md
+  echo "---" >> markdown_out/README.md
+  cat README.md >> markdown_out/README.md
+
   # need to update image paths
-  sed 's/docs\/images\//\/DUNE\/images\//g' README.md > markdown_out/index.md
+  sed 's/docs\/images\//\/DUNE\/images\//g' markdown_out/README.md > markdown_out/index.md
+  # do not need README
+  rm markdown_out/README.md
   # formally close html angle bracket by adding a slash
   # only happens for eol image tags thus the '$'
   sed 's/">$/"\/>/g' markdown_out/index.md > temp.md
