@@ -21,13 +21,13 @@
 
 @media (min-width: 1200px) {
   .docMainContainer {
-    max-width: 70%;
+    max-width: 73%;
   }
 }
 
 @media (min-width: 1400px) {
   .docMainContainer {
-    max-width: 75%;
+    max-width: 78%;
   }
 }
 
@@ -37,14 +37,21 @@
   }
 }
 
+@media (min-width: 2000px) {
+  .docMainContainer {
+    max-width: 70%;
+    margin: 0 auto auto 5%;
+  }
+}
+
 @media (min-width: 2600px) {
   .docMainContainer {
-    max-width: 2000px;
-    margin: 0 auto auto 5%;
+    max-width: 1800px;
+    margin: 0 auto auto 8%;
   }
 
   .docMainContainerEnhanced {
-    max-width: 2000px;
+    max-width: 1800px;
     transition: width 0.5s ease;
     margin: 0 auto;
   }

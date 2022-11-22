@@ -41,7 +41,7 @@ export default function NavbarMobileSidebarSecondaryMenu() {
         <div className={styles.secondary_menu}>
           <SearchBar />
           {secondaryMenu.content}
-          <CustomTOC doc={location.state.doc} className="theme-doc-toc-desktop" onClic={onClick} />
+          <CustomTOC doc={location.state.doc} onClick={onClick} />
         </div>
       </>
     );
