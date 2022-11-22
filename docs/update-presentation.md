@@ -4,7 +4,7 @@
 
 The Docusaurus build process places all the content and presentation into a build directory. Then we run `npm build` to process all the code. The static files are then copied to production directory and served by a web server.
 
-## Making Updates
+## Making Presentation Updates
 Updating existing files works file. Adding new files will require a slight modification to the scripts.
 
 ### Existing Files
@@ -13,14 +13,14 @@ Updating existing files works file. Adding new files will require a slight modif
 - React components - `web/docusaurus/src/components`
 - React pages - `web/docusaurus/src/pages`
 
-These are copied over in the `generate_documents.sh` script. You can see the copy logic below
+These are copied over in the `generate_documents.sh` script. You can see the copy logic below. You can certainly update `generate_documents.sh` adding any new files or directory you want to copy over. Presentation files most often go into `devdocs/static` 
 https://github.com/eosnetworkfoundation/devdocs/blob/f505964c5a616d337170a8e6db4748832e5b413f/scripts/generate_documents.sh#L108-L126
 
 ### Configuration
 
 Config files live under `config` and are labled `docusaurus.config.js*`
 
-## Hacking The Update
+## Hacking The Presentation
 
 The existing code explicitly copies over files. This means you can hack the process, by writing your own script to copy over files. Here are the steps you need to take
 
