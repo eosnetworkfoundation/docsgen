@@ -94,6 +94,11 @@ Install_Docusaurus() {
       >&2 echo "npm redocusaurus failed exiting"
       exit 1
     fi
+    if ! npm i react-select;
+    then
+      >&2 echo "npm react-select failed exiting"
+      exit 1
+    fi
     popd || exit
   fi
   # push our own config
