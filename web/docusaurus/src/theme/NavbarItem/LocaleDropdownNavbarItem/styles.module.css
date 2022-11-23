@@ -1,0 +1,62 @@
+.localeDropdown:after {
+  display: none !important;
+}
+
+.localeDropdown {
+  margin: 12px 0 !important;
+}
+
+.localeDropdown p {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+
+  letter-spacing: 0.5px;
+
+  color: #000000;
+}
+
+.localeDropdown.menu__list-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+
+  letter-spacing: 0.5px;
+
+  color: #000000;
+}
+
+@media (min-width: 996px) {
+  .iconLanguage {
+    vertical-align: text-bottom;
+    margin-right: 5px;
+  }
+  
+  .localeDropdown p {
+    display: flex;
+    align-items: center;
+    color: var(--eos-color-darkest);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+  }
+  
+  .localeDropdown p svg {
+    margin-left: 8px;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .localeDropdown svg path {
+    stroke-width: 1px;
+  }
+}

@@ -1,0 +1,47 @@
+.wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 12px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #D1DAF0;
+  border-radius: 6px;
+  width: 52px;
+  height: 52px;
+}
+
+.content {
+  max-width: 200px;
+}
+
+@media (min-width: 996px) {
+  .wrapper {
+    width: 294px;
+    transition:all 0.2s ease
+  }
+  
+  .wrapper:hover {
+    background: #FFFFFF;
+    
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+  }
+  
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #D1DAF0;
+    border-radius: 6px;
+    width: 52px;
+    height: 52px;
+  }
+  
+  .content {
+    max-width: 200px;
+  }
+}

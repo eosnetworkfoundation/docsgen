@@ -1,39 +1,38 @@
 import React from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import HomepageHeader from '@site/src/components/Header/Header';
+import { WideCard } from '../components/WideCard/WideCard';
+import { Card } from '../components/Card/Card';
+import { CardWrapper } from '../components/CardWrapper/CardWrapper';
 
-import styles from './index.module.css';
-
-import Translate, {translate} from '@docusaurus/Translate';
-
-const SiteTitle = <Translate>EOS Developer Documentation</Translate>;
-const SiteDesc = <Translate>Documentation for Developing on EOS Blockchain</Translate>;
-
-function HomepageHeader() {
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">
-            {SiteTitle}
-        </h1>
-        <p className="hero__subtitle">{SiteDesc}</p>
-      </div>
-    </header>
-  );
-}
+import { SignUp } from '../components/SignUp/SignUp';
 
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
+
+  const { firstCards, secondCards } = siteConfig.customFields.main;
+  
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
+      wrapperClassName="index-page"
       description="Description will go into a meta tag in <head />">
+      <div id="long-line-bg" />
       <HomepageHeader />
       <main>
-        <HomepageFeatures />
+        <WideCard />
+        <CardWrapper>
+          {firstCards.map((item, index) => (
+            <Card key={index} icon={item.icon} title={item.title} subtitle={item.subtitle} link={item.link} />
+          ))}
+        </CardWrapper>
+        <SignUp />
+        <CardWrapper>
+            {secondCards.map((item, index) => (
+              <Card key={index} icon={item.icon} title={item.title} subtitle={item.subtitle} link={item.link} color={item.color} />
+            ))}
+        </CardWrapper>
       </main>
     </Layout>
   );

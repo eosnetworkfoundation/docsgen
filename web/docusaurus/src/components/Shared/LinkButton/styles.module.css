@@ -1,0 +1,31 @@
+.linkButton {
+  background-color: var(--eos-color-darkest);
+  color: var(--eos-color-white);
+  height: 64px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 450;
+  font-size: var(--font-size-xlarge);
+  line-height: 60px;
+  letter-spacing: 1px;
+}
+
+.linkButton:hover {
+  background-color: var(--eos-color-darker);
+  text-decoration: none;
+  color: var(--eos-color-white);
+}
+
+@media (min-width: 500px) {
+  .linkButton {
+    width: 275px;
+    line-height: 52px;
+
+    transition: all 400ms cubic-bezier(0.08, 0.52, 0.52, 1)
+  }
+}
