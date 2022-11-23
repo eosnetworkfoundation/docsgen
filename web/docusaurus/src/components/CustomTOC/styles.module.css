@@ -1,17 +1,18 @@
-.tableOfContents {
+.customTableOfContents {
   overflow-y: auto;
-  width: 350px;
+  width: 95%;
   border: 1px solid #B6B4B4;
   border-radius: 8px;
   padding: 20px;
+  margin: 24px auto;
 }
 
-.tableOfContents ul {
+.customTableOfContents ul {
   list-style: none;
   padding: 0 !important;
 }
 
-.tableOfContents ul li {
+.customTableOfContents ul li {
   padding: 0 !important;
   padding-left: 0.5rem !important;
   margin: 0.5rem 0.5rem !important;

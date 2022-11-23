@@ -91,7 +91,7 @@ export default function CustomTOC({ doc, onClick }) {
   }
 
   return (
-    <div className={clsx(styles.tableOfContents, 'thin-scrollbar')}>
+    <div className={clsx(styles.customTableOfContents)}>
       <Select
         options={options}
         value={currentVersion}
