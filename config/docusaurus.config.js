@@ -219,14 +219,150 @@ const config = {
     ],
   ],
 
+  // custom fields for nav bar
+  customFields: {
+    navbar: {
+      logo: {
+        alt: 'EOS Network',
+        src: 'img/eosn_logo.svg',
+      },
+      items: [
+        {
+          docId: 'index',
+          position: 'left',
+          label: 'Home',
+          to: '/',
+        },
+        {
+          type: 'dropdown',
+          label: 'Learn',
+          position: 'left',
+          items: [
+            {
+              label: 'Getting started', // This label is used for mobile view
+              title: 'Getting started',
+              subtitle: 'Get started with EOSIO',
+              icon: '/icons/brief-case-icon.svg', //replace with required icon
+              href: '/docs/latest/getting-started/',
+            },
+            {
+              label: 'Core concepts',
+              title: 'Core concepts',
+              icon: '/icons/db-icon.svg',
+              subtitle: 'Learn about the core concepts of EOSIO',
+              href: '/docs/latest/overview/core_concepts',
+            },
+            {
+              label: 'Tutorials',
+              title: 'Tutorials',
+              icon: '/icons/box-icon.svg',
+              subtitle: 'Learn how to build on EOSIO',
+              href: '/docs/latest/tutorials/',
+            },
+            {
+              label: 'Protocol',
+              title: 'Protocol',
+              icon: '/icons/globe-icon.svg',
+              subtitle: 'Learn about the EOSIO protocol',
+              href: '/docs/latest/protocol/',
+            },
+            {
+              label: 'Tools',
+              title: 'Tools',
+              icon: '/icons/globe-icon.svg',
+              subtitle: 'Learn about the EOSIO tools',
+              href: '/docs/latest/community-developer-tools/',
+            },
+            {
+              label: 'Glossary',
+              title: 'Glossary',
+              icon: '/icons/globe-icon.svg',
+              subtitle: 'Learn about the EOSIO protocol',
+              href: '/docs/latest/glossary',
+            },
+          ],
+        },
+        {
+          docId: 'api-listing',
+          position: 'left',
+          label: 'API Reference',
+          to: '/docs/latest/api-listing/',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
+      ],
+    },
+    main: {
+      firstCards: [
+        {
+          icon: 'icons/docs-icon.svg',
+          title: 'Smart Contracts',
+          subtitle: 'Start here to build and deploy basic smart contract',
+          link: '/docs/smart-contracts/overview',
+        },
+        {
+          icon: '/icons/emerald-icon.svg',
+          title: 'EOSIO Basics',
+          subtitle: 'Gain a basic-level understanding of EOSIO core concepts.',
+          link: '/docs/eosio-basics/overview',
+        }
+      ],
+      secondCards: [
+        {
+          icon: 'icons/molecules-icon.svg',
+          title: 'Run a Node',
+          subtitle: 'Learn how to run an EOSIO node and manage your servers.',
+          link: '/docs/smart-contracts/overview',
+          color: 'yellow',
+        },
+        {
+          icon: '/icons/chat-icon.svg',
+          title: 'Advanced topics',
+          subtitle: 'Dig in with comprehensive info about smart contracts, the protocol and security.',
+          link: '/docs/eosio-basics/overview',
+          color: 'yellow',
+        },
+        {
+          icon: '/icons/ref-icon.svg',
+          title: 'Reference',
+          subtitle: "Consult the API references to see exactly what's available from an EOSIO node",
+          link: '/docs/smart-contracts/overview',
+        },
+        {
+          icon: '/icons/sdk-icon.svg',
+          title: 'Client SDKs',
+          subtitle: 'Learn how to integrate EOSIO into your decentralized applications',
+          link: '/docs/eosio-basics/overview',
+        }
+      ],
+      wideCard: {
+        title: 'Public and Private Keys',
+        subtitle: 'We all have to start somewhere, and this is the first step on your journey to developing decentralized applications with EOSIO',
+        icon: '/icons/keys-icon.svg',
+        href: '#',
+      },
+      signUp: {
+        title: 'Sign up for developer alerts',
+        subtitle: `
+          Sometimes things require breaking changes.
+          These could come from wallets, the protocol, or anywhere on the stack.
+          If you want to stay apprised of such situations make sure to sign up for the developer alerts.
+        `,
+        action: 'https://eosnetwork.us8.list-manage.com/subscribe/post',
+        buttonText: 'SIGN ME UP SCOTTY',
+      }
+    },
+  },
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'EOS Developer Documentation',
         logo: {
           alt: 'EOS Network',
-          src: 'img/eosn_logo.png',
+          src: 'img/eosn_logo.svg',
         },
         items: [
           {
@@ -235,72 +371,10 @@ const config = {
             position: 'left',
             label: 'Welcome',
           },
-          {
-            type: 'dropdown',
-            label: 'Leap',
-            position: 'left',
-            items: [
-              {
-                label: '3.1',
-                href: '/leap/latest/',
-              },
-              {
-                label: '3.2-rc1',
-                href: '/leap/3.2-rc1/',
-              },
-              // ... more items
-            ],
-          },
-          {
-            type: 'dropdown',
-            label: 'CDT',
-            position: 'left',
-            items: [
-              {
-                label: '3.0',
-                href: '/cdt/latest/',
-              },
-            ],
-          },
-          {
-            type: 'dropdown',
-            label: 'EOS System Contracts',
-            position: 'left',
-            items: [
-              {
-                label: '3.1',
-                href: '/system-contracts/latest/',
-              },
-              // ... more items
-            ],
-          },
-          {
-            type: 'dropdown',
-            label: 'DUNE',
-            position: 'left',
-            items: [
-              {
-                label: '1.0',
-                href: '/DUNE/latest/',
-              },
-            ],
-          },
-          {
-            type: 'doc',
-            docId: 'api-listing',
-            position: 'left',
-            label: 'API Reference',
-          },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
-          {
-            href: 'https://github.com/eosnetworkfoundation',
-            label: 'GitHub',
-            position: 'right',
-          },
         ],
+      },
+      colorMode: {
+        disableSwitch: true,
       },
       algolia: {
           // The application ID provided by Algolia
@@ -331,36 +405,17 @@ const config = {
       },
       footer: {
         style: 'dark',
+        logo: {
+          alt: 'EOS Network',
+          src: 'img/eosn_logo_white.svg',
+          srcDark: 'img/eosn_logo.svg',
+        },
         links: [
           {
             title: 'Websites',
             items: [
               { label: 'EOS Network',
                 href: 'https://eosnetwork.com/',
-              },
-              { label: 'EOS Support',
-                href: 'https://eossupport.io/',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/eosnfoundation',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discord.gg/eos-network',
-              },
-              {
-                label: 'Telegram',
-                href: 'https://t.me/EOSNetworkFoundation',
-              },
-              {
-                label: 'Youtube',
-                href: 'https://www.youtube.com/c/everythingeos',
               },
             ],
           },
