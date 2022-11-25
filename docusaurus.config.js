@@ -481,35 +481,54 @@ const config = {
           srcDark: 'img/eosn_logo.svg',
         },
         links: [
-          {
-            title: 'Websites',
-            items: [
-              { label: 'EOS Network',
-                href: 'https://eosnetwork.com/',
-              },
-            ],
-          },
           // {
-          //   title: 'Community',
+          //   title: 'Websites',
           //   items: [
-          //     {
-          //       label: 'Twitter',
-          //       href: 'https://twitter.com/eosnfoundation',
-          //     },
-          //     {
-          //       label: 'Discord',
-          //       href: 'https://discord.gg/eos-network',
-          //     },
-          //     {
-          //       label: 'Telegram',
-          //       href: 'https://t.me/EOSNetworkFoundation',
-          //     },
-          //     {
-          //       label: 'Youtube',
-          //       href: 'https://www.youtube.com/c/everythingeos',
+          //     { label: 'EOS Network',
+          //       href: 'https://eosnetwork.com/',
           //     },
           //   ],
           // },
+          {
+            title: 'Terms',
+            items: [
+              {
+                label: 'Terms & Conditions, Privacy',
+                href: 'https://eosnetwork.com/terms-and-conditions',
+              },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'GitHub',
+                href: 'https://github.com/eosnetworkfoundation',
+                logo: '/icons/github-icon.svg',
+              },
+              {
+                label: 'Discord',
+                href: 'https://discord.gg/XjVqej4uT5',
+                logo: '/icons/discord-icon.svg',
+              },
+              // UNCOMMENT LATES WHEN WE HAVE ICONS
+              // {
+              //   label: 'Telegram',
+              //   href: 'https://t.me/EOSNetworkFoundation',
+              //   logo: '/icons/telegram-icon.svg',
+              // },
+              // {
+              //   label: 'Twitter',
+              //   href: 'https://twitter.com/eosnfoundation',
+              //   logo: '/icons/twitter-icon.svg',
+              // },
+              // {
+              //   label: 'Youtube',
+              //   href: 'https://www.youtube.com/c/everythingeos',
+              //   logo: '/icons/youtube-icon.svg',
+              // },
+            ],
+          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} EOS Network.`,
       },

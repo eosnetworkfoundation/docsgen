@@ -610,7 +610,7 @@ article .markdown {
 .footer {
   font-size: 0.75rem;
   --ifm-heading-margin-bottom: 0.75rem;
-  --ifm-footer-background-color: #222222;
+  --ifm-footer-background-color: var(--eos-color-darkest);
   --ifm-footer-padding-horizontal: var(--ifm-spacing-horizontal);
   --ifm-footer-padding-vertical: var(--ifm-spacing-vertical);
 }
@@ -623,6 +623,45 @@ article .markdown {
 /* shorten up the long list for footer links group 2 */
 .footer__col:nth-child(2) ul {
   columns: 2;
+}
+
+.footer__logo_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 56px 70px;
+}
+
+.footer__links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+.footer__logo {
+  margin-top: 0;
+}
+
+.footer__community-logo {
+  width: 44px;
+}
+
+.footer__link-item {
+  display: flex;
+  align-items: center;
+}
+
+.footer__terms a {
+  color: white;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.footer__copyright {
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 30px;
 }
 
 .search-input {
@@ -1320,5 +1359,15 @@ aside {
 
   .search-input {
     width: 100%;
+  }
+
+  .footer__logo_container {
+    flex-direction: column;
+    gap: 32px;
+    margin: 32px;
+  }
+
+  .footer__links img {
+    width: 32px;
   }
 }
