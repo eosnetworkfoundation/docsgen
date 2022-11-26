@@ -153,7 +153,7 @@ function useDocsSearchVersionsHelpers() {
   };
 }
 // We want to display one select per versioned docs plugin instance
-function SearchVersionSelectList({ docsSearchVersionsHelpers }) {
+function SearchVersionSelectList({ docsSearchVersionsHelpers, className }) {
   const versionedPluginEntries = Object.entries(
     docsSearchVersionsHelpers.allDocsData,
   )
@@ -176,7 +176,7 @@ function SearchVersionSelectList({ docsSearchVersionsHelpers }) {
                 e.value,
               )
             }}
-            className={styles.searchVersionInput}
+            className={className}
             options={docsData.versions.map((version) => ({
               value: version.name,
               label: `${labelPrefix}${version.label}`,
@@ -202,10 +202,7 @@ function SearchVersionSelectList({ docsSearchVersionsHelpers }) {
               }),
               menu: (provided, state) => ({
                 ...provided,
-                // background: '#F4F5F6',
                 borderRadius: '6px',
-                width: '300px',
-                margin: 'auto',
                 outline: 'none',
               }),
               menuList: (provided, state) => ({
@@ -492,6 +489,13 @@ function SearchPageContent() {
               />
             </form>
 
+            {docsSearchVersionsHelpers.versioningEnabled && (
+              <SearchVersionSelectList
+                className={styles.searchVersionInputMobile}
+                docsSearchVersionsHelpers={docsSearchVersionsHelpers}
+              />
+            )}
+
             <h1>{getTitle()}</h1>
 
             <div>
@@ -552,6 +556,7 @@ function SearchPageContent() {
           <div>
             {docsSearchVersionsHelpers.versioningEnabled && (
               <SearchVersionSelectList
+                className={styles.searchVersionInput}
                 docsSearchVersionsHelpers={docsSearchVersionsHelpers}
               />
             )}

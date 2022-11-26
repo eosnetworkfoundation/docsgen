@@ -974,6 +974,18 @@ aside {
     color: var(--eos-color-darkest);
   }
 
+  .navbar-sidebar__back {
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    color: #3F65C2;
+    padding: 0.5rem 24px;
+    position: relative;
+    top: 0;
+  }
+
   .menu__list-item--collapsed .menu__link--sublist:after {
     filter: grayscale(100%);
   }
@@ -1334,18 +1346,6 @@ aside {
 
   .menu {
     gap: 12px;
-  }
-
-  .navbar-sidebar__back {
-    background-color: transparent;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.5px;
-    color: #3F65C2;
-    padding: 0.5rem 24px;
-    position: relative;
-    top: 0;
   }
 
   .navbar__toggle {
