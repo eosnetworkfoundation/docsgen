@@ -293,7 +293,7 @@ Remote_Upload() {
         ### clean old files in content directory
         ### content/ requires trailing slash, it is a symlink
         ssh -t -t -i "$ARG_ID_FILE" -l "$user" "$machine" <<EOF
-find content/ -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
+find ${ARG_CONTENT:-~/content}/ -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
 do
   rm \$oldfile
 done
