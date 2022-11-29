@@ -46,13 +46,13 @@ else
 fi
 ## STAGING CHANGES
 if [ -n "$ARG_STAGING" ]; then
-  WEBROOT='/var/www/html/devrel_staging'
+  WEBROOT='/var/www/html/ENF/devrel_staging'
 fi
 
 # Remove Last Updates while we run job
 # Set Lock File
-UPDATE_DATETIME_FILE="${WEBROOT:-/var/www/html}"/updated.html
-LOCK_FILE="${WEBROOT:-/var/www/html}"/clean_rebuild.lock
+UPDATE_DATETIME_FILE="${WEBROOT:-/var/www/html/ENF/production}"/updated.html
+LOCK_FILE="${WEBROOT:-/var/www/html/ENF/production}"/clean_rebuild.lock
 
 ## Exit if lock file exists
 #  Else Set lock file
