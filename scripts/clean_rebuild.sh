@@ -161,7 +161,7 @@ popd || exit
 
 ## All done, remove the lock file, and set last updated times
 # local builds do not have webroot so skip
-if [ -d "$WEBROOT" ]; then
+if [ -d "${WEBROOT:-/var/www/html/ENF/production}" ]; then
   if [ -f "$LOCK_FILE" ]; then
     rm -f $LOCK_FILE
   fi
