@@ -180,6 +180,16 @@
   margin-bottom: 2rem;
 }
 
+.desktopVersionContainer {
+  border: 1px solid #B6B4B4;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.searchVersionInputMobile {
+  display: none;
+}
+
 @media only screen and (max-width: 996px) {
   .searchQueryColumn {
     max-width: 60% !important;
@@ -206,11 +216,12 @@
     justify-content: center;
   }
 
-  .searchVersionInput {
+  .desktopVersionContainer {
     display: none;
   }
 
   .searchVersionInputMobile {
+    display: block;
     margin-bottom: 32px;
   }
 

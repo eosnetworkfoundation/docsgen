@@ -317,7 +317,7 @@ const config = {
         {
           docId: 'api-listing',
           position: 'left',
-          label: 'API Reference',
+          label: 'APIs',
           to: '/docs/latest/api-listing/',
         },
         // hidden as per task description

@@ -93,6 +93,17 @@ html {
   --ifm-link-color: #8d8dd3;
 }
 
+/* .main-wrapper  {
+  padding-top: 0 !important;
+  max-width: 1800px;
+  margin: 0 auto;
+} */
+
+main {
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
 .navbar {
   height: 104px;
   padding: 32px;
@@ -102,7 +113,7 @@ html {
 }
 
 .navbar__inner {
-  max-width: 1600px;
+  max-width: 1800px;
   margin: auto;
 }
 
@@ -165,7 +176,7 @@ h6 {
   width: 100vw;
   height: 328px;
   position: absolute;
-  top: 498px;
+  top: 458px;
   left: 0;
   z-index: -1;
 }
@@ -669,7 +680,7 @@ article .markdown {
   border: none;
   background: #F4F5F6;
   border-radius: 6px;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   padding: 16.5px 24px 16.5px 60px;
 
@@ -687,10 +698,6 @@ article .markdown {
 }
 
 /* overriding Desktop menu styles */
-
-.main-wrapper {
-  padding-top: 40px;
-}
 
 aside {
   border-right: none !important;
@@ -931,6 +938,10 @@ aside {
 
   .navbar-sidebar__items--show-secondary {
     transform: translate3d(-100vw, 0, 0);
+  }
+
+  .menu {
+    gap: 12px;
   }
 
   .main-wrapper {
@@ -1342,10 +1353,6 @@ aside {
 
   .dropdown-icon-rotated-left {
     transform: rotate(90deg);
-  }
-
-  .menu {
-    gap: 12px;
   }
 
   .navbar__toggle {

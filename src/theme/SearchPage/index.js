@@ -553,7 +553,7 @@ function SearchPageContent() {
             )}
 
           </div>
-          <div>
+          <div className={styles.desktopVersionContainer}>
             {docsSearchVersionsHelpers.versioningEnabled && (
               <SearchVersionSelectList
                 className={styles.searchVersionInput}

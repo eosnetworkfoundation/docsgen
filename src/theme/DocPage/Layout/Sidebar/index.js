@@ -39,9 +39,6 @@ export default function DocPageLayoutSidebar({
         if (!e.currentTarget.classList.contains(styles.docSidebarContainer)) {
           return;
         }
-        if (hiddenSidebarContainer) {
-          setHiddenSidebar(true);
-        }
       }}>
       <ResetOnSidebarChange>
         <DocSidebar
