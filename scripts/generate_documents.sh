@@ -149,7 +149,7 @@ Create_Tar() {
   item_count=$(find "${ARG_BUILD_DIR}"/devdocs/build -maxdepth 1 | wc -l)
   # UTC date YYMMDDHH
   todays_date=$(date -u +%y%m%d%H)
-  tar_file=/tmp/devdocs_"${todays_date}"_update.tgz
+  tar_file=/tmp/devdocs_"${BUILD_TYPE:-production}"_"${todays_date}"_update.tgz
   if [ "$item_count" -gt 2 ]; then
     cd "${ARG_BUILD_DIR}"/devdocs/build || exit
     tar czf "$tar_file" -- *
@@ -292,6 +292,8 @@ Remote_Upload() {
         ssh -i "$ARG_ID_FILE" -l "$user" "$machine" "$update_cmd"
         ### clean old files in content directory
         ### content/ requires trailing slash, it is a symlink
+        ### mix of client variable expansion and server variable expansion
+        # shellcheck disable=SC2087
         ssh -t -t -i "$ARG_ID_FILE" -l "$user" "$machine" <<EOF
 find ${ARG_CONTENT:-~/content}/ -type f -mtime +30 -print0 | while IFS= read -r -d '' oldfile
 do
