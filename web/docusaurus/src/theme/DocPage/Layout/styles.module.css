@@ -1,6 +1,11 @@
 .docPage {
-  display: flex;
   width: 100%;
+}
+
+.docContainer {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding-top: 40px;
 }
 
 .docsWrapper {
@@ -15,7 +20,7 @@
   .collapseSidebarContainer {
     display: block;
     width: 0;
-    z-index: 9999;
+    z-index: 10;
     position: relative;
     left: 305px;
     transition: all 0.5s ease;
@@ -55,6 +60,12 @@
     transform: rotate(-90deg);
     transition: transform 0.5s ease;
   }
+
+  .docContainer {
+    display: flex;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
 }
 
 @media (min-width: 1600px) {
@@ -65,4 +76,11 @@
   .collapsedSidebarContainer {
     left: 6px;
   }
+}
+
+@media (min-width: 1800px) {
+  .collapseSidebarContainer {
+    display: none;
+  }
+
 }

@@ -285,9 +285,46 @@ const config = {
         {
           docId: 'api-listing',
           position: 'left',
-          label: 'API Reference',
+          label: 'APIs',
           to: '/docs/latest/api-listing/',
         },
+        // hidden as per task description
+        // {
+        //   type: 'dropdown',
+        //   label: 'Courses',
+        //   position: 'left',
+        //   items: [
+        //     {
+        //       label: 'Smart Contracts',
+        //       icon: '/icons/brief-case-icon.svg',
+        //       title: 'Smart contracts',
+        //       subtitle: 'Start here to build and deploy basic smart contract',
+        //       href: '/system-contracts/latest/',
+        //     },
+        //     {
+        //       label: 'Smart Contracts',
+        //       icon: '/icons/db-icon.svg',
+        //       title: 'Smart contracts',
+        //       subtitle: 'Start here to build and deploy basic smart contract',
+        //       href: '/system-contracts/latest/',
+        //     },
+        //     {
+        //       label: 'Smart Contracts',
+        //       icon: '/icons/box-icon.svg',
+        //       title: 'Smart contracts',
+        //       subtitle: 'Start here to build and deploy basic smart contract',
+        //       href: '/system-contracts/latest/',
+        //     },
+        //     {
+        //       label: 'Smart Contracts',
+        //       icon: '/icons/globe-icon.svg',
+        //       title: 'Smart contracts',
+        //       subtitle: 'Start here to build and deploy basic smart contract',
+        //       href: '/system-contracts/latest/',
+        //     },
+        //     // ... more items
+        //   ],
+        // },
         {
           type: 'localeDropdown',
           position: 'right',
@@ -350,8 +387,11 @@ const config = {
         `,
         action: 'https://eosnetwork.us8.list-manage.com/subscribe/post',
         buttonText: 'ALERT ME',
-      }
+      },
     },
+    featureFlags: {
+      lang: true,
+    }
   },
 
   themeConfig:
@@ -362,6 +402,7 @@ const config = {
           alt: 'EOS Network',
           src: 'img/eosn_logo.svg',
         },
+        // keep this items array as is, this is used just to let docosaurus know that something is there
         items: [
           {
             type: 'doc',
@@ -369,7 +410,7 @@ const config = {
             position: 'left',
             label: 'Welcome',
           },
-        ],
+        ]
       },
       colorMode: {
         disableSwitch: true,
@@ -390,7 +431,7 @@ const config = {
           externalUrlRegex: 'docs.eosnetwork.com',
 
           // Optional: Algolia search parameters
-          //searchParameters: {},
+          searchParameters: {},
 
           // Optional: path for search page that enabled by default (`false` to disable it)
           searchPagePath: 'search',
@@ -399,7 +440,7 @@ const config = {
       },
       docs: {
         /* closes sibling categories when expanding a category */
-        sidebar: { autoCollapseCategories: true, },
+        sidebar: { autoCollapseCategories: true },
       },
       footer: {
         style: 'dark',
@@ -409,12 +450,52 @@ const config = {
           srcDark: 'img/eosn_logo.svg',
         },
         links: [
+          // {
+          //   title: 'Websites',
+          //   items: [
+          //     { label: 'EOS Network',
+          //       href: 'https://eosnetwork.com/',
+          //     },
+          //   ],
+          // },
           {
-            title: 'Websites',
+            title: 'Terms',
             items: [
-              { label: 'EOS Network',
-                href: 'https://eosnetwork.com/',
+              {
+                label: 'Terms & Conditions, Privacy',
+                href: 'https://eosnetwork.com/terms-and-conditions',
               },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'GitHub',
+                href: 'https://github.com/eosnetworkfoundation',
+                logo: '/icons/github-icon.svg',
+              },
+              {
+                label: 'Discord',
+                href: 'https://discord.gg/XjVqej4uT5',
+                logo: '/icons/discord-icon.svg',
+              },
+              // UNCOMMENT LATES WHEN WE HAVE ICONS
+              // {
+              //   label: 'Telegram',
+              //   href: 'https://t.me/EOSNetworkFoundation',
+              //   logo: '/icons/telegram-icon.svg',
+              // },
+              // {
+              //   label: 'Twitter',
+              //   href: 'https://twitter.com/eosnfoundation',
+              //   logo: '/icons/twitter-icon.svg',
+              // },
+              // {
+              //   label: 'Youtube',
+              //   href: 'https://www.youtube.com/c/everythingeos',
+              //   logo: '/icons/youtube-icon.svg',
+              // },
             ],
           },
         ],

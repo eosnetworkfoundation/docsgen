@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useDocsSidebar} from '@docusaurus/theme-common/internal';
+import React, { useEffect, useState } from 'react';
+import { useDocsSidebar } from '@docusaurus/theme-common/internal';
 import Layout from '@theme/Layout';
 import BackToTopButton from '@theme/BackToTopButton';
 import DocPageLayoutSidebar from '@theme/DocPage/Layout/Sidebar';
@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 import { SidebarDABlue } from '@site/static/icons';
 import clsx from 'clsx';
 
-export default function DocPageLayout({children}) {
+export default function DocPageLayout({ children }) {
   const sidebar = useDocsSidebar();
   const [hiddenSidebarContainer, setHiddenSidebarContainer] = useState(false);
   const [isHoveringSidebar, setIsHoveringSidebar] = useState(false);
@@ -23,7 +23,7 @@ export default function DocPageLayout({children}) {
         setHiddenSidebarContainer(true);
       }
     }
-    , 300);
+      , 300);
 
     return () => {
       clearTimeout(timeout);
@@ -48,32 +48,34 @@ export default function DocPageLayout({children}) {
     <Layout wrapperClassName={styles.docsWrapper}>
       <BackToTopButton />
       <div className={styles.docPage}>
-        <div
-          className={
-            clsx(
-              styles.collapseSidebarContainer,
-              hiddenSidebarContainer && styles.collapsedSidebarContainer,
-            )
-          }
-        >
-        <button
-          className={clsx(styles.collapseSidebar, hiddenSidebarContainer && styles.collapsedSidebar)}
-          onClick={toggleSidebar}
-        >
-          <SidebarDABlue />
-        </button>
+        <div className={styles.docContainer}>
+          <div
+            className={
+              clsx(
+                styles.collapseSidebarContainer,
+                hiddenSidebarContainer && styles.collapsedSidebarContainer,
+              )
+            }
+          >
+            <button
+              className={clsx(styles.collapseSidebar, hiddenSidebarContainer && styles.collapsedSidebar)}
+              onClick={toggleSidebar}
+            >
+              <SidebarDABlue />
+            </button>
+          </div>
+          {sidebar && (
+            <DocPageLayoutSidebar
+              sidebar={sidebar.items}
+              hiddenSidebarContainer={hiddenSidebarContainer}
+              onHover={onSidebarHover}
+              onLeave={onSidebarLeave}
+            />
+          )}
+          <DocPageLayoutMain hiddenSidebarContainer={hiddenSidebarContainer}>
+            {children}
+          </DocPageLayoutMain>
         </div>
-        {sidebar && (
-          <DocPageLayoutSidebar
-            sidebar={sidebar.items}
-            hiddenSidebarContainer={hiddenSidebarContainer}
-            onHover={onSidebarHover}
-            onLeave={onSidebarLeave}
-          />
-        )}
-        <DocPageLayoutMain hiddenSidebarContainer={hiddenSidebarContainer}>
-          {children}
-        </DocPageLayoutMain>
       </div>
     </Layout>
   );
