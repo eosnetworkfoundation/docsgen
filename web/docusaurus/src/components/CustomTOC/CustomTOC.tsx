@@ -58,6 +58,11 @@ export default function CustomTOC({ doc, onClick }) {
 
   const { tags } = doc.metadata;
   const suggestLink = tags.length > 0 ? tags[0].label : null;
+  const suggestBody = encodeURIComponent(`
+  <ENTER DESCRIPTION HERE>
+
+  File: [${suggestLink}](https://github.com/${suggestLink})
+  `);
 
   useEffect(() => {
     Object.keys(allDocsData).forEach((key) => {
@@ -136,7 +141,7 @@ export default function CustomTOC({ doc, onClick }) {
         />
       <div className={clsx(styles.linkContainer, doc.toc.length && styles.linkContainerWithTOC)}>
         {tags.length > 0 && <a className={styles.link} href={`https://github.com/${suggestLink}`} target="_blank">Suggest Edits</a>}
-        <a className={styles.link} href={`https://github.com/eosnetworkfoundation/docs/issues/new?body=sometexthere&title=${suggestTitle}`} target="_blank">Request Changes</a>
+        <a className={styles.link} href={`https://github.com/eosnetworkfoundation/docs/issues/new?body=${suggestBody}&title=${suggestTitle}`} target="_blank">Request Changes</a>
       </div>
       {doc.toc && doc.toc.length > 0 && (
         <TOCItems
