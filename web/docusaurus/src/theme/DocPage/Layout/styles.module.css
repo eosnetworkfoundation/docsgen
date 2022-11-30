@@ -20,7 +20,7 @@
   .collapseSidebarContainer {
     display: block;
     width: 0;
-    z-index: 9999;
+    z-index: 10;
     position: relative;
     left: 305px;
     transition: all 0.5s ease;
