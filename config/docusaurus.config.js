@@ -241,7 +241,7 @@ const config = {
             {
               label: 'Getting started', // This label is used for mobile view
               title: 'Getting started',
-              subtitle: 'Get started with EOSIO',
+              subtitle: 'Get started with EOS',
               icon: '/icons/brief-case-icon.svg', //replace with required icon
               href: '/docs/latest/getting-started/',
             },
@@ -249,35 +249,35 @@ const config = {
               label: 'Core concepts',
               title: 'Core concepts',
               icon: '/icons/db-icon.svg',
-              subtitle: 'Learn about the core concepts of EOSIO',
+              subtitle: 'Learn EOS basics',
               href: '/docs/latest/overview/core_concepts',
             },
             {
               label: 'Tutorials',
               title: 'Tutorials',
               icon: '/icons/box-icon.svg',
-              subtitle: 'Learn how to build on EOSIO',
+              subtitle: 'Discover tutorials',
               href: '/docs/latest/tutorials/',
             },
             {
               label: 'Protocol',
               title: 'Protocol',
               icon: '/icons/globe-icon.svg',
-              subtitle: 'Learn about the EOSIO protocol',
+              subtitle: 'Look under the hood',
               href: '/docs/latest/protocol/',
             },
             {
               label: 'Tools',
               title: 'Tools',
               icon: '/icons/globe-icon.svg',
-              subtitle: 'Learn about the EOSIO tools',
+              subtitle: 'Find developer tooling',
               href: '/docs/latest/community-developer-tools/',
             },
             {
               label: 'Glossary',
               title: 'Glossary',
               icon: '/icons/globe-icon.svg',
-              subtitle: 'Learn about the EOSIO protocol',
+              subtitle: 'Learn the lingo',
               href: '/docs/latest/glossary',
             },
           ],
@@ -297,61 +297,59 @@ const config = {
     main: {
       firstCards: [
         {
-          icon: 'icons/docs-icon.svg',
-          title: 'Smart Contracts',
-          subtitle: 'Start here to build and deploy basic smart contract',
-          link: '/docs/smart-contracts/overview',
+          icon: 'icons/emerald-icon.svg', // docs
+          title: 'Core concepts',
+          subtitle: 'Learn the very basics of the EOS blockchain',
+          link: '/docs/latest/overview/core_concepts',
         },
         {
-          icon: '/icons/emerald-icon.svg',
-          title: 'EOSIO Basics',
-          subtitle: 'Gain a basic-level understanding of EOSIO core concepts.',
-          link: '/docs/eosio-basics/overview',
+          icon: '/icons/docs-icon.svg',
+          title: 'Run EOS in Docker',
+          subtitle: 'Find out how you can run an EOS node for development using Docker',
+          link: '/docs/latest/getting-started/try-antelope-in-dune',
         }
       ],
       secondCards: [
         {
           icon: 'icons/molecules-icon.svg',
-          title: 'Run a Node',
-          subtitle: 'Learn how to run an EOSIO node and manage your servers.',
-          link: '/docs/smart-contracts/overview',
+          title: 'Go deeper',
+          subtitle: 'Take a look under the hood',
+          link: '/docs/latest/protocol/',
           color: 'yellow',
         },
         {
           icon: '/icons/chat-icon.svg',
-          title: 'Advanced topics',
-          subtitle: 'Dig in with comprehensive info about smart contracts, the protocol and security.',
-          link: '/docs/eosio-basics/overview',
+          title: 'Tic-tac-toe',
+          subtitle: 'Learn how to make Tic-tac-toe fully on-chain!',
+          link: '/docs/latest/tutorials/tic-tac-toe-game-smart-contract-single-node',
           color: 'yellow',
         },
         {
           icon: '/icons/ref-icon.svg',
           title: 'Reference',
-          subtitle: "Consult the API references to see exactly what's available from an EOSIO node",
-          link: '/docs/smart-contracts/overview',
+          subtitle: "Consult the API references explore the EOS RPC",
+          link: '/docs/latest/api-listing/',
         },
         {
-          icon: '/icons/sdk-icon.svg',
-          title: 'Client SDKs',
-          subtitle: 'Learn how to integrate EOSIO into your decentralized applications',
-          link: '/docs/eosio-basics/overview',
+          icon: '/icons/docs-icon.svg',
+          title: 'Glossary',
+          subtitle: 'Confused with some terms? Read them all here',
+          link: '/docs/latest/glossary',
         }
       ],
       wideCard: {
-        title: 'Public and Private Keys',
-        subtitle: 'We all have to start somewhere, and this is the first step on your journey to developing decentralized applications with EOSIO',
-        icon: '/icons/keys-icon.svg',
-        href: '#',
+        title: 'Smart Contract Development',
+        subtitle: 'Learn about how to get started developing Smart Contracts on EOS',
+        icon: '/icons/docs-icon.svg',
+        href: '/docs/latest/getting-started/smart-contract-development/',
       },
       signUp: {
         title: 'Sign up for developer alerts',
         subtitle: `
-          Sometimes things require breaking changes.
-          These could come from wallets, the protocol, or anywhere on the stack.
-          If you want to stay apprised of such situations make sure to sign up for the developer alerts.
+          Don't be caught with your pants down. Breaking changes will happen. If you want to stay on top of things when they do make sure to sign up for developer alerts emails.
         `,
         action: 'https://eosnetwork.us8.list-manage.com/subscribe/post',
-        buttonText: 'SIGN ME UP SCOTTY',
+        buttonText: 'ALERT ME',
       }
     },
   },
