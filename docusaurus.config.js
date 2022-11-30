@@ -421,8 +421,11 @@ const config = {
         `,
         action: 'https://eosnetwork.us8.list-manage.com/subscribe/post',
         buttonText: 'SIGN ME UP SCOTTY',
-      }
+      },
     },
+    featureFlags: {
+      lang: true,
+    }
   },
 
   themeConfig:

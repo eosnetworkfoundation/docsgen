@@ -797,6 +797,10 @@ aside {
     padding: 0 12px;
   }
 
+  .menu__list_top_margin {
+    margin-top: 24px;
+  }
+
   article h1 {
     font-weight: var(--font-weight-light);
     font-size: var(--font-size-desktop-3xlarge);
