@@ -47,7 +47,7 @@
  
   font-weight: var(--font-weight-standard);
   font-size: var(--font-size-2xlarge);
-  line-height: 40px;
+  line-height: 25px !important;
   letter-spacing: 0.5px;
 
   color: var(--eos-color-darkest);

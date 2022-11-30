@@ -1,6 +1,5 @@
 .card {
   display: flex;
-  justify-content: center;
   width: 100%;
   gap: 25px;
 }
@@ -28,7 +27,8 @@ a:hover {
     justify-content: flex-start;
     gap: 25px;
     padding: 20px;
-    width: auto;
+    width: 345px;
+    height: 155px;
   }
 
   .infoContainer {
@@ -42,7 +42,8 @@ a:hover {
     gap: 50px;
     padding: 28px;
     cursor: pointer;
-    max-width: 588px;
+    width: 588px;
+    height: auto;
   }
 
   .card:hover {

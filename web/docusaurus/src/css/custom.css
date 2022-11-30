@@ -141,6 +141,10 @@ main {
   color: var(--eos-color-light)
 }
 
+.navbar__link:hover {
+  color: var(--eos-color-darkest);
+}
+
 .navbar__link:after {
   content: '';
   border: none !important;
