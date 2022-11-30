@@ -13,7 +13,7 @@ const HomepageHeader = () => {
       <div className={styles.container}>
         <span className={styles.title}>
           <H1_Bold>Build faster</H1_Bold>
-          <H1>with EOS</H1>
+          <H1> with EOS</H1>
         </span>
         <P_XLarge className='subtitle'>{SiteDesc}</P_XLarge>
       </div>
