@@ -42,6 +42,10 @@ Help() {
   echo ""
   echo "example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB -c /s3mount/content"
   echo "Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version"
+  echo "When you provide host and identify the content will be deployed to a production server"
+  echo "   Default location for files is /var/www/html/ENF/production"
+  echo "   Staging location for files is /var/www/html/ENF/devrel_staging"
+  echo "   Currently these locations are not configurable"
   exit 1
 }
 
