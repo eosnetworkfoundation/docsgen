@@ -12,14 +12,15 @@ export default function NavbarMobilePrimaryMenu() {
   // Should we allow providing a different list of items?
   const { siteConfig } = useDocusaurusContext();
   const items = siteConfig.customFields.navbar.items;
+  const { lang } = siteConfig.customFields.featureFlags;
   const leftItems = items.filter((item) => item.position === 'left');
   const rightItems = items.filter((item) => item.position === 'right');
 
   return (
     <div>
       <NavbarMobileSidebarLocaleMenu />
-      <div className="menu__divider" />
-      <ul className="menu__list">
+      {!lang && <div className="menu__divider" />}
+      <ul className={`${lang && 'menu__list_top_margin'} menu__list`}>
         {leftItems.map((item, i) => (
           <NavbarItem
             mobile

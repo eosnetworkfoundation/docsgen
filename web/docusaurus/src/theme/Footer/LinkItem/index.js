@@ -4,22 +4,19 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import isInternalUrl from '@docusaurus/isInternalUrl';
 import IconExternalLink from '@theme/Icon/ExternalLink';
 export default function FooterLinkItem({item}) {
-  const {to, href, label, prependBaseUrlToHref, ...props} = item;
-  const toUrl = useBaseUrl(to);
-  const normalizedHref = useBaseUrl(href, {forcePrependBaseUrl: true});
+  const { href, logo, label} = item;
   return (
     <Link
       className="footer__link-item"
-      {...(href
-        ? {
-            href: prependBaseUrlToHref ? normalizedHref : href,
-          }
-        : {
-            to: toUrl,
-          })}
-      {...props}>
-      {label}
-      {href && !isInternalUrl(href) && <IconExternalLink />}
+      href={href}
+      >
+      {logo && (
+        <img
+          className="footer__community-logo"
+          src={logo}
+          alt={label}
+        />
+      )}
     </Link>
   );
 }

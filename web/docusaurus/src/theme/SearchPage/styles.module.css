@@ -1,29 +1,50 @@
-.searchQueryInput,
-.searchVersionInput {
-  border-radius: var(--ifm-global-radius);
-  border: 2px solid var(--ifm-toc-border-color);
-  font: var(--ifm-font-size-base) var(--ifm-font-family-base);
-  padding: 0.8rem;
-  width: 100%;
-  background: var(--docsearch-searchbox-focus-background);
-  color: var(--docsearch-text-color);
-  margin-bottom: 0.5rem;
-  transition: border var(--ifm-transition-fast) ease;
+.searchPage {
+  width: 90%;
+  max-width: 1600px;
+  margin: 0 auto 64px;
+  min-height: 600px;
 }
 
-.searchQueryInput:focus,
-.searchVersionInput:focus {
-  border-color: var(--docsearch-primary-color);
+.containerSearchPage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.searchSidebar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 320px;
+  border-right: 1px solid #B6B4B4;
+}
+
+.searchInput {
   outline: none;
+  border: 1px solid hsl(0, 0%, 80%);
+  /* background: #F4F5F6; */
+  border-radius: 6px;
+  width: 90%;
+  height: 60px;
+  padding: 16.5px 24px 16.5px 60px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  color: #666666;
+  background-image: url('/icons/search-icon.svg');
+  background-repeat: no-repeat;
+  background-position: 24px 18px;
 }
 
-.searchQueryInput::placeholder {
-  color: var(--docsearch-muted-color);
+.searchInput::placeholder {
+  color: #666666;
 }
 
-.searchResultsColumn {
-  font-size: 0.9rem;
-  font-weight: bold;
+.resultsContainer {
+  width: 70%;
 }
 
 .algoliaLogo {
@@ -55,35 +76,6 @@
   font-style: italic;
 }
 
-@media only screen and (max-width: 996px) {
-  .searchQueryColumn {
-    max-width: 60% !important;
-  }
-
-  .searchVersionColumn {
-    max-width: 40% !important;
-  }
-
-  .searchResultsColumn {
-    max-width: 60% !important;
-  }
-
-  .searchLogoColumn {
-    max-width: 40% !important;
-    padding-left: 0 !important;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .searchQueryColumn {
-    max-width: 100% !important;
-  }
-
-  .searchVersionColumn {
-    max-width: 100% !important;
-    padding-left: var(--ifm-spacing-horizontal) !important;
-  }
-}
 
 .loadingSpinner {
   width: 3rem;
@@ -109,4 +101,142 @@
   color: var(--docsearch-hit-color);
   background: rgb(255 215 142 / 25%);
   padding: 0.09em 0;
+}
+
+.pagination {
+  display: flex;
+  margin-top: 2rem;
+  gap: 12px;
+}
+
+.pageNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  width: 52px;
+  height: 52px;
+  
+  border: 1px solid #B6B4B4;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  color: #000000;
+  outline: none;
+  cursor: pointer;
+  background-color: white;
+  transition: backgroun-color 0.2s ease-in-out;
+}
+
+.pageNumber:hover {
+  background-color: #F2F2F2;
+  color: #000000;
+}
+
+.pageNumberActive {
+  background-color:  #3F65C2;
+  color: white;
+  transition: backgroun-color 0.2s ease-in-out;
+}
+
+.pageNumberActive:hover {
+  background-color:  #3F65C2;
+  color: white;
+}
+
+.prevPage::before {
+  content: url("@site/static/icons/sidebar-da-blue.svg");
+  transform: rotate(90deg) translate(0px, 5px);
+  filter: grayscale(100%) brightness(0);
+}
+
+.nextPage::before {
+  content: url("@site/static/icons/sidebar-da-blue.svg");
+  transform: rotate(270deg) translate(0px, 5px);
+  filter: grayscale(100%) brightness(0);
+}
+
+.breadcrumbsContainer {
+  --ifm-breadcrumb-size-multiplier: 0.8;
+  margin-bottom: 2.5rem;
+}
+
+.breadcrumbHomeIcon {
+  position: relative;
+  top: 1px;
+  vertical-align: top;
+  height: 1.1rem;
+  width: 1.1rem;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.desktopVersionContainer {
+  border: 1px solid #B6B4B4;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.searchVersionInputMobile {
+  display: none;
+}
+
+@media only screen and (max-width: 996px) {
+  .searchQueryColumn {
+    max-width: 60% !important;
+  }
+
+  .searchVersionColumn {
+    max-width: 40% !important;
+  }
+
+  .searchResultsColumn {
+    max-width: 60% !important;
+  }
+
+  .searchLogoColumn {
+    max-width: 40% !important;
+    padding-left: 0 !important;
+  }
+
+  .resultsContainer {
+    width: 100%;
+  }
+
+  .searchForm {
+    justify-content: center;
+  }
+
+  .desktopVersionContainer {
+    display: none;
+  }
+
+  .searchVersionInputMobile {
+    display: block;
+    margin-bottom: 32px;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .searchQueryColumn {
+    max-width: 100% !important;
+  }
+
+  .searchVersionColumn {
+    max-width: 100% !important;
+    padding-left: var(--ifm-spacing-horizontal) !important;
+  }
 }

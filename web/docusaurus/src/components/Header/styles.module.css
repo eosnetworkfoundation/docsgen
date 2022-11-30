@@ -1,5 +1,5 @@
 .container {
-  padding: 0;
+  padding: 0 25px;
   justify-content: center;
   align-items: center;
   margin: auto;
@@ -17,7 +17,17 @@
 
 .title {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 350px) {
+  .title {
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+  }
 }
 
 @media (min-width: 768px) {

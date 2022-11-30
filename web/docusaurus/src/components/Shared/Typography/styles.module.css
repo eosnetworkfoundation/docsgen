@@ -2,7 +2,7 @@
   font-family: 'SuisseIntl-Bold', sans-serif;
  
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-3xlarge);
+  font-size: 30px;
   line-height: 50px;
   letter-spacing: 0.5px;
 
@@ -13,7 +13,7 @@
   font-family: 'SuisseIntl-Regular', sans-serif;
  
   font-weight: var(--font-weight-standard);
-  font-size: var(--font-size-3xlarge);
+  font-size: 30px;
   line-height: 50px;
   letter-spacing: 0.5px;
 
@@ -82,6 +82,16 @@
   font-size: var(--font-size-standard);
   line-height: 20px;
   color: var(--eos-color-light);
+}
+
+@media (min-width: 380px) {
+  .h1Bold {
+    font-size: var(--font-size-3xlarge);
+  }
+
+  .h1Regular {
+    font-size: var(--font-size-3xlarge);
+  }
 }
 
 @media (min-width: 500px) {
