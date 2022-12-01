@@ -195,10 +195,16 @@ Bootstrap_Repo() {
     else
       now=$(date +%s)
       one_hour_earlier=$(echo "$now" "- 60*60" | bc)
-      last_modified=$( stat -f %m "${WORKING_DIR}"/"${ARG_GIT_REPO}" )
+      PLATFORM=$(uname -o)
+      if [ "$PLATFORM" == "Darwin" ]; then
+        last_modified=$( stat -f %m "${WORKING_DIR}"/"${ARG_GIT_REPO}" )
+      else
+        last_modified=$( stat --format=%Y "${WORKING_DIR}"/"${ARG_GIT_REPO}" )
+      fi
       if [ "$DEBUG" ]; then
          echo "detected fast flag last modified ${last_modified} sec since epoch"
       fi
+      exit
       # there is a fast flag, but if older then 1 hour we still remove and clean
       [ "$last_modified" -lt "$one_hour_earlier" ] && rm -rf "${WORKING_DIR:?}/${ARG_GIT_REPO}"
     fi
