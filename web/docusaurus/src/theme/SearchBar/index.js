@@ -170,7 +170,7 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
       </Head>
 
       <input
-        className='search-input'
+        className='search-input-box'
         type="text"
         placeholder={translations.placeholder}
         onKeyUp={onCustomInput}

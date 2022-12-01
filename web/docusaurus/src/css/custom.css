@@ -679,7 +679,7 @@ article .markdown {
   line-height: 30px;
 }
 
-.search-input {
+.search-input-box {
   outline: none;
   border: none;
   background: #F4F5F6;
@@ -697,7 +697,7 @@ article .markdown {
   background-position: 24px 18px;
 }
 
-.search-input::placeholder {
+.search-input-box::placeholder {
   color: #666666;
 }
 
@@ -1372,7 +1372,7 @@ aside {
     display: block;
   }
 
-  .search-input {
+  .search-input-box {
     width: 100%;
   }
 
