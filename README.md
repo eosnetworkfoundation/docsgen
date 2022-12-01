@@ -92,4 +92,4 @@ See [Updating Site Navigation](docs/SiteNavigation.md)
 see [Testing](docs/Testing.md)
 
 ## Production Setup
-see [Production](docs/Production-Setup.md) for details on setting up a webserve to serve the content.
+see [Production Setup](docs/Production-Setup.md) for details on setting up a webserve to serve the content.
