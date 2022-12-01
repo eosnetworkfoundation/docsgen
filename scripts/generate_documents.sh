@@ -25,7 +25,7 @@
 Help() {
   echo "Creates web version of documentation pulling together documentation from several gitrepositories across the EOS Networks"
   echo ""
-  echo "Syntax: generate_documents.sh [-r|d|b|t|i|h|x|f]"
+  echo "Syntax: generate_documents.sh [-r|d|b|t|i|h|c|s|x|f]"
   echo "mandatory: -r owner/rep and -d directory"
   echo ""
   echo "options:"

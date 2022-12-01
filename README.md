@@ -55,7 +55,7 @@ The script `generate_documents.sh` clones various git repos, extracts documentat
 ```
 Creates web version of documentation pulling together documentation from several git repositories across the EOS Networks
 
-Syntax: generate_documents.sh [-r|d|b|t|v|i|h]
+Syntax: generate_documents.sh [-r|d|b|t|i|h|c|s|x|f]
 mandatory: -r owner/rep and -d directory
 
 options:
@@ -81,3 +81,15 @@ When you provide host and identify the content will be deployed to a production 
 After running there will be many static HTML, CSS, JS files under `/path/to/build_dir/devdocs/build`. The files are served as the current production version.
 
 See [Generating Documents](docs/GeneratingDocuments.md) for additional details
+
+## Updating Presentation
+See [Updating Presentation](docs/update-presentation.md) for a guide on updating the look and feel of the site.
+
+## Updating Site Navigation
+See [Updating Site Navigation](docs/SiteNavigation.md)
+
+## Testing
+see [Testing](docs/Testing.md)
+
+## Production Setup
+see [Production](docs/Production-Setup.md) for details on setting up a webserve to serve the content.

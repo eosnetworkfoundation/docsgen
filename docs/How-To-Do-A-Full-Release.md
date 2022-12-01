@@ -11,10 +11,10 @@ This document goes over how to build a new document repository, staring from not
 - publish to production
 - re-index search
 
-## Checkout DevDocs  
+## Checkout DocsGen  
 Main branch is the production version
 ```
-git clone https://github.com/eosnetworkfoundation/devdocs.git
+git clone https://github.com/eosnetworkfoundation/docsgen.git
 ```
 
 ## Update Config
@@ -55,7 +55,7 @@ do
   echo "working on ${gitrepo}"
   ./generate_documents.sh -d "${BUILD_DIR:?}" -r ${gitrepo} -x
 done
-# one last time without supress flag
+# one last time without suppress flag
 # this last run builds the statics via "npm run build"
 ./generate_documents.sh -d "${BUILD_DIR:?}" -r "eosnetworkfoundation/mandel-swift"
 ```

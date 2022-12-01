@@ -2,7 +2,7 @@
 
 Quick guide.
 ```
-cd testing
+cd docsgen/testing
 ./run_test.sh
 ```
 
