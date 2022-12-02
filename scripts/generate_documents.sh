@@ -308,6 +308,11 @@ find ${ARG_CONTENT:-~/content}/ -type f -mtime +30 -print0 | while IFS= read -r 
 do
   rm \$oldfile
 done
+rm -f "${archive}"
+find /tmp/ -type f -mtime +30 -name "devdocs_*.tgz" -print0 | while IFS= read -r -d '' tmpfile
+do
+  rm \$tmpfile
+done
 exit
 EOF
       done
