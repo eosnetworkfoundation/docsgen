@@ -204,7 +204,6 @@ Bootstrap_Repo() {
       if [ "$DEBUG" ]; then
          echo "detected fast flag last modified ${last_modified} sec since epoch"
       fi
-      exit
       # there is a fast flag, but if older then 1 hour we still remove and clean
       [ "$last_modified" -lt "$one_hour_earlier" ] && rm -rf "${WORKING_DIR:?}/${ARG_GIT_REPO}"
     fi
