@@ -2,40 +2,45 @@
 
 ## Summary
 
-The Docusaurus build process places all the content and presentation into a build directory. Then we run `npm build` to process all the code. The static files are then copied to production directory and served by a web server.
+The Docusaurus build process places all the content and presentation into a build directory. Then we run `npm build` to process all the code. The static files are then copied to production directory and served by a web server. The `generate_documents.sh` build script will do these
 
 ## Making Presentation Updates
-Updating existing files works file. Adding new files will require a slight modification to the scripts.
+In most cases just make updates in github, and the updates will flow through in the next build.
 
-### Existing Files
+### Existing Directories
 - CSS - `web/docusaurus/src/css`
-- JS - current no location
-- React components - `web/docusaurus/src/components`
-- React pages - `web/docusaurus/src/pages`
+- Hooks - hook into react lifecycle `web/docusaurus/src/hooks`
+- Components  - react components `web/docusaurus/src/components`
+- Pages - react pages `web/docusaurus/src/pages`
+- Statics - images, fonts, icons, etc `web/docusaurus/static`
 
-These are copied over in the `generate_documents.sh` script. You can see the copy logic below. You can certainly update `generate_documents.sh` adding any new files or directory you want to copy over. Presentation files most often go into `devdocs/static` 
-https://github.com/eosnetworkfoundation/devdocs/blob/f505964c5a616d337170a8e6db4748832e5b413f/scripts/generate_documents.sh#L108-L126
+These are copied over in the `generate_documents.sh` script. You can see the copy logic below. Any additions to the directories listed above will get pulled over and copied
+https://github.com/eosnetworkfoundation/docsgen/blob/main/scripts/generate_documents.sh#L128-L135
 
 ### Configuration
-
-Config files live under `config` and are labled `docusaurus.config.js*`
+Config files live under `config` and are labled `docusaurus.config.js*`. The configuration files configure the cards on the home page, and the navigation menus.
 
 ## Hacking The Presentation
 
 The existing code explicitly copies over files. This means you can hack the process, by writing your own script to copy over files. Here are the steps you need to take
 
-1. Clone `devdocs` and checkout a new branch
-2. Add your code and files to `web/docusaurus/root`
-3. Remove the `npm run build` line from `scripts/clean_rebuild.sh`
-   - this saves time by stopping the doc6s build
-   - for production we will need to re-enable this
-4. Write a code to copy over your files
-   - ex: `${SCRIPT_DIR}/../web/docusaurus/src/mystuff/* ${BUILD_ROOT}/devdocs/static`
-   - put this where #3 `npm run build` used to be
-5. Save changes run `scripts/clean_rebuild.sh`
-6. change to build root direction and go to `devdocs` Directory
-   - build root is the argument you supplied to `clean_rebuild.sh`
-   - you will find `devdocs` directory under build root
-7. now run `npm run build `
-8. if no errors run `npm run server`
-   - this will serve localhosted version on port 3000
+1. Clone `docsgen` and checkout a new branch
+2. Add your code and files under to `web/docusaurus/src` or `web/docusaurus/static`
+3. Checking and push your Updates
+4. Run `generate_documents.sh` to push the design changes. The actual markdown does not matter so you can run any repo.
+   - example `generate_documents.sh -d ~/ENF/build_dir -c ~/ENF/content -f -r "AntelopeIO/DUNE"`
+
+## Pro Tip
+
+`-f` flag skips the content processing if the content in the working directory is less then 1 hour old. You can update the modification time by creating and dropping a file under the working directory. For example in the above example, do this
+
+```
+cd docsgen
+if [ -d ./working/AntelopeIO/DUNE ]; then
+   touch ./working/AntelopeIO/DUNE/foo.txt
+   rm ./working/AntelopeIO/DUNE/foo.txt
+else
+   mkdir -p ./working/AntelopeIO/DUNE
+fi
+./scripts/generate_documents.sh -d ~/ENF/build_dir -c ~/ENF/content -f -r "AntelopeIO/DUNE -h 12.33aws.com -i me.pem"
+```
