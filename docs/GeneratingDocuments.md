@@ -19,7 +19,7 @@ Copy the markdown files from a repository into a working directory. From there d
 - remove common unclosed html tags `<br>` or `<hr>`
 - move images to static Docusaurus directory and update image paths to match
 - change some file names like overview.md to index.md
-- suppress some files like a EULA 
+- suppress some files like a EULA
 
 **Code Documentation**
 Runs through headers converts inline code to XML. Then converts XML to markdown. Places markdown inside Docusaurus directory.
@@ -83,7 +83,7 @@ npm run serve
      - reference (API documentation from code)
    * eosdocs/Leap - manuals for core blockchain code
      - markdown
-   * eosdocs/SDKs (java, swift, typescript)
+   * eosdocs/* (java, swift, typescript)
      - markdown
      - reference (API documentation from code)
 * reference - HTML docs that aren't markdown
@@ -124,11 +124,11 @@ cp -R docs/* $ARG_BUILD_DIR/devdocs/eosdocs/busio
 
 ## Static Index Files ##
 
-There is one static index files copied from the `devdocs` repo.
+There is one static index files copied from the `docsgen` repo.
 
 | Code Repository | Pre-Build | Static Content |
 | --------------- | --------- | ------- |
-| devdocs/web/api-listing.md | /devdocs/eosdocs/api-listing.md | eosdocs/api-listing.html |
+| docsgen/web/api-listing.md | /devdocs/eosdocs/api-listing.md | eosdocs/api-listing.html |
 
 ## Leap Open APIs ##
 
@@ -176,11 +176,11 @@ The translations come in two form
 - **Static Markdown** - You will find these under source control under `i18n` directory as static markdown files
 - **React Templates** - The React template will have strings wrapped with `<Translate>` tags.
 
-The full path the to `i18n` folder, is found under the current *devdocs* reposiory.
-`devdocs/web/docusarus/i18n`
+The full path the to `i18n` folder, is found under the current *docsgen* reposiory.
+`docsgen/web/docusarus/i18n`
 
 ## Updating Content ##
-When changing content under the `devdocs/web` folder make sure to check for localized versions. You will find those versions under `i18n/xx/docusaurus-plugin-content-docs/current`. For example when you change `api-listing.md` you must also change `i18n/zh/docusaurus-plugin-content-docs/current/api-listing.md` and change `i18n/ko/docusaurus-plugin-content-docs/current/api-listing.md`.
+When changing content under the `docsgen/web` folder make sure to check for localized versions. You will find those versions under `i18n/xx/docusaurus-plugin-content-docs/current`. For example when you change `api-listing.md` you must also change `i18n/zh/docusaurus-plugin-content-docs/current/api-listing.md` and change `i18n/ko/docusaurus-plugin-content-docs/current/api-listing.md`.
 
 ## Running local site ##
 You can run Docusaurus locally to debug. Cd to `/path/build_root/devdocs` and your port may differ. Note this won't pick up the files under references.

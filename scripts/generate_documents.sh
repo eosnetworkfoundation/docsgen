@@ -25,7 +25,7 @@
 Help() {
   echo "Creates web version of documentation pulling together documentation from several gitrepositories across the EOS Networks"
   echo ""
-  echo "Syntax: generate_documents.sh [-r|d|b|t|i|h|x|f]"
+  echo "Syntax: generate_documents.sh [-r|d|b|t|i|h|c|s|x|f]"
   echo "mandatory: -r owner/rep and -d directory"
   echo ""
   echo "options:"
@@ -42,6 +42,10 @@ Help() {
   echo ""
   echo "example: generate_documents.sh -r eosnetworkfoundation/mandel -b ericpassmore-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB -c /s3mount/content"
   echo "Run script to build mandel docs and update production site , with branch ericpassmore-working and tag v3.1.1. This updates latest documentation version"
+  echo "When you provide host and identify the content will be deployed to a production server"
+  echo "   Default location for files is /var/www/html/ENF/production"
+  echo "   Staging location for files is /var/www/html/ENF/devrel_staging"
+  echo "   Currently these locations are not configurable"
   exit 1
 }
 
@@ -191,10 +195,16 @@ Bootstrap_Repo() {
     else
       now=$(date +%s)
       one_hour_earlier=$(echo "$now" "- 60*60" | bc)
-      last_modified=$( stat -f %m "${WORKING_DIR}"/"${ARG_GIT_REPO}" )
+      PLATFORM=$(uname -o)
+      if [ "$PLATFORM" == "Darwin" ]; then
+        last_modified=$( stat -f %m "${WORKING_DIR}"/"${ARG_GIT_REPO}" )
+      else
+        last_modified=$( stat --format=%Y "${WORKING_DIR}"/"${ARG_GIT_REPO}" )
+      fi
       if [ "$DEBUG" ]; then
          echo "detected fast flag last modified ${last_modified} sec since epoch"
       fi
+      exit
       # there is a fast flag, but if older then 1 hour we still remove and clean
       [ "$last_modified" -lt "$one_hour_earlier" ] && rm -rf "${WORKING_DIR:?}/${ARG_GIT_REPO}"
     fi
