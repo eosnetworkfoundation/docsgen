@@ -54,7 +54,7 @@ class Document:
     # match [[ type ]] | inline body
     basic_admonition_inline_body_pattern = re.compile(r"\[\[([a-z]+)\]\]\s*\|\s*([^\r\n]+)")
     ## match | content text for admonition
-    admonition_body_pattern = re.compile(r"\s*\|\s*([^\r\n]+)")
+    admonition_body_pattern = re.compile(r"\|\s*([^\r\n]+)")
     # working needed because this is multi-line pattern
     working_on_admonition = False
     admonition_type = None
@@ -72,7 +72,7 @@ class Document:
     #      enter: working_on_admonition is true
     #      transition: sets state_change false
     #      previous state: Vanila
-    # State Working Line2: process line 2 and print
+    # State Working Line2+: process line 2+ and print
     #      enter: working_on_admonition is true
     #             and state_change is false
     #      transition: reset to init
@@ -86,24 +86,26 @@ class Document:
 
         state_change = previous_state != current_state
 
+        logging.debug("LINE: "+line)
+        logging.debug("WORKING ON AD: "+("TRUE" if self.working_on_admonition else "FALSE"))
+        logging.debug("STATE CHANGE: "+("TRUE" if state_change else "FALSE"))
+
         # not working_on_ad.. state is Vanila
         if not self.working_on_admonition:
+            logging.debug("stopped working on admonition: ")
             self.contents = (self.contents if (self.contents is not None) else "") + line
         else:
-            # working_on_ad.. and no change state is Working Line 2
+            # prevent reprocessing of first line of admonition check for state change
             if not state_change:
-                logging.debug("checking following line for admonition: ")
+                logging.debug("checking following line for body: ")
                 has_text_body = self.process_admonition_body(line)
                 if has_text_body:
-                    logging.debug("working on admonition line 2: with text body")
-                # found text match line print_newblock
-                self.contents = (self.contents if (self.contents is not None) else "") + self.print_newblock()
-                # corner case following text line is not part of admonition so add it back
-                if not has_text_body:
+                    logging.debug("working on admonition line 2+: with text body")
+                else:
+                    self.contents = (self.contents if (self.contents is not None) else "") + self.print_newblock()
                     logging.debug("corner case following text line is not part of admonition so add it back\n")
                     self.contents = (self.contents if (self.contents is not None) else "") + line
-                self.reset_to_init()
-            # working_on_ad and change state is Working Line 1
+                    self.reset_to_init()
 
     # finish processing at end of file
     # clean up dangling references
@@ -134,13 +136,14 @@ class Document:
         self.admonition_body = None
 
     def process_admonition_body(self, line):
-        if self.admonition_body:
-            logging.debug(" Inline Body, already proccessed and set")
-            self.process_body_with_pipes()
-            return True
         match = re.search(self.admonition_body_pattern,line)
         if match:
-            self.admonition_body = match.group(1)
+            logging.debug("body match: "+match.group(1))
+            if self.admonition_body is None:
+                self.admonition_body = match.group(1)
+            else:
+                self.admonition_body = self.admonition_body + '\n' + match.group(1)
+            # just incase a single line has multiple parts
             self.process_body_with_pipes()
         # need to know true/false on match
         return match
@@ -162,6 +165,8 @@ class Document:
             if inline_body_match:
                 logging.debug('\t\t INLINE BODY '+inline_body_match.group(3))
                 self.admonition_body = inline_body_match.group(3)
+                # single line inline bodies need this
+                self.process_body_with_pipes()
         else:
             basic = re.search(self.basic_admonition_pattern,line)
             if basic:
@@ -173,6 +178,8 @@ class Document:
                 if inline_body_match:
                     logging.debug('\t\t INLINE BODY '+inline_body_match.group(2))
                     self.admonition_body = inline_body_match.group(2)
+                    # single line inline bodies need this
+                    self.process_body_with_pipes()
 
 ##### END Class Document #######
 
