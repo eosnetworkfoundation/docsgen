@@ -1,0 +1,15 @@
+name: admonition
+on: [push]
+jobs:
+  admonition-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Test
+        run: |
+          ./scripts/process_admonitions.py ./testing/markdown/admonitions.md
+          count=$(diff --ignore-blank-lines ./testing/markdown/admonitions.md ./testing/markdown/ideal_admonition.md | wc -l)
+          if [ "$count" -ne 0 ]; then
+            exit 1
+          fi
