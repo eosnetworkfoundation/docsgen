@@ -309,7 +309,7 @@ do
   rm \$oldfile
 done
 rm -f "${archive}"
-find /tmp/ -type f -name "devdocs_*.tgz" -print0 | while IFS= read -r -d '' tmpfile
+find /tmp/ -maxdepth 1 -type f -name "devdocs_*.tgz" -print0 | while IFS= read -r -d '' tmpfile
 do
   rm \$tmpfile
 done
