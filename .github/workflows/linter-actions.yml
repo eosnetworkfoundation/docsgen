@@ -1,5 +1,8 @@
 name: linter-actions
-on: [push]
+on:
+  push:
+    paths:
+      - 'scripts/*.sh'
 jobs:
   shell-lint:
     runs-on: ubuntu-latest
