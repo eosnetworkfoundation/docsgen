@@ -9,11 +9,9 @@
 #            development-environment
 #            smart-contract-development
 #     overview (has images)
-#     eosio-blockchain-networks
 #     get-involved
 #     tutorials
 #     protocol (has images)
-#     community-developer-tools
 #  static
 #     docs
 Install_Docs() {

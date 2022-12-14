@@ -265,14 +265,7 @@ const config = {
               icon: '/icons/globe-icon.svg',
               subtitle: 'Look under the hood',
               href: '/docs/latest/protocol/',
-            },
-            {
-              label: 'Tools',
-              title: 'Tools',
-              icon: '/icons/globe-icon.svg',
-              subtitle: 'Find developer tooling',
-              href: '/docs/latest/community-developer-tools/',
-            },
+            }
             {
               label: 'Glossary',
               title: 'Glossary',
