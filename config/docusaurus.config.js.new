@@ -263,7 +263,7 @@ const config = {
               icon: '/icons/globe-icon.svg',
               subtitle: 'Look under the hood',
               href: '/docs/latest/protocol/',
-            }
+            },
             {
               label: 'Glossary',
               title: 'Glossary',
