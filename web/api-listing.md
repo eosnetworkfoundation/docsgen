@@ -27,5 +27,5 @@ https API refereces for working with **Nodeos**
 - [eosio.wrap](/system-contracts/latest/reference/Classes/classeosio_1_1wrap): Contract simplifies Block Producer superuser actions by making them more readable and easier to audit
 - [eosio.bios](/system-contracts/latest/reference/Classes/classeosiobios_1_1bios): Contract defines the structures and actions needed for blockchain's basic core functionality
 
-## Antelope IO Contract Developer API ##
+## Antelope Contract Developer API ##
 - [Contracts API](/cdt/latest/reference/Modules/group__contracts)
