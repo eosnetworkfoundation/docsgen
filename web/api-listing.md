@@ -17,15 +17,15 @@ https API refereces for working with **Nodeos**
 
 ## EOS System Contract Action References ##
 
-- [esio.system](/system-contracts/latest/reference/Classes/classeosiosystem_1_1system__contract): Contract defines the structures and actions needed for blockchain's core functionality
-    - [esio.system::Exchange State](/system-contracts/latest/reference/Classes/structeosiosystem_1_1exchange__state)
-    - [esio.system::Native](/system-contracts/latest/reference/Classes/classeosiosystem_1_1native)
-    - [esio.system::Powerup.Results](/system-contracts/latest/reference/Classes/classpowup__results)
-    - [esio.system::Rex.Results](/system-contracts/latest/reference/Classes/classrex__results)
-- [esio.token](/system-contracts/latest/reference/Classes/classeosio_1_1token): Contract defines the structures and actions that allow users to create, issue, and manage tokens on eosio based blockchains
-- [esio.msig](/system-contracts/latest/reference/Classes/classeosio_1_1multisig): Contract defines the structures and actions needed to manage the proposals and approvals on blockchain
-- [esio.wrap](/system-contracts/latest/reference/Classes/classeosio_1_1wrap): Contract simplifies Block Producer superuser actions by making them more readable and easier to audit
-- [esio.bios](/system-contracts/latest/reference/Classes/classeosiobios_1_1bios): Contract defines the structures and actions needed for blockchain's basic core functionality
+- [eosio.system](/system-contracts/latest/reference/Classes/classeosiosystem_1_1system__contract): Contract defines the structures and actions needed for blockchain's core functionality
+    - [eosio.system::Exchange State](/system-contracts/latest/reference/Classes/structeosiosystem_1_1exchange__state)
+    - [eosio.system::Native](/system-contracts/latest/reference/Classes/classeosiosystem_1_1native)
+    - [eosio.system::Powerup.Results](/system-contracts/latest/reference/Classes/classpowup__results)
+    - [eosio.system::Rex.Results](/system-contracts/latest/reference/Classes/classrex__results)
+- [eosio.token](/system-contracts/latest/reference/Classes/classeosio_1_1token): Contract defines the structures and actions that allow users to create, issue, and manage tokens on eosio based blockchains
+- [eosio.msig](/system-contracts/latest/reference/Classes/classeosio_1_1multisig): Contract defines the structures and actions needed to manage the proposals and approvals on blockchain
+- [eosio.wrap](/system-contracts/latest/reference/Classes/classeosio_1_1wrap): Contract simplifies Block Producer superuser actions by making them more readable and easier to audit
+- [eosio.bios](/system-contracts/latest/reference/Classes/classeosiobios_1_1bios): Contract defines the structures and actions needed for blockchain's basic core functionality
 
-## Antelope IO Contract Developer API ##
+## Antelope Contract Developer API ##
 - [Contracts API](/cdt/latest/reference/Modules/group__contracts)
