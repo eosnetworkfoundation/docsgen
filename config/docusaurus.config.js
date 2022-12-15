@@ -165,13 +165,6 @@ const config = {
             path: 'latest',
             banner: 'none',
           },
-          /* DROPME
-          '3.1' : {
-            label: '3.1',
-            path: '3.1',
-            banner: 'none',
-          }
-          DROPME */
         },
         // ... other options
       },

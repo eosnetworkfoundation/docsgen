@@ -152,13 +152,6 @@ popd || exit
 mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js.new
 "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0" "$CMD_FLAGS"
 
-##
-# Run M4 Processing to build out config
-# expands redocusaurus configs 
-pushd "${SCRIPT_DIR}"/../config || exit
-m4 docusaurus.config.js.new > "$ARG_BUILD_DIR"/devdocs/docusaurus.config.js
-popd || exit
-
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 # explict build
 npm run build
