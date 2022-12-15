@@ -112,15 +112,15 @@ Install_Leap() {
 
   # copy the YAML Files
   VERSION=$(OpenAPIVersion "$ARG_BRANCH")
-  OPENAPI_DIR="${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/"$VERSION"/
+  OPENAPI_DIR="${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/"$VERSION"
   [ ! -d "${OPENAPI_DIR}" ] && mkdir -p "${OPENAPI_DIR}"
   find plugins -name "*.yaml" -print0 | while IFS= read -r -d '' i
   do
     cp "$i" "$OPENAPI_DIR"
   done
   # link version to latest
-  [ -d "$OPENAPI_DIR" ] && rm "$OPENAPI_DIR"
-  ln -s "$OPENAPI_DIR" "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest/
+  [ -d "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest ] && rm "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest
+  ln -s "$OPENAPI_DIR" "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest
 
   # Finally copy docs into place
   cp -R markdown_out/* "$ARG_BUILD_DIR"/devdocs/eosdocs/leap
