@@ -580,7 +580,6 @@ article .markdown {
 
 .menu__list {
   padding: 0 24px;
-  max-height: 75vh;
   overflow-y: auto;
 }
 
