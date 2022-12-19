@@ -1,6 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+// include(./redocly-versions.m4)
+
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
@@ -80,6 +82,7 @@ const config = {
        {
          // Plugin Options for loading OpenAPI files
          specs: [
+           // M4RedoclySpecsPlaceHolder()
            {
              spec: 'openapi/leap-plugins/latest/chain.swagger.yaml',
              route: '/leap-plugins/latest/chain.api/',
@@ -152,23 +155,16 @@ const config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'leap',
-        lastVersion: 'current', // switch to 3.1
+        lastVersion: 'current',
         path: 'eosdocs/leap',
         routeBasePath: 'leap',
         sidebarPath: require.resolve('./sidebarsLeap.js'),
         versions: {
           current: {
-            label: '3.2-rc1',
-            path: 'latest', // switch to 3.2-rc1
-            banner: 'unreleased',
-          },
-          /* DROPME
-          '3.1' : {
             label: '3.1',
             path: 'latest',
             banner: 'none',
-          }
-          DROPME */
+          },
         },
         // ... other options
       },

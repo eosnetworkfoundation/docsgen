@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+OpenAPIVersion() {
+  TAG=$1
+  VERSION=$(echo "$TAG" | cut -d. -f1,2 | cut -d. -f1,2 | sed 's/v\([0-9\.]*\)/\1/')
+  if [ -z "$VERSION" ]; then
+     VERSION="default"
+  fi
+  echo "$VERSION"
+}
+
 # Populates the following directories
 # leap
 #
@@ -102,11 +111,16 @@ Install_Leap() {
   cp tutorials/bios-boot-tutorial/README.md "${TUTORIAL_DOC_ROOT}/bios-boot-tutorial.md"
 
   # copy the YAML Files
-  [ ! -d "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest/ ] && mkdir -p "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest/
+  VERSION=$(OpenAPIVersion "$ARG_BRANCH")
+  OPENAPI_DIR="${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/"$VERSION"
+  [ ! -d "${OPENAPI_DIR}" ] && mkdir -p "${OPENAPI_DIR}"
   find plugins -name "*.yaml" -print0 | while IFS= read -r -d '' i
   do
-    cp "$i" "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest/
+    cp "$i" "$OPENAPI_DIR"
   done
+  # link version to latest
+  [ -d "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest ] && rm "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest
+  ln -s "$OPENAPI_DIR" "${ARG_BUILD_DIR}"/devdocs/openapi/leap-plugins/latest
 
   # Finally copy docs into place
   cp -R markdown_out/* "$ARG_BUILD_DIR"/devdocs/eosdocs/leap

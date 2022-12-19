@@ -150,7 +150,7 @@ popd || exit
 # update config for v3.1
 # Configure version paths and banners
 mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js.new
-"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0-rc1" "$CMD_FLAGS"
+"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0" "$CMD_FLAGS"
 
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 # explict build

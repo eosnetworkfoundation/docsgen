@@ -13,7 +13,10 @@
 ##############################################################################
 # Main - Calls Code Based on Arguments Passed In
 ##############################################################################
+# M4 Macro Processing on Config file
+#Macro_Expasion_of_Configuration
 #Bootstrap_Repo
+#Run_Doc6s_Build
 ##############################################################################
 # Remote - Copy and install to remote
 ##############################################################################
@@ -250,6 +253,19 @@ Bootstrap_Repo() {
   $COMMAND
 }
 
+Macro_Expasion_of_Configuration() {
+  ##
+  # Run M4 Processing to build out config
+  # expands redocusaurus configs
+  pushd "${SCRIPT_DIR:?}"/../config || exit
+  if [ -f docusaurus.config.js.new ]; then
+    m4 docusaurus.config.js.new > "${ARG_BUILD_DIR:?}"/devdocs/docusaurus.config.js
+  else
+    m4 docusaurus.config.js > "${ARG_BUILD_DIR:?}"/devdocs/docusaurus.config.js
+  fi
+  popd || exit
+}
+
 Run_Doc6s_Build() {
   pushd "${ARG_BUILD_DIR:?}"/devdocs || exit
   if ! npm run build;
@@ -434,7 +450,8 @@ Install_Web_Content
 # Main - Calls Code Based on Arguments Passed In
 ##############################################################################
 Bootstrap_Repo
-### Create statics from markdown and config
+# M4 Macro Processing on Config file
+Macro_Expasion_of_Configuration
 # run if supress flag not present
 if [ -z "$ARG_SUPPRESS_BUILD" ]; then
   Run_Doc6s_Build
