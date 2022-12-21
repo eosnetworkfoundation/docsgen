@@ -1,0 +1,5 @@
+# m h  dom mon dow   command
+0 11 * * * /home/fedevops/wrapper_clean_rebuild.sh ENF
+0 15 * * * /home/fedevops/wrapper_clean_rebuild.sh AntelopeIO
+0 1 * * * /home/fedevops/clean_logs.sh ENF
+0 5 * * * /home/fedevops/clean_logs.sh AntelopeIO
