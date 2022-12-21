@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/eosnetworkfoundation/devdocs#readme",
   "devDependencies": {
-    "cypress": "^10.9.0"
+    "cypress": "^10.11.0"
   }
 }

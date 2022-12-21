@@ -161,7 +161,7 @@ Install_Eos-system-contracts() {
   MarkdownSystemContracts "$SCRIPT_DIR" "$ARG_GIT_REPO" "$ARG_BUILD_DIR" "$ARG_BRANCH" "$ARG_TAG"
 
   # three args, build_root, doxyfile, and path to logo
-  #DoxygenSystemContracts "$ARG_BUILD_DIR" \
-  #   "${SCRIPT_DIR}"/../web/eosn_logo.png \
-  #   "${SCRIPT_DIR}"/../config
+  DoxygenSystemContracts "$ARG_BUILD_DIR" \
+     "${SCRIPT_DIR}"/../web/eosn_logo.png \
+     "${SCRIPT_DIR}"/../config
 }
