@@ -12,14 +12,16 @@ We run `Cypress`. The tests are in `testing/cypress/e2e/devtools_simple_spec.cy.
 ## Why
 Docusaurus is a single page app, we need a headless browser to evaluate the DOM.
 
-## Prerequisite
+## Configuration
 
-Assumes `http://localhost:3000` is running to test against.
+By default `http://localhost:3000` is running to test against.
 
 ```
 cd $BUILD_DIR/devdocs
 npm run serve -- --port 3000
 ```
+
+The host and http protocol is configurable by changing `testing/cypress.config.js`. In addition, the contracts repository differs between ENF and AntelopeIO organizations. The name of the contracts repository is also set in `testing/cypress.config.js`
 
 ## Screenshots
 
