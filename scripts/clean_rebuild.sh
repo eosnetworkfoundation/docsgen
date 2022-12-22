@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 Help() {
-  echo "clean_rebuild.sh -d /path/to/build_root [-s] [-y]"
+  echo "clean_rebuild.sh -d /path/to/build_root [-h host] [-i identity][-s] [-y]"
+  echo "-h: user@host to install content"
+  echo "-i: key for secure FTP to use"
+  echo "-c: content directory defaults to ~/content"
   echo "-y: yes, override the prompt to confirm directories to clean out "
   echo "-s: output to staging location"
   echo "removes everything and rebuilds "
@@ -10,10 +13,19 @@ Help() {
 }
 
 # Get the options
-while getopts "d:sy" option; do
+while getopts "d:h:i:c:sy" option; do
    case $option in
       d) # set build dir
         ARG_BUILD_DIR=${OPTARG}
+        ;;
+      h) # set host
+        ARG_HOST=${OPTARG}
+        ;;
+      i) # set identify key file
+        ARG_IDENTITY=${OPTARG}
+        ;;
+      c) # set content file
+        ARG_CONTENT_DIR=${OPTARG}
         ;;
       s) # set staging
         ARG_STAGING="True"
@@ -122,8 +134,7 @@ do
   # empty out var
   unset branch
   if [ "${gitrepo}" == "AntelopeIO/leap" ]; then
-    branch="v3.1.2"
-    # later branch="v3.2.0-rc1"
+    branch="release/3.1"
   fi
   if [ "${gitrepo}" == "AntelopeIO/cdt" ]; then
     branch="v3.0.1"
@@ -150,7 +161,7 @@ popd || exit
 # update config for v3.1
 # Configure version paths and banners
 mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js.new
-"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "v3.2.0" "$CMD_FLAGS"
+"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "release/3.2" "$CMD_FLAGS"
 
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 # explict build
@@ -159,8 +170,10 @@ popd || exit
 
 # Final run to push to production Add Hosts and Identify
 # USE DUNE because it is a one file change and its fast
-# UC"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -x -f -r "AntelopeIO/DUNE" -h {fedevops@host} -i {fedevops.pem} -c ~/content "$CMD_FLAGS"
-
+# note generate documents can take multiple hosts args
+if [ -n "$ARG_HOST" ] && [ -n "${ARG_IDENTIY}" ]; then
+  "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -f -r "AntelopeIO/DUNE" -h "$ARG_HOST" -i "$ARG_IDENTITY" -c "${ARG_CONTENT_DIR:-~/content}" "$CMD_FLAGS"
+fi
 ## All done, remove the lock file, and set last updated times
 # local builds do not have webroot so skip
 if [ -d "${WEBROOT:-/var/www/html/ENF/production}" ]; then
