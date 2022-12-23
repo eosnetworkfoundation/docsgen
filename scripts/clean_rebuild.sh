@@ -153,7 +153,11 @@ done
 ##
 # CREATE VERSIONS: docusaurus copy content to versioned directories
 pushd "$ARG_BUILD_DIR"/devdocs || exit
-npm run docusaurus docs:version:leap 3.1
+if ! npm run docusaurus docs:version:leap 3.1;
+then
+  >&2 echo "FATAL: npm run build failed exiting"
+  exit 1
+fi
 popd || exit
 
 ##
@@ -165,15 +169,20 @@ mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config
 
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 # explict build
-npm run build
+if ! npm run build;
+then
+  >&2 echo "FATAL: npm run build failed exiting"
+  exit 1
+fi
 popd || exit
 
 # Final run to push to production Add Hosts and Identify
 # USE DUNE because it is a one file change and its fast
-# note generate documents can take multiple hosts args
+# note generate documents can take multiple hosts args -h u@host1 -h u@host2 ...
 if [ -n "$ARG_HOST" ] && [ -n "${ARG_IDENTIY}" ]; then
   "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -f -r "AntelopeIO/DUNE" -h "$ARG_HOST" -i "$ARG_IDENTITY" -c "${ARG_CONTENT_DIR:-~/content}" "$CMD_FLAGS"
 fi
+
 ## All done, remove the lock file, and set last updated times
 # local builds do not have webroot so skip
 if [ -d "${WEBROOT:-/var/www/html/ENF/production}" ]; then

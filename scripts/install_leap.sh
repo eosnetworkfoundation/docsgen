@@ -2,7 +2,13 @@
 
 OpenAPIVersion() {
   TAG=$1
-  VERSION=$(echo "$TAG" | cut -d. -f1,2 | cut -d. -f1,2 | sed 's/v\([0-9\.]*\)/\1/')
+  # is it a vN.N.N tag?
+  if [[ "${TAG::1}" == "v" ]]; then
+    VERSION=$(echo "$TAG" | cut -d. -f1,2 | cut -d. -f1,2 | sed 's/v\([0-9\.]*\)/\1/')
+  fi
+  if [[ "$TAG" == release* ]]; then
+    VERSION="${TAG#release/}"
+  fi
   if [ -z "$VERSION" ]; then
      VERSION="default"
   fi
