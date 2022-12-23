@@ -176,10 +176,11 @@ then
 fi
 popd || exit
 
+set -x
 # Final run to push to production Add Hosts and Identify
 # USE DUNE because it is a one file change and its fast
 # note generate documents can take multiple hosts args -h u@host1 -h u@host2 ...
-if [ -n "$ARG_HOST" ] && [ -n "${ARG_IDENTIY}" ]; then
+if [ -n "$ARG_HOST" ] && [ -n "${ARG_IDENTITY}" ]; then
   "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -f -r "AntelopeIO/DUNE" -h "$ARG_HOST" -i "$ARG_IDENTITY" -c "${ARG_CONTENT_DIR:-~/content}" "$CMD_FLAGS"
 fi
 
