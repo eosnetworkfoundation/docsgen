@@ -8,8 +8,8 @@
 }
 
 .tocItem {
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-medium);
   line-height: 24px;
   /* identical to box height, or 150% */
 
@@ -17,12 +17,12 @@
 
   /* Greyscale/Black */
 
-  color: #000000;
+  color: var(--eos-color-darkest);
 }
 
 .tocItemChild {
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-medium);
   line-height: 24px;
   /* identical to box height, or 150% */
   
@@ -30,5 +30,5 @@
   
   /* Greyscale/300 */
   
-  color: #666666;
+  color: var(--eos-color-light);
 }

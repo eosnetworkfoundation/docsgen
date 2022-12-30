@@ -9,7 +9,7 @@
 }
 
 .heroPrimary {
-  background: #ffffff;
+  background: var(--eos-color-white);
   color: var(--eos-color-dark);
   margin: 58px auto;
   padding: 0;
@@ -26,6 +26,7 @@
   .title {
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 8px;
   }
 }

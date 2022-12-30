@@ -11,13 +11,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-medium);
   line-height: 30px;
 
   letter-spacing: 0.5px;
 
-  color: #000000;
+  color: var(--eos-color-darkest);
 }
 
 .localeDropdown.menu__list-item {
@@ -25,13 +25,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-medium);
   line-height: 30px;
 
   letter-spacing: 0.5px;
 
-  color: #000000;
+  color: var(--eos-color-darkest);
 }
 
 @media (min-width: 996px) {
@@ -44,8 +44,8 @@
     display: flex;
     align-items: center;
     color: var(--eos-color-darkest);
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: var(--font-weight-standard);
+    font-size: var(--font-size-medium);
     line-height: 30px;
     letter-spacing: 0.5px;
   }

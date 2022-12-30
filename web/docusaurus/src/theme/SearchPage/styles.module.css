@@ -18,7 +18,7 @@
   left: 0;
   height: 100vh;
   width: 320px;
-  border-right: 1px solid #B6B4B4;
+  border-right: 1px solid var(--color-black);
 }
 
 .searchInput {
@@ -30,17 +30,17 @@
   height: 60px;
   padding: 16.5px 24px 16.5px 60px;
 
-  font-weight: 400;
-  font-size: 18px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-large);
   line-height: 27px;
-  color: #666666;
+  color: var(--eos-color-light);
   background-image: url('/icons/search-icon.svg');
   background-repeat: no-repeat;
   background-position: 24px 18px;
 }
 
 .searchInput::placeholder {
-  color: #666666;
+  color: var(--eos-color-light);
 }
 
 .resultsContainer {
@@ -61,7 +61,7 @@
 }
 
 .searchResultItemHeading {
-  font-weight: 400;
+  font-weight: var(--font-weight-standard);
   margin-bottom: 0;
 }
 
@@ -117,14 +117,14 @@
   width: 52px;
   height: 52px;
   
-  border: 1px solid #B6B4B4;
+  border: 1px solid var(--color-black);
   border-radius: 4px;
-  font-weight: 400;
-  font-size: 20px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-xlarge);
   line-height: 30px;
   text-align: center;
   letter-spacing: 0.5px;
-  color: #000000;
+  color: var(--eos-color-darkest);
   outline: none;
   cursor: pointer;
   background-color: white;
@@ -133,7 +133,7 @@
 
 .pageNumber:hover {
   background-color: #F2F2F2;
-  color: #000000;
+  color: var(--eos-color-darkest);
 }
 
 .pageNumberActive {
@@ -181,7 +181,7 @@
 }
 
 .desktopVersionContainer {
-  border: 1px solid #B6B4B4;
+  border: 1px solid var(--color-black);
   border-radius: 8px;
   padding: 20px;
 }
