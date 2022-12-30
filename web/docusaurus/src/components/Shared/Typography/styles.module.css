@@ -72,7 +72,7 @@
 
 .pSmallRegular {
   font-weight: var(--font-weight-standard);
-  font-weight: var(--font-size-standard);
+  font-size: var(--font-size-standard);
   line-height: 20px;
   
   color: var(--eos-color-light);
