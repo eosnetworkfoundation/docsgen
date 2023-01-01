@@ -1,7 +1,7 @@
 .customTableOfContents {
   overflow-y: auto;
   width: 95%;
-  border: 1px solid #B6B4B4;
+  border: 1px solid var(--color-black);
   border-radius: 8px;
   padding: 20px;
   margin: 24px auto;
@@ -20,11 +20,11 @@
 
 .select {
   margin-bottom: 20px;
-  font-weight: 400;
-  font-size: 18px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-large);
   line-height: 27px;
 
-  color: #666666 !important;
+  color: var(--eos-color-light) !important;
 }
 
 .linkContainer {
@@ -43,10 +43,10 @@
 .link {
   display: flex;
   align-items: center;
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-medium);
   line-height: 24px;
-  color: #444444;
+  color: var(--eos-color-darker);
 }
 
 .link::before {
@@ -54,7 +54,7 @@
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 1px solid #B6B4B4;
+  border: 1px solid var(--color-black);
   border-radius: 4px;
   margin-right: 12px;
 }

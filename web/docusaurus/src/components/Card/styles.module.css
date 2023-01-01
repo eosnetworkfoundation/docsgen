@@ -47,7 +47,7 @@ a:hover {
   }
 
   .card:hover {
-    background: #FFFFFF;
+    background: var(--eos-color-white);
     box-shadow: 0px 4px 24px #E1E5F0;
     border-radius: 16px;
     transition: all 400ms cubic-bezier(0.08, 0.52, 0.52, 1)

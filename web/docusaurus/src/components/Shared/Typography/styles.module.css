@@ -71,8 +71,8 @@
 }
 
 .pSmallRegular {
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: var(--font-weight-standard);
+  font-size: var(--font-size-standard);
   line-height: 20px;
   
   color: var(--eos-color-light);

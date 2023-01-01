@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #D1DAF0;
+  border: 1px solid var(--color-blue);
   border-radius: 6px;
   width: 52px;
   height: 52px;
@@ -25,7 +25,7 @@
   }
   
   .wrapper:hover {
-    background: #FFFFFF;
+    background: var(--eos-color-white);
     
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
@@ -35,7 +35,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #D1DAF0;
+    border: 1px solid var(--color-blue);
     border-radius: 6px;
     width: 52px;
     height: 52px;
