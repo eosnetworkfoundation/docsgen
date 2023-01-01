@@ -1094,7 +1094,6 @@ aside {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
     padding: 24px;
     transition: all 0.2s ease;
@@ -1106,7 +1105,7 @@ aside {
   }
 
   .primary__menu .custom-menu-list li {
-    flex-basis: 30%;
+    flex-basis: 33%;
   }
 
   .primary__menu .menu__list {
@@ -1387,5 +1386,9 @@ aside {
 
   .footer__links img {
     width: 32px;
+  }
+
+  .primary__menu .custom-menu-list li {
+    flex-basis: unset !important;
   }
 }
