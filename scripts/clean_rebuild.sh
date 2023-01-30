@@ -133,6 +133,9 @@ do
   echo "working on ${gitrepo}"
   # empty out var
   unset branch
+  if [ "${gitrepo}" == "eosnetworkfoundation/docs" ]; then
+    branch="feature-sidebar"
+  fi
   if [ "${gitrepo}" == "AntelopeIO/leap" ]; then
     branch="release/3.1"
   fi
