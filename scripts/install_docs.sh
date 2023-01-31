@@ -24,7 +24,7 @@ Install_Docs() {
   # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
-  IMG_DIR="${ARG_BUILD_DIR:?}"/devdocs/static/docs
+  IMG_DIR="${ARG_BUILD_DIR:?}"/devdocs/static/docs/images
   # place for docs static image files
   [ ! -d "$IMG_DIR" ] && mkdir "$IMG_DIR"
 
@@ -34,8 +34,8 @@ Install_Docs() {
   cp -R docs/* markdown_out
 
   # setup images
-  if [ -d markdown_out/docs/images ]; then
-    cp -r markdown_out/docs/images/* "$IMG_DIR"
+  if [ -d markdown_out/images ]; then
+    cp -r markdown_out/images/* "$IMG_DIR"
   fi
 
   # added meta data for repo and branch to each file
