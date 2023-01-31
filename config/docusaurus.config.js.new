@@ -282,6 +282,12 @@ const config = {
           label: 'APIs',
           to: '/docs/latest/api-listing/',
         },
+        {
+          docId: 'video-courses',
+          position: 'left',
+          label: 'Videos',
+          to: 'https://learn.eosnetwork.com/',
+        },
         // hidden as per task description
         // {
         //   type: 'dropdown',
