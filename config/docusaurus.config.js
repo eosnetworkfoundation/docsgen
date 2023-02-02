@@ -239,7 +239,7 @@ const config = {
               title: 'Getting started',
               subtitle: 'Get started with EOS',
               icon: '/icons/brief-case-icon.svg', //replace with required icon
-              href: 'docs/latest/smart-contracts/getting-started/',
+              href: '/docs/latest/smart-contracts/getting-started/',
             },
             {
               label: 'Core concepts',
