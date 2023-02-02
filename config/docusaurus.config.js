@@ -242,7 +242,7 @@ const config = {
               title: 'Getting started',
               subtitle: 'Get started with EOS',
               icon: '/icons/brief-case-icon.svg', //replace with required icon
-              href: '/docs/latest/getting-started/',
+              href: 'docs/latest/smart-contracts/getting-started/',
             },
             {
               label: 'Core concepts',
@@ -256,14 +256,14 @@ const config = {
               title: 'Tutorials',
               icon: '/icons/box-icon.svg',
               subtitle: 'Discover tutorials',
-              href: '/docs/latest/tutorials/',
+              href: '/docs/latest/smart-contracts/tutorials/',
             },
             {
               label: 'Protocol',
               title: 'Protocol',
               icon: '/icons/globe-icon.svg',
               subtitle: 'Look under the hood',
-              href: '/docs/latest/protocol/',
+              href: '/docs/latest/resources/protocol/',
             },
             {
               label: 'Glossary',
