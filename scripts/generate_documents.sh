@@ -106,6 +106,10 @@ Install_Docusaurus() {
       >&2 echo "npm react-select failed exiting"
       exit 1
     fi
+    if ! npm i --save @docusaurus/plugin-google-tag-manager;
+    then
+      >&2 echo "npm plugin-google-tag-manager failed exiting"
+    fi
     popd || exit
   fi
   # push our own config
