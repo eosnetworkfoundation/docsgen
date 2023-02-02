@@ -76,7 +76,7 @@ const config = {
           customCss: require.resolve('./src/css/custom.css'),
         },
         googleTagManager: {
-          containerId: 'GTM-T4SWD2V'
+          trackingID: 'GTM-T4SWD2V'
         },
       }),
     ],
