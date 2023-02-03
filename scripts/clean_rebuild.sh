@@ -134,7 +134,7 @@ do
   # empty out var
   unset branch
   if [ "${gitrepo}" == "eosnetworkfoundation/docs" ]; then
-    branch="feature-sidebar"
+    branch="staging"
   fi
   if [ "${gitrepo}" == "AntelopeIO/leap" ]; then
     branch="release/3.1"
