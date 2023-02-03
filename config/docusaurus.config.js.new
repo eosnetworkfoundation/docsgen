@@ -245,7 +245,7 @@ const config = {
             {
               label: 'Getting started', // This label is used for mobile view
               title: 'Getting started',
-              subtitle: 'Get started with Smart Contracts',
+              subtitle: 'Get started with EOS Smart Contracts',
               icon: '/icons/brief-case-icon.svg', //replace with required icon
               href: '/docs/latest/smart-contracts/getting-started/',
             },
