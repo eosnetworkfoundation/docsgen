@@ -69,7 +69,7 @@ Install_Leap() {
   # shellcheck disable=SC2034  # Unused variables to keep method call enforced
   ARG_TAG=$5
 
-  TUTORIAL_DOC_ROOT="${ARG_BUILD_DIR}/devdocs/eosdocs/docs/03_tutorials"
+  TUTORIAL_DOC_ROOT="${ARG_BUILD_DIR}/devdocs/eosdocs/docs/40_node-operation/20_tutorials"
 
   # copy out to keep docs clean and process idempotent
   [ ! -d markdown_out ] && mkdir markdown_out
