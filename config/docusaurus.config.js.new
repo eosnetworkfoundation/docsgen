@@ -381,7 +381,7 @@ const config = {
         title: 'Smart Contract Development',
         subtitle: 'Learn about how to get started developing Smart Contracts on EOS',
         icon: '/icons/docs-icon.svg',
-        href: '/docs/latest/getting-started/smart-contract-development/',
+        href: '/docs/latest/smart-contracts/getting-started/',
       },
       signUp: {
         title: 'Sign up for developer alerts',
