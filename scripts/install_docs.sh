@@ -77,32 +77,6 @@ Install_Docs() {
     mv tempG.md "$file"
   done
 
-  FIND="action-reference\/eosio\.bios"
-  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosiobios_1_1bios"
-  sed "s/${FIND}/${REPLACE}/" markdown_out/04_protocol/index.md > tmp_index.md
-  mv tmp_index.md markdown_out/04_protocol/index.md
-
-  FIND="action-reference\/eosio\.system"
-  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosiosystem_1_1system__contract"
-  sed "s/${FIND}/${REPLACE}/" markdown_out/04_protocol/index.md > tmp_index.md
-  mv tmp_index.md markdown_out/04_protocol/index.md
-
-  FIND="action-reference\/eosio\.msig"
-  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosio_1_1multisig"
-  sed "s/${FIND}/${REPLACE}/" markdown_out/04_protocol/index.md > tmp_index.md
-  mv tmp_index.md markdown_out/04_protocol/index.md
-
-  FIND="action-reference\/eosio\.token"
-  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosio_1_1token"
-  sed "s/${FIND}/${REPLACE}/" markdown_out/04_protocol/index.md > tmp_index.md
-  mv tmp_index.md markdown_out/04_protocol/index.md
-
-  FIND="action-reference\/eosio\.wrap"
-  REPLACE="\/system-contracts\/latest\/reference\/Classes\/classeosio_1_1wrap"
-  sed "s/${FIND}/${REPLACE}/" markdown_out/04_protocol/index.md > tmp_index.md
-  mv tmp_index.md markdown_out/04_protocol/index.md
-
-
   # add front matter for glossary: one off special
   echo "---" > "${ARG_BUILD_DIR:?}"/devdocs/eosdocs/docs/glossary.md
   BRANCH=$(Calculate_Branch "${ARG_BRANCH}" "${ARG_TAG}")
