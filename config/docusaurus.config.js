@@ -349,14 +349,14 @@ const config = {
           icon: 'icons/molecules-icon.svg',
           title: 'Go deeper',
           subtitle: 'Take a look under the hood',
-          link: '/docs/latest/protocol/',
+          link: '/docs/latest/resources/protocol/',
           color: 'yellow',
         },
         {
           icon: '/icons/chat-icon.svg',
           title: 'Tic-tac-toe',
           subtitle: 'Learn how to make Tic-tac-toe fully on-chain!',
-          link: '/docs/latest/tutorials/tic-tac-toe-game-smart-contract-single-node',
+          link: '/docs/latest/smart-contracts/tutorials/tic-tac-toe-game-smart-contract-single-node',
           color: 'yellow',
         },
         {
