@@ -1,11 +1,10 @@
 # Generate Content Quick Guide
-
-## quick guide 
+Creates web version of documentation pulling together documentation from several git repositories across the EOS Networks
+## Generate Content Using clean_rebuild.sh Script
 Run clean_rebuild.sh -d /path/to/build_root to rebuild a clean local version. This script iterates through the repositories running generate_documents.sh
 
+## Generate Content Using generate_documents.sh Script
 The script generate_documents.sh clones various git repos, extracts documentation and then copies to /path/to/build_dir folder. The scripts are designed to be called once for each git repository.
-
-Creates web version of documentation pulling together documentation from several git repositories across the EOS Networks
 
 ## Syntax: generate_documents.sh [-r|d|b|t|i|h|c|s|x|f]
 mandatory: -r owner/rep and -d directory

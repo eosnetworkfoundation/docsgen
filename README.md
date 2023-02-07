@@ -45,7 +45,7 @@ Testing utilizes [Cypress](https://www.cypress.io/), while search is powered by 
 | Docs | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs | docusarus |
 
 ## Initialize Content Repository ##
-See [First Install Software](docs/FirstInstallSoftware.md) for all the dependancies.
+See [First Install Software](docs/Docsgen-Install-Process.md) for all the dependancies.
 
 ## Generating Content ##
 
@@ -80,7 +80,7 @@ When you provide host and identify the content will be deployed to a production 
 
 After running there will be many static HTML, CSS, JS files under `/path/to/build_dir/devdocs/build`. The files are served as the current production version.
 
-See [Generating Documents](docs/GeneratingDocuments.md) for additional details
+See [Generating Documents](docs/Document-Generation-Process.md) for additional details
 
 ## Updating Presentation
 See [Updating Presentation](docs/update-presentation.md) for a guide on updating the look and feel of the site.

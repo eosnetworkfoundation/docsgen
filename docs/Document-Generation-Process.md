@@ -1,5 +1,5 @@
-# Generating Documents #
-How to guide on generating the documents or regenerating
+# Document Generation Process #
+This process provides information on how generate or regenerate the EOS Portal documents
 
 ## Full Release
 See [How To Do A Full Release](How-To-Do-A-Full-Release.md) for details on building fresh from an empty directory.
@@ -45,7 +45,7 @@ graph LR;
 ```
 
 ### Quick Guide
-Very brief guide on steps to generating content from markdown to static html/css/js
+Brief guide on steps to generating content from markdown to static html/css/js
 
 - install Docusaurus `npm install docusaurus`
 - clone repos into local `working` directory
