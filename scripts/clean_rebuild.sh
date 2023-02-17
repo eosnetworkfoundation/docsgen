@@ -61,6 +61,7 @@ fi
 ## STAGING CHANGES
 if [ -n "$ARG_STAGING" ]; then
   WEBROOT='/var/www/html/ENF/devrel_staging'
+  DOCS_BRANCH="staging"
 fi
 
 # Remove Last Updates while we run job
@@ -134,7 +135,7 @@ do
   # empty out var
   unset branch
   if [ "${gitrepo}" == "eosnetworkfoundation/docs" ]; then
-    branch="staging"
+    branch=${DOCS_BRANCH:-main}
   fi
   if [ "${gitrepo}" == "AntelopeIO/leap" ]; then
     branch="release/3.1"
