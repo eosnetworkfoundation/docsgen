@@ -19,30 +19,30 @@ OpenAPIVersion() {
 # leap
 #
 DoxygenLeap() {
-  BUILD_ROOT=$1
+  DEST_DIR=$1
   LOGO=$2
   CONFIG_DIR=$3
 
-  # location to write docs
-  DEST_DIR="${BUILD_ROOT}/devdocs/eosdocs/leap/"
-
+  set -x
   # pull from github
   # create reference dir if it does not exist
   [ ! -d "$DEST_DIR" ] && mkdir -p "$DEST_DIR"
 
   # copy in doxygen config file
   cp "$CONFIG_DIR"/doxyfile/leap-doxyfile Doxyfile
-  # copy in doxybook config file
-  cp "$CONFIG_DIR"/doxybook/leap.doxybook.config.json .
+  # create doxybook config file
+  printf "{\n\"linkSuffix\": \"\",\n\"baseUrl\": \"%s\"\n}\n" "/leap/latest/reference/" > leap.doxybook.config.json
   # copy in logo
-  cp "${LOGO}" docs
+  cp "${LOGO}" "$DEST_DIR"
   # run doxygen create doxybook
+  DOXY_DOC_DEST_DIR="$DEST_DIR"
+  export DOXY_DOC_DEST_DIR
   { doxygen > /dev/null; } 2>&1
 
   [ -d reference ] && rm reference
   mkdir reference
   # convert XML to Markdown
-  doxybook2 --input doxygen_out/xml --output reference --config leap.doxybook.config.json
+  doxybook2 --input output/xml --output reference --config leap.doxybook.config.json
   find reference -type f -print0 | while IFS= read -r -d '' i
   do
     echo "$i"
@@ -56,7 +56,7 @@ DoxygenLeap() {
   done
 
   # copy files to staging area
-  cp -R reference "$DEST_DIR"
+  mv reference "$DEST_DIR"
 }
 
 Install_Leap() {
