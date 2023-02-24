@@ -146,6 +146,9 @@ do
   if [ "${gitrepo}" == "eosnetworkfoundation/eos-system-contracts" ]; then
     branch="v3.1.1"
   fi
+  if [ "${gitrepo}" == "AntelopeIO/DUNE" ]; then
+    branch="v1.1.0"
+  fi
 
   if [ -z "$branch" ]; then
     "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r ${gitrepo} "$CMD_FLAGS"
