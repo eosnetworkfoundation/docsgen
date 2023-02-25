@@ -122,6 +122,8 @@ if [ -n "$ARG_STAGING" ]; then
   CMD_FLAGS="-xs"
 fi
 
+dune_branch="main"
+
 for gitrepo in eosnetworkfoundation/docs \
     AntelopeIO/cdt \
     eosnetworkfoundation/eos-system-contracts \
@@ -145,6 +147,10 @@ do
   fi
   if [ "${gitrepo}" == "eosnetworkfoundation/eos-system-contracts" ]; then
     branch="v3.1.1"
+  fi
+  if [ "${gitrepo}" == "AntelopeIO/DUNE" ]; then
+    branch="v1.1.0"
+    dune_branch=${branch}
   fi
 
   if [ -z "$branch" ]; then
@@ -185,7 +191,7 @@ set -x
 # USE DUNE because it is a one file change and its fast
 # note generate documents can take multiple hosts args -h u@host1 -h u@host2 ...
 if [ -n "$ARG_HOST" ] && [ -n "${ARG_IDENTITY}" ]; then
-  "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -f -r "AntelopeIO/DUNE" -h "$ARG_HOST" -i "$ARG_IDENTITY" -c "${ARG_CONTENT_DIR:-~/content}" "$CMD_FLAGS"
+  "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -f -r "AntelopeIO/DUNE" -b "$dune_branch" -h "$ARG_HOST" -i "$ARG_IDENTITY" -c "${ARG_CONTENT_DIR:-~/content}" "$CMD_FLAGS"
 fi
 
 ## All done, remove the lock file, and set last updated times
