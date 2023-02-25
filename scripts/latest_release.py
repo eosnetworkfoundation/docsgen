@@ -34,7 +34,9 @@ def patterns() -> {}:
 ####
 def compare_versions(canidate, this_release) -> bool:
     if (semver.VersionInfo.isvalid(canidate) and semver.VersionInfo.isvalid(this_release)):
-        return semver.compare(canidate, this_release) > 0
+        c = semver.VersionInfo.parse(canidate)
+        t = semver.VersionInfo.parse(this_release)
+        return semver.VersionInfo.compare(c, t) > 0
     return canidate > this_release
 
 ####
@@ -96,10 +98,10 @@ def latest_branch(repo, pattern) -> str:
     return full_name
 
 ###################### MAIN #################################
-def main() -> None:
+def main(passed_args) -> str:
     parser = init_argparse()
-    # Parse args
-    args = parser.parse_args()
+    # Parse args, sys.argv for testing
+    args = parser.parse_args(passed_args)
     # put together repo path
     logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
     repo_path= args.directory + "/" + args.owner + "/" + args.repository
@@ -118,7 +120,7 @@ def main() -> None:
     else:
         full_name = latest_tag(repo, pattern['tag'])
 
-    print(full_name)
+    return full_name
 
 if __name__ == "__main__":
-    main()
+    print(main(sys.argv[1:]))
