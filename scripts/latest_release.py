@@ -34,9 +34,9 @@ def patterns() -> {}:
 ####
 def compare_versions(canidate, this_release) -> bool:
     if (semver.VersionInfo.isvalid(canidate) and semver.VersionInfo.isvalid(this_release)):
-        c = semver.VersionInfo.parse(canidate)
-        t = semver.VersionInfo.parse(this_release)
-        return semver.VersionInfo.compare(c, t) > 0
+        candidate_semver = semver.VersionInfo.parse(canidate)
+        this_semver = semver.VersionInfo.parse(this_release)
+        return semver.VersionInfo.compare(candidate_semver, this_semver) > 0
     return canidate > this_release
 
 ####

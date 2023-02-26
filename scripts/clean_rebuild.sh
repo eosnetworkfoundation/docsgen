@@ -122,8 +122,6 @@ if [ -n "$ARG_STAGING" ]; then
   CMD_FLAGS="-xs"
 fi
 
-dune_branch="main"
-
 for gitrepo in eosnetworkfoundation/docs \
     AntelopeIO/cdt \
     eosnetworkfoundation/eos-system-contracts \
@@ -134,26 +132,32 @@ for gitrepo in eosnetworkfoundation/docs \
     eosnetworkfoundation/mandel-swift
 do
   echo "working on ${gitrepo}"
-  # empty out var
-  unset branch
+  # clone git repo
+  GIT_OWNER=$(echo "$gitrepo" | cut -d'/' -f1)
+  GIT_BASE_REPO=$(basename "$gitrepo")
+  mkdir -p "${SCRIPT_DIR:?}"/working/"${GIT_OWNER}"
+  pushd "${SCRIPT_DIR:?}"/working/"${GIT_OWNER}" || exit
+  git clone "${GIT_BASE_REPO}"
+  popd || exit
+
+  # get the latest tag of
+  latest_tag=$("${SCRIPT_DIR:?}"/latest_release.py -o "${GIT_OWNER}" -r "${GIT_BASE_REPO}" -d "${SCRIPT_DIR:?}"/../working)
+
+  if [ "${latest_tag}" == "None" ]; then
+    latest_tag="main"
+  fi
+  # reset branch
+  branch=${latest_tag:-main}
+  # special setting either staging or main
   if [ "${gitrepo}" == "eosnetworkfoundation/docs" ]; then
     branch=${DOCS_BRANCH:-main}
   fi
+  # special setting use branch
   if [ "${gitrepo}" == "AntelopeIO/leap" ]; then
     branch="release/3.1"
   fi
-  if [ "${gitrepo}" == "AntelopeIO/cdt" ]; then
-    branch="v3.0.1"
-  fi
-  if [ "${gitrepo}" == "eosnetworkfoundation/eos-system-contracts" ]; then
-    branch="v3.1.1"
-  fi
-  if [ "${gitrepo}" == "AntelopeIO/DUNE" ]; then
-    branch="v1.1.0"
-    dune_branch=${branch}
-  fi
 
-  if [ -z "$branch" ]; then
+  if [ -z "$branch" ] || [ "$branch" == "main" ]; then
     "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r ${gitrepo} "$CMD_FLAGS"
   else
     "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "${gitrepo}" -b "$branch" "$CMD_FLAGS"
@@ -179,19 +183,18 @@ mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config
 
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 # explict build
-if ! npm run build;
-then
+if ! npm run build; then
   >&2 echo "FATAL: npm run build failed exiting"
   exit 1
 fi
 popd || exit
 
-set -x
 # Final run to push to production Add Hosts and Identify
 # USE DUNE because it is a one file change and its fast
 # note generate documents can take multiple hosts args -h u@host1 -h u@host2 ...
 if [ -n "$ARG_HOST" ] && [ -n "${ARG_IDENTITY}" ]; then
-  "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -f -r "AntelopeIO/DUNE" -b "$dune_branch" -h "$ARG_HOST" -i "$ARG_IDENTITY" -c "${ARG_CONTENT_DIR:-~/content}" "$CMD_FLAGS"
+  # fast flag is set, uses existing repository
+  "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -f -r "AntelopeIO/DUNE" -h "$ARG_HOST" -i "$ARG_IDENTITY" -c "${ARG_CONTENT_DIR:-~/content}" "$CMD_FLAGS"
 fi
 
 ## All done, remove the lock file, and set last updated times
