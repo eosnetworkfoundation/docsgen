@@ -8,7 +8,7 @@ This Build and Release process provides instructions to set up and configure the
 |[How to Generate Documentation](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/Document-Generation-Process.md)|Provides instructions on how to generate EOS documentation. |
 |[How to Generate Content - Quick Guide](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/Generate-Content-Quick-Guide.md)|Includes instructions to generate content using clean_rebuild.sh script and instructions to generate content using generate_documents.sh script.|
 |[Update Site Navigation](https://github.com/eosnetworkfoundation/devdocs/blob/main/docs/SiteNavigation.md)|Provides instructions on how to make changes to EOS Documentation navigation, such as the left sidebar site index, the right sidebar document table of contents, and the footer.|
-|[Update Presentation](docs/update-presentation.md)|Provides information to update the look and feel of the EOS Documentation portal.|
+|[Update Presentation](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/update-presentation.md)|Provides information to update the look and feel of the EOS Documentation portal.|
 |[Testing](docs/Testing.md)|Provides information for running docsgen tests.|
 |[Production Setup](docs/Production-Setup.md)|Provides information on the deployment script, such as backups the existing content on the remote host, creates a tar of the updated content, and copies and installs updated content on the remote host.|
 |[How to Mount s3 bucket as file System](docs/Mounting-s3-bucket-as-filesystem.md)||
