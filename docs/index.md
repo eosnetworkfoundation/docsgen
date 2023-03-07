@@ -11,7 +11,7 @@ This Build and Release process provides instructions to set up and configure the
 |[Update Presentation](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/update-presentation.md)|Provides information to update the look and feel of the EOS Documentation portal.|
 |[Testing](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/Testing.md)|Provides information for running docsgen tests.|
 |[Production Setup](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/Production-Setup.md)|Provides information on the deployment script, such as backups the existing content on the remote host, creates a tar of the updated content, and copies and installs updated content on the remote host.|
-|[How to Mount s3 bucket as file System](docs/Mounting-s3-bucket-as-filesystem.md)||
+|[How to Mount s3 bucket as file System](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/Mounting-s3-bucket-as-filesystem.md)||
 |
 
 
