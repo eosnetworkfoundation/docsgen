@@ -44,52 +44,5 @@ Testing utilizes [Cypress](https://www.cypress.io/), while search is powered by 
 | Glossary | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | glossary | Docusarus |
 | Docs | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs | docusarus |
 
-## Initialize Content Repository ##
-See [First Install Software](docs/Docsgen-Install-Process.md) for all the dependancies.
-
-## Generating Content ##
-
-**quick guide** Run `clean_rebuild.sh -d /path/to/build_root` to rebuild a clean **local** version. This script iterates through the repositories running `generate_documents.sh`
-
-The script `generate_documents.sh` clones various git repos, extracts documentation and then copies to `/path/to/build_dir folder`. The scripts are designed to be called once for each git repository.
-```
-Creates web version of documentation pulling together documentation from several git repositories across the EOS Networks
-
-Syntax: generate_documents.sh [-r|d|b|t|i|h|c|s|x|f]
-mandatory: -r owner/rep and -d directory
-
-options:
--r: owner/repository name of the git repository and source for documentation
--d: specify directory for building the static HTML documentation
--b: branch to use for git
--t: tag to use for git
--i: private key for web host, needed to install files
--h: destination user@host(s) where to install files
--c: context directory for backups and archives
--s: staging, put content into staging web root
--x: suppress build statics process
--f: fast, skip git checkout if files less then 1 hour old
-
-example: generate_documents.sh -r eosnetworkfoundation/mandel -b ehp-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB -c /path/to/backup_dir
-Run script to build mandel docs and update production site , with branch ehp-working and tag v3.1.1. This updates latest documentation version
-When you provide host and identify the content will be deployed to a production server
-   Default location for files is /var/www/html/ENF/production
-   Staging location for files is /var/www/html/ENF/devrel_staging
-   Currently these locations are not configurable
-```
-
-After running there will be many static HTML, CSS, JS files under `/path/to/build_dir/devdocs/build`. The files are served as the current production version.
-
-See [Generating Documents](docs/Document-Generation-Process.md) for additional details
-
-## Updating Presentation
-See [Updating Presentation](docs/update-presentation.md) for a guide on updating the look and feel of the site.
-
-## Updating Site Navigation
-See [Updating Site Navigation](docs/SiteNavigation.md)
-
-## Testing
-see [Testing](docs/Testing.md)
-
-## Production Setup
-see [Production Setup](docs/Production-Setup.md) for details on setting up a webserve to serve the content.
+## Documentation
+For information on how to generate content, updating site navigation, updating the UX, production setup, and testing, visit the [documentation](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/index.md))section.
