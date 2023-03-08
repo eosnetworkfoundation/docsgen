@@ -24,14 +24,14 @@ Options:
 |-x:|suppress build statics process|
 |-f:|fast, skip git checkout if files less then 1 hour old|
 
-example: generate_documents.sh -r eosnetworkfoundation/mandel -b ehp-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB -c /path/to/backup_dir
+Example: generate_documents.sh -r eosnetworkfoundation/mandel -b ehp-working -t v3.1.1 -d /path/to/build_root -i aws_identity -h eric@hostA -h eric@hostB -c /path/to/backup_dir
 
 Run script to build mandel docs and update production site , with branch ehp-working and tag v3.1.1. This updates latest documentation version
 
 When you provide host and identify the content will be deployed to a production server
-   Default location for files is /var/www/html/ENF/production
-   Staging location for files is /var/www/html/ENF/devrel_staging
-   Currently these locations are not configurable
+*  Default location for files is /var/www/html/ENF/production
+*  Staging location for files is /var/www/html/ENF/devrel_staging
+*  Currently these locations are not configurable
 After running there will be many static HTML, CSS, JS files under /path/to/build_dir/devdocs/build. The files are served as the current production version.
 
 See [How to Generate Documentation](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/Document-Generation-Process.md) for additional details
