@@ -1,5 +1,6 @@
-# Automated Documentation #
-Scripts to generate Web Documentation Portal. Goal of this project is create a single documentation portal linking together documentation across the EOS Network's code repositories. This portal will make an effort to make it easy to build and maintain EOS projects.
+# DocsGen
+
+DocsGen is the tool used to build the EOS documentation. It consists of a set of scripts and configuration files to generate the EOS Web Documentation Portal. The goal of this project is to create a single web portal linking together documentation across the EOS Network code repositories. This portal will make an effort to make it easy to build and maintain EOS projects, according to the following objectives:
 * Single place EOS documentation
 * Unified presentation of documentation
 * Single navigation hierarchy covering documentation
@@ -7,7 +8,7 @@ Scripts to generate Web Documentation Portal. Goal of this project is create a s
 
 ## System Design
 
-A shell script clones a git repository, and puts the content into a staging server. The staging server builds the content into the documentation you see on the website. The current system uses [Docusaurus](https://docusaurus.io/) to convert markdown into HTML, power navigation, and manage versions.
+In a nutshell, a shell script clones a git repository, and puts the content into a staging server. The staging server builds the content into the documentation you see on the website. The current system uses [Docusaurus](https://docusaurus.io/) to convert markdown into HTML, power navigation, and manage versions.
 
 ```mermaid
 graph LR;
@@ -27,7 +28,7 @@ graph LR;
 
 Testing utilizes [Cypress](https://www.cypress.io/), while search is powered by [algolia](https://www.algolia.com/).
 
-## Coverage ##
+## Coverage
 
 |   Topic  |  Source Repository  | Top Level Path | Process To HTML |
 |  ------- | ------------------- | -------------- | ------------ |
@@ -40,9 +41,9 @@ Testing utilizes [Cypress](https://www.cypress.io/), while search is powered by 
 | Contract Developer Tools | [cdt](https://github.com/AntelopeIO/cdt) | cdt | Docusarus |
 | DUNE | [DUNE](https://github.com/AntelopeIO/DUNE.git) | DUNE | Docusarus |
 | Nodeos, Cleos, Kloes Manuals | [Leap](https://github.com/AntelopeIO/leap) | leap | Docusarus |
-| Tutorials | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs/tutorials | Docusarus |
-| Glossary | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | glossary | Docusarus |
-| Docs | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs | docusarus |
+| Tutorials | [Docs](https://github.com/eosnetworkfoundation/docs.git) | docs/tutorials | Docusarus |
+| Glossary | [Docs](https://github.com/eosnetworkfoundation/docs.git) | glossary | Docusarus |
+| Docs | [Docs](https://github.com/eosnetworkfoundation/docs.git) | docs | docusarus |
 
 ## Documentation
-For information on how to generate content, updating site navigation, updating the UX, production setup, and testing, visit the [documentation](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/index.md) section.
+For information on how to generate content, update the site navigation, update the UX presentation, production setup, and testing, visit the [documentation](docs/index.md) section.
