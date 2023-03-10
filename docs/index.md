@@ -1,15 +1,15 @@
-# Internal - Build and Release Process for a New Version of the Docs and Index for Devdocs
-This Build and Release process provides instructions to set up and configure the [EOS Documentation Portal](https://docs.eosnetwork.com).
+# DocsGen Documentation
+
+These documents provide instructions on how to build and configure the [EOS Documentation Portal](https://docs.eosnetwork.com). Select the appropriate document accordingly:
 
 |Process | Description |
 |---|---|
-|[Install Docsgen Software](./Docsgen-Install-Process.md)|Provides guidelines to install the software necessary for generationg documents. Provides information to install and setup documentation generation, such as software requirements, dependencies, links to instructions on how to install the software, and scripts and instructions for initial setup of web document content.|
-|[Build a New Document Repository - Do a full release](./How-To-Do-A-Full-Release.md)|Provides instructions on how to build a new document repository. Use this procedure to initiate a new document repository for EOS Documentation (infrastructure), when necessary.|
-|[How to Generate Documentation](./Document-Generation-Process.md)|Provides instructions on how to generate EOS documentation. Creates web version of documentation pulling together documentation from several git repositories across the EOS Networks.|
-|[How to Generate Content - Quick Guide](./Generate-Content-Quick-Guide.md)|Includes instructions to generate content using clean_rebuild.sh script and instructions to generate content using generate_documents.sh script.|
-|[Update Site Navigation](./SiteNavigation.md)|Provides instructions on how to make changes to EOS Documentation navigation, such as the left sidebar site index, the right sidebar document table of contents, and the footer.|
-|[Update Presentation](./update-presentation.md)|Provides information to update the look and feel of the EOS Documentation portal.|
-|[Testing](./Testing.md)|Provides information for running docsgen tests.|
-|[Production Setup](./Production-Setup.md)|Provides information on the deployment script, such as backups the existing content on the remote host, creates a tar of the updated content, and copies and installs updated content on the remote host.|
-|[How to Mount s3 bucket as file System](./Mounting-s3-bucket-as-filesystem.md)||
-|
+|[Install DocsGen Software](./Docsgen-Install-Process.md)|Provides instructions to install the DocsGen software, including software dependencies, and initial software setup for web content generation.|
+|[How to Generate Content - Quick Guide](./Generate-Content-Quick-Guide.md)|Provides instructions on how to generate content using `clean_rebuild.sh` and `generate_documents.sh` scripts.|
+|[Explainer on Documentation Generation](./Document-Generation-Process.md)|Explains the documentation generation process, including steps to generate the web version of the documentation pulled from the various git repositories.|
+|[Build a New Document Repository](./How-To-Do-A-Full-Release.md)|Provides instructions on how to generate the web content for a new document repository.|
+|[Update Site Navigation](./SiteNavigation.md)|Provides instructions on how to make changes to the site navigation, such as the left sidebar index, the right sidebar document table of contents, the footer, etc.|
+|[Update Presentation](./update-presentation.md)|Provides instructions to update the look and feel of the Documentation portal.|
+|[Testing](./Testing.md)|Provides information for running DocsGen tests.|
+|[Production Setup](./Production-Setup.md)|Provides information on the deployment script, such as creating backups of the current content on the remote host, creating a tar of the updated content, and copying and installing the updated content on the remote host.|
+|[How to Mount s3 bucket as file System](./Mounting-s3-bucket-as-filesystem.md)|Provides instructions on how to mount an s3 bucket to the file system.|
