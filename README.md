@@ -45,4 +45,4 @@ Testing utilizes [Cypress](https://www.cypress.io/), while search is powered by 
 | Docs | [Docs](https://github.com/eosnetworkfoundation/welcome.git) | docs | docusarus |
 
 ## Documentation
-For information on how to generate content, updating site navigation, updating the UX, production setup, and testing, visit the [documentation](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/index.md))section.
+For information on how to generate content, updating site navigation, updating the UX, production setup, and testing, visit the [documentation](https://github.com/eosnetworkfoundation/docsgen/blob/fix-devrel%23181/docs/index.md) section.
