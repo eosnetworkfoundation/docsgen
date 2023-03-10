@@ -1,17 +1,15 @@
-# Generating Documents #
-How to guide on generating the documents or regenerating
+# Document Generation Process
 
-## Full Release
-See [How To Do A Full Release](How-To-Do-A-Full-Release.md) for details on building fresh from an empty directory.
+This document explains the document generation process and provides instructions on how generate/regenerate the web content.
 
-## Generation Steps ##
+## Generation Steps
 There are two steps to generating content
-* **Pre-Build** - clones the repositories, performs some light manipulation of files, generates javadocs, generates doxygen file
-* **Static-Content** - parses the markdown into static content
+* [Pre-Build Processing](#pre-build-processing) - clones the repositories, performs some light manipulation of files, generates javadocs, generates doxygen file
+* [Static-Content Generation](#static-content-generation) - parses the markdown into static content
 
 The static content will need to be supported by an HTTP service. These steps only build out the content. They don't serve the content via HTTP.
 
-### Pre-Build
+### Pre-Build Processing
 Copy the markdown files from a repository into a working directory. From there do some processes the markdown doing fixes, and process the code comments into markdown. Finally put the markdown files under the correct location in a Docusaurus instance.
 
 **Fixes**
@@ -44,8 +42,8 @@ graph LR;
     end
 ```
 
-### Quick Guide
-Very brief guide on steps to generating content from markdown to static html/css/js
+### Static Content Generation
+These are the steps to generate content from markdown to static html/css/js:
 
 - install Docusaurus `npm install docusaurus`
 - clone repos into local `working` directory
@@ -110,7 +108,7 @@ For example
   -  ARG_TAG=$5
 
 ### Adding a New Repo
-If you want to add a new repo named `busio` do the following
+If you want to add a new repo named `busio` do the following:
 1. Create a files `install_busio.sh`
 2. Create a function in the file named `Install_Busio`
 
@@ -122,17 +120,23 @@ cp -R docs/* $ARG_BUILD_DIR/devdocs/eosdocs/busio
 ```
 3. Run `generate_documents.sh -d /path/build_root -r enf/busio`
 
-## Static Index Files ##
+For more information, visit the [Build a New Document Repository](./How-To-Do-A-Full-Release.md) document.
 
-There is one static index files copied from the `docsgen` repo.
+## Documentation Sources
+
+The EOS documentation portal is made up and built from the following documentation sources:
+
+### API index file
+
+This is the entry point for all APIs in the EOS documentation. It consists of one static index file copied from the `docsgen` repo:
 
 | Code Repository | Pre-Build | Static Content |
 | --------------- | --------- | ------- |
 | docsgen/web/api-listing.md | /devdocs/eosdocs/api-listing.md | eosdocs/api-listing.html |
 
-## Leap Open APIs ##
+### Leap Open APIs
 
-These are not markdown files so you will find them under a virtual path `/leap-plugins/`
+These are not markdown files so you will find them under a virtual path `./leap-plugins/`.
 
 These are the HTTP APIs documented in YAML files. They are stored in the leap github repository. The YAML files are parsed via javascript code. Specifically [Redocusaurus](https://github.com/rohit-gohri/redocusaurus) is used. The configuration that finds the files and setups the virtual paths is located in the main Docusaurus config.
 
@@ -140,38 +144,38 @@ These are the HTTP APIs documented in YAML files. They are stored in the leap gi
 - find yaml files copy to `build_root/openapi`
 - run `npm run build`
 
-## Nodeos Cloes and Kloes ##
+### Nodeos, Cleos, and Keosd
 The markdown is pulled from github under the `leap` repo. A script is run to add meta-data to the document for better viewing.
 
-## JavaDocs ##
+### JavaDocs
 The repo `mandel-java` is cloned and javadocs command is run to generate the docs.
 
 These are not markdown files so you will find them under `reference/javadocs/`
 
-## Swift ##
+### Swift
 The repo `mandel-swift` is cloned and the pre-generated swiftdocs and the source code are copied into the specified directory.
 
 These are not markdown files so you will find them under `reference/swiftdocs/`
 
 There is one markdown file, an index of the top level interfaces in Swift. This markdown is copied from github, and it lives under `swift-sdk`
 
-## EOSJS and Typescript ##
+### EOSJS and Typescript
 The repo `mandel-eosjs` is cloned and typedoc runs to generate the documentation. Typedoc outputs as markdown, and all files are located under `eosdocs/client-side/jsdocs`
 
-## EOS System Contract API Reference ##
+### EOS System Contract API Reference
 The repo `eos-system-contracts` is cloned. The markdown is copied into the `system-contracts` folder and doxygen/doxybook2 is run to generate markdown files which live under `system-contracts/reference`
 
-## Contract Developer Toolkit ##
+### Contract Developer Toolkit
 The repo `cdt` is cloned. The markdown is copied into the `cdt` folder and doxygen/doxybook2 is run to generate markdown files which live under `cdt/reference`
 
-## Setting up New Locales ##
+## Setting up New Locales
 **Docusaurus i18n configs**
 If it is your first time run the write-translation plugin to generate the i18n files. Look at *root/i18n* for these files. These file support all of your theme stuff including navbar. Look at *root/i18n/xx* and start translating the expressions. These translations will be picked up by Docusaurus
 ```
 npm run write-translations -- --locale en
 ```
 
-## Translation ##
+### Locale Translation
 The translations come in two form
 - **Static Markdown** - You will find these under source control under `i18n` directory as static markdown files
 - **React Templates** - The React template will have strings wrapped with `<Translate>` tags.
@@ -179,10 +183,10 @@ The translations come in two form
 The full path the to `i18n` folder, is found under the current *docsgen* reposiory.
 `docsgen/web/docusarus/i18n`
 
-## Updating Content ##
+## Updating Content
 When changing content under the `docsgen/web` folder make sure to check for localized versions. You will find those versions under `i18n/xx/docusaurus-plugin-content-docs/current`. For example when you change `api-listing.md` you must also change `i18n/zh/docusaurus-plugin-content-docs/current/api-listing.md` and change `i18n/ko/docusaurus-plugin-content-docs/current/api-listing.md`.
 
-## Running local site ##
+## Running local site
 You can run Docusaurus locally to debug. Cd to `/path/build_root/devdocs` and your port may differ. Note this won't pick up the files under references.
 ```
 cd /path/build_root/devdocs
