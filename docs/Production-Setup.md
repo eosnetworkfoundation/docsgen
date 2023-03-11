@@ -1,4 +1,4 @@
-# Production setup
+# Production Setup
 
 The scripts will deploy to a production hosts when the `-h host` and `-i identity` file are provided. Adding these two parameters runs the deployment scripts. The deployment script does three things
 - Backups the existing content on the remote host
