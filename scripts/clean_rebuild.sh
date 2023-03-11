@@ -146,7 +146,7 @@ do
     branch="v3.0.1"
   fi
   if [ "${gitrepo}" == "eosnetworkfoundation/eos-system-contracts" ]; then
-    branch="v3.1.1"
+    branch="release/3.1"
   fi
   if [ "${gitrepo}" == "AntelopeIO/DUNE" ]; then
     branch="v1.1.0"
