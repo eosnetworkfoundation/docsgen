@@ -27,7 +27,7 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'zh', 'ko'],
+    locales: ['en'],  //devrel#192: remove non-english locales  -prev: locales: ['en', 'zh', 'ko'],
     path: 'i18n',
     localeConfigs: {
       en: {
@@ -339,9 +339,9 @@ const config = {
         },
         {
           icon: '/icons/docs-icon.svg',
-          title: 'Run EOS in Docker',
-          subtitle: 'Find out how you can run an EOS node for development using Docker',
-          link: '/docs/latest/smart-contracts/getting-started/dune-development-setup/',
+          title: 'Try EOS in DUNE',
+          subtitle: 'Get started with smart contract development using DUNE',
+          link: '/docs/latest/smart-contracts/getting-started/dune-guide/',
         }
       ],
       secondCards: [
