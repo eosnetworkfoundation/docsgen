@@ -249,7 +249,7 @@ const config = {
               title: 'Core concepts',
               icon: '/icons/db-icon.svg',
               subtitle: 'Learn EOS basics',
-              href: '/docs/latest/overview/core_concepts',
+              href: '/docs/latest/',
             },
             {
               label: 'Tutorials',
@@ -335,7 +335,7 @@ const config = {
           icon: 'icons/emerald-icon.svg', // docs
           title: 'Core concepts',
           subtitle: 'Learn the very basics of the EOS blockchain',
-          link: '/docs/latest/overview/core_concepts',
+          link: '/docs/latest/',
         },
         {
           icon: '/icons/docs-icon.svg',
