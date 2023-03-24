@@ -91,7 +91,7 @@ Install_Docusaurus() {
   if [ -z "${semver[1]}" ]; then
     if ! npx create-docusaurus@2.3.1 "${ARG_BUILD_DIR:?}/devdocs" classic --typescript;
     then
-      >&2 echo "npx create-docusaurus@latest failed exiting"
+      >&2 echo "npx create-docusaurus@2.3.1 failed exiting"
       exit 1
     fi
     # add another module exit if we can't get into the directory
