@@ -356,7 +356,7 @@ const config = {
           icon: '/icons/chat-icon.svg',
           title: 'Tic-tac-toe',
           subtitle: 'Learn how to make Tic-tac-toe fully on-chain!',
-          link: '/docs/latest/smart-contracts/tutorials/tic-tac-toe-game-smart-contract-single-node',
+          link: '/docs/latest/smart-contracts/tutorials/tic-tac-toe-game-contract',
           color: 'yellow',
         },
         {
