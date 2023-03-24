@@ -89,7 +89,7 @@ Install_Docusaurus() {
   # semver[2] is minor version
   # semver[3] is patch
   if [ -z "${semver[1]}" ]; then
-    if ! npx create-docusaurus@latest "${ARG_BUILD_DIR:?}/devdocs" classic --typescript;
+    if ! npx create-docusaurus@2.3.1 "${ARG_BUILD_DIR:?}/devdocs" classic --typescript;
     then
       >&2 echo "npx create-docusaurus@latest failed exiting"
       exit 1
