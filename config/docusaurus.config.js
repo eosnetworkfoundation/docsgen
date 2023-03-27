@@ -367,7 +367,7 @@ const config = {
       ],
       wideCard: {
         title: 'Smart Contracts',
-        subtitle: 'Learn how to get build Smart Contracts on EOS',
+        subtitle: 'Learn how to build Smart Contracts on EOS',
         icon: '/icons/emerald-icon.svg',
         href: '/docs/latest/smart-contracts/getting-started/',
       },
