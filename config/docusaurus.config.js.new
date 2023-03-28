@@ -243,52 +243,45 @@ const config = {
           position: 'left',
           items: [
             {
-              label: 'Getting started', // This label is used for mobile view
-              title: 'Getting started',
-              subtitle: 'Get started with EOS Smart Contracts',
+              label: 'Smart Contracts', // This label is used for mobile view
+              title: 'Smart Contracts',
+              subtitle: 'Learn to develop on EOS',
               icon: '/icons/brief-case-icon.svg', //replace with required icon
               href: '/docs/latest/smart-contracts/getting-started/',
             },
             {
-              label: 'Core concepts',
-              title: 'Core concepts',
+              label: 'Node Operation',
+              title: 'Node Operation',
+              subtitle: 'Learn how to operate an EOS node',
               icon: '/icons/db-icon.svg',
-              subtitle: 'Learn EOS basics',
               href: '/docs/latest/',
             },
             {
-              label: 'Tutorials',
-              title: 'Tutorials',
-              icon: '/icons/box-icon.svg',
-              subtitle: 'Smart Contract tutorials',
+              label: 'Web Development',
+              title: 'Web Development',
+              subtitle: 'Learn to integrate EOS into your web app',
+              icon: '/icons/globe-icon.svg',
               href: '/docs/latest/smart-contracts/tutorials/',
             },
             {
-              label: 'Protocol',
-              title: 'Protocol',
-              icon: '/icons/globe-icon.svg',
-              subtitle: 'Look under the hood',
+              label: 'EOS EVM',
+              title: 'EOS EVM',
+              subtitle: 'Learn to develop on EOS EVM',
+              icon: '/icons/box-icon.svg',
               href: '/docs/latest/resources/protocol/',
-            },
-            {
-              label: 'Glossary',
-              title: 'Glossary',
-              icon: '/icons/globe-icon.svg',
-              subtitle: 'Learn the lingo',
-              href: '/docs/latest/glossary',
-            },
+            }
           ],
         },
+        // {
+        //   docId: 'api-listing',
+        //   position: 'left',
+        //   label: 'APIs',
+        //   to: '/docs/latest/api-listing/',
+        // },
         {
-          docId: 'api-listing',
+          docId: 'courses',
           position: 'left',
-          label: 'APIs',
-          to: '/docs/latest/api-listing/',
-        },
-        {
-          docId: 'video-courses',
-          position: 'left',
-          label: 'Videos',
+          label: 'Courses',
           to: 'https://learn.eosnetwork.com/',
         },
         // hidden as per task description
@@ -337,10 +330,10 @@ const config = {
     main: {
       firstCards: [
         {
-          icon: 'icons/emerald-icon.svg', // docs
-          title: 'Core concepts',
-          subtitle: 'Learn the very basics of the EOS blockchain',
-          link: '/docs/latest/',
+          icon: 'icons/ethereum-logo.svg', // docs
+          title: 'EOS EVM',
+          subtitle: 'Take advantage of the world\'s fastest EVM',
+          link: '/docs/latest/eos-evm/getting-started',
         },
         {
           icon: '/icons/docs-icon.svg',
@@ -378,9 +371,9 @@ const config = {
         }
       ],
       wideCard: {
-        title: 'Smart Contract Development',
-        subtitle: 'Learn about how to get started developing Smart Contracts on EOS',
-        icon: '/icons/docs-icon.svg',
+        title: 'Smart Contracts',
+        subtitle: 'Learn how to build Smart Contracts on EOS',
+        icon: '/icons/emerald-icon.svg',
         href: '/docs/latest/smart-contracts/getting-started/',
       },
       signUp: {
