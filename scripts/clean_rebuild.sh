@@ -149,7 +149,7 @@ do
     branch="release/3.1"
   fi
   if [ "${gitrepo}" == "AntelopeIO/DUNE" ]; then
-    branch="v1.1.0"
+    branch="release/1.1"
     dune_branch=${branch}
   fi
 
