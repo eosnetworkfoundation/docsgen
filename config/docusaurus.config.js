@@ -130,7 +130,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsCdt.js'),
         versions: {
           current: {
-             label: '3.0',
+             label: '3.1',
              path: 'latest',
           },
         },
@@ -164,10 +164,15 @@ const config = {
         sidebarPath: require.resolve('./sidebarsLeap.js'),
         versions: {
           current: {
-            label: '3.1',
+            label: '3.2',
             path: 'latest',
             banner: 'none',
           },
+          '3.1' : {
+            label: '3.1',
+            path: '3.1',
+            banner: 'none',
+          }
         },
         // ... other options
       },
@@ -182,7 +187,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsDUNE.js'),
         versions: {
           current: {
-             label: '1.0',
+             label: '1.1',
              path: 'latest',
           },
         },
