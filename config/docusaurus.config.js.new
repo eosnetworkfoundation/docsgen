@@ -187,7 +187,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsDUNE.js'),
         versions: {
           current: {
-             label: '1.0',
+             label: '1.1',
              path: 'latest',
           },
         },
