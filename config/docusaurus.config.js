@@ -130,7 +130,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsCdt.js'),
         versions: {
           current: {
-             label: '3.0',
+             label: '3.1',
              path: 'latest',
           },
         },
