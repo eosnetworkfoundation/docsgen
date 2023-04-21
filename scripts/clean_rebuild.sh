@@ -152,6 +152,9 @@ do
     branch="release/1.1"
     dune_branch=${branch}
   fi
+  if [ "${gitrepo}" == "eosnetworkfoundation/mandel-swift" ]; then
+    branch="fix-devrel#201"
+  fi
 
   if [ -z "$branch" ]; then
     "${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r ${gitrepo} "$CMD_FLAGS"
