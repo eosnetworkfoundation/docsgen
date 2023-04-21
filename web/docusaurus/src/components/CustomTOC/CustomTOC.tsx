@@ -5,6 +5,7 @@ import { useAllDocsData } from '@docusaurus/plugin-content-docs/client';
 import TOCItems from '@theme/TOCItems';
 import styles from './styles.module.css';
 import { useLocation, useHistory } from '@docusaurus/router';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // Using a custom className
 // This prevents TOCInline/TOCCollapsible getting highlighted by mistake
 
@@ -38,21 +39,23 @@ function useDocsSearchVersionsHelpers() {
 }
 
 const getPathKey = (path) => {
+  // grab main docusarus configuration
+  const {siteConfig} = useDocusaurusContext();
   const pathParts = path.split('/');
   // look at first directory in URL
-  // simple check for locals 'en' 'zh' 'ko' are length 2
-  // better solution loop through array config.i18n.locales looking for match
-  if (pathParts[1].length == 2) {
+  // simple check for locales matching config entry 'en' 'zh' 'ko'
+  const localeFromUrl = siteConfig.i18n.locales.find(locale => locale === pathParts[1])
+  if (localeFromUrl) {
     return {
       localKey: pathParts[1],
       pluginId: pathParts[2],
       version: pathParts[3],
     }
   }
-  // default is english 'en'
-  // better solution use config.i18n.defaultLocale
+  // undefined localeFromURL
+  // get default from config
   return {
-    localKey: 'en',
+    localKey: siteConfig.i18n.defaultLocale,
     pluginId: pathParts[1],
     version: pathParts[2],
   }
@@ -99,11 +102,13 @@ export default function CustomTOC({ doc, onClick }) {
   }, [allDocsData, pathname]);
 
   const handleOnChange = (selectedOption) => {
+    // grab main docusarus configuration
+    const {siteConfig} = useDocusaurusContext();
     const { path } = selectedOption;
     const { localKey, pluginId, version } = getPathKey(pathname);
     let newPath = undefined;
     // english is default
-    if (localKey === 'en') {
+    if (localKey === siteConfig.i18n.defaultLocale) {
       newPath = pathname.replace(`/${pluginId}/${version}`, path);
     } else {
       newPath = pathname.replace(`/${localKey}/${pluginId}/${version}`, path);

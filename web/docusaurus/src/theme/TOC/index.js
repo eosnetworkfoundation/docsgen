@@ -38,21 +38,24 @@ function useDocsSearchVersionsHelpers() {
 }
 
 const getPathKey = (path) => {
+  // duplicate what is in config, react can't access docusarus config from here
+  // this must match docusaurus.config.js
+  const i18n = { locales: ['en', 'zh', 'ko'], defaultLocale: 'en' }
   const pathParts = path.split('/');
   // look at first directory in URL
-  // simple check for locals 'en' 'zh' 'ko' are length 2
-  // better solution loop through array config.i18n.locales looking for match
-  if (pathParts[1].length == 2) {
+  // simple check for locales matching config entry 'en' 'zh' 'ko'
+  const localeFromUrl = i18n.locales.find(locale => locale === pathParts[1])
+  if (localeFromUrl) {
     return {
       localKey: pathParts[1],
       pluginId: pathParts[2],
       version: pathParts[3],
     }
   }
-  // default is english 'en'
-  // better solution use config.i18n.defaultLocale
+  // undefined localeFromURL
+  // get default from config
   return {
-    localKey: 'en',
+    localKey: i18n.defaultLocale,
     pluginId: pathParts[1],
     version: pathParts[2],
   }
