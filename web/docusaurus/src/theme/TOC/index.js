@@ -39,7 +39,20 @@ function useDocsSearchVersionsHelpers() {
 
 const getPathKey = (path) => {
   const pathParts = path.split('/');
+  // look at first directory in URL
+  // simple check for locals 'en' 'zh' 'ko' are length 2
+  // better solution loop through array config.i18n.locales looking for match
+  if (pathParts[1].length == 2) {
+    return {
+      localKey: pathParts[1],
+      pluginId: pathParts[2],
+      version: pathParts[3],
+    }
+  }
+  // default is english 'en'
+  // better solution use config.i18n.defaultLocale
   return {
+    localKey: 'en',
     pluginId: pathParts[1],
     version: pathParts[2],
   }
@@ -67,10 +80,10 @@ export default function TOC({className, ...props}) {
 
   useEffect(() => {
     Object.keys(allDocsData).forEach((key) => {
-      const { pluginId } = getPathKey(pathname);
+      const { localKey, pluginId } = getPathKey(pathname);
       const currentDoc = allDocsData[pluginId === 'docs' ? 'default' : pluginId.toLowerCase()];
       const { versions } = currentDoc;
-  
+
       if (versions) {
         const versionOptions = versions.map((version) => ({
           value: version.name,
@@ -88,9 +101,14 @@ export default function TOC({className, ...props}) {
 
   const handleOnChange = (selectedOption) => {
     const { path } = selectedOption;
-    const { pluginId, version } = getPathKey(pathname);
-    const newPath = pathname.replace(`/${pluginId}/${version}`, path);
-    
+    const { localKey, pluginId, version } = getPathKey(pathname);
+    let newPath = undefined;
+    if (localKey === 'en') {
+      newPath = pathname.replace(`/${pluginId}/${version}`, path);
+    } else {
+      newPath = pathname.replace(`/${localKey}/${pluginId}/${version}`, path);
+    }
+
     history.push(newPath);
   }
 
