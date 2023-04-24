@@ -10,6 +10,10 @@ import { useLocation, useHistory } from '@docusaurus/router';
 // This prevents TOCInline/TOCCollapsible getting highlighted by mistake
 const suggestTitle = '<ENTER A TITLE HERE>';
 
+// duplicate what is in config, react can't access docusarus config from here
+// this must match docusaurus.config.js
+const i18n = { locales: ['en', 'zh', 'ko'], defaultLocale: 'en' }
+
 function useDocsSearchVersionsHelpers() {
   const allDocsData = useAllDocsData();
   // State of the version select menus / algolia facet filters
@@ -38,9 +42,6 @@ function useDocsSearchVersionsHelpers() {
 }
 
 const getPathKey = (path) => {
-  // duplicate what is in config, react can't access docusarus config from here
-  // this must match docusaurus.config.js
-  const i18n = { locales: ['en', 'zh', 'ko'], defaultLocale: 'en' }
   const pathParts = path.split('/');
   // look at first directory in URL
   // simple check for locales matching config entry 'en' 'zh' 'ko'
@@ -105,10 +106,8 @@ export default function TOC({className, ...props}) {
   const handleOnChange = (selectedOption) => {
     const { path } = selectedOption;
     const { localKey, pluginId, version } = getPathKey(pathname);
-    let newPath = undefined;
-    if (localKey === 'en') {
-      newPath = pathname.replace(`/${pluginId}/${version}`, path);
-    } else {
+    let newPath = pathname.replace(`/${pluginId}/${version}`, path);
+    if (localKey !== i18n.defaultLocale ) {
       newPath = pathname.replace(`/${localKey}/${pluginId}/${version}`, path);
     }
 

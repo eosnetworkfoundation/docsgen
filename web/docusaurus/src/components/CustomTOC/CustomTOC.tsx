@@ -106,11 +106,9 @@ export default function CustomTOC({ doc, onClick }) {
     const {siteConfig} = useDocusaurusContext();
     const { path } = selectedOption;
     const { localKey, pluginId, version } = getPathKey(pathname);
-    let newPath = undefined;
+    let newPath = pathname.replace(`/${pluginId}/${version}`, path);
     // english is default
-    if (localKey === siteConfig.i18n.defaultLocale) {
-      newPath = pathname.replace(`/${pluginId}/${version}`, path);
-    } else {
+    if (localKey !== siteConfig.i18n.defaultLocale) {
       newPath = pathname.replace(`/${localKey}/${pluginId}/${version}`, path);
     }
 
