@@ -27,7 +27,7 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],  //devrel#192: remove non-english locales  -prev: locales: ['en', 'zh', 'ko'],
+    locales: ['en', 'zh', 'ko'],
     path: 'i18n',
     localeConfigs: {
       en: {
