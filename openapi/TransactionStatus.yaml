@@ -1,0 +1,51 @@
+type: "object"
+additionalProperties: false
+minProperties: 8
+required:
+  - "state"
+  - "head_number"
+  - "head_id"
+  - "head_timestamp"
+  - "irreversible_number"
+  - "irreversible_id"
+  - "irreversible_timestamp"
+  - "last_tracked_block_id"
+properties:
+  state:
+    description: "The state of the transaction. Possible values: LOCALLY_APPLIED, FORKED_OUT, IN_BLOCK, IRREVERSIBLE, FAILED, UNKNOWN."
+    type: "string"
+  block_number:
+    description: "The transaction block number."
+    type: "integer"
+  block_id:
+    description: "The transaction block id."
+    $ref: "Sha256.yaml"
+  block_timestamp:
+    description: "The transaction block time stamp."
+    $ref: "DateTime.yaml"
+  expiration:
+    description: "The transaction expiration time stamp."
+    $ref: "DateTimeSeconds.yaml"
+  head_number:
+    description: "The head block number."
+    type: "integer"
+  head_id:
+    description: "The head block id."
+    $ref: "Sha256.yaml"
+  head_timestamp:
+    description: "The head block time stamp."
+    $ref: "DateTime.yaml"
+  irreversible_number:
+    description: "The irreversible block number."
+    type: "integer"
+  irreversible_id:
+    description: "The irreversible block id."
+    $ref: "Sha256.yaml"
+  irreversible_timestamp:
+    description: "The irreversible block time stamp."
+    $ref: "DateTime.yaml"
+  last_tracked_block_id:
+    description: "The irreversible block id."
+    $ref: "Sha256.yaml"
+title: "TransactionStatus"
+
