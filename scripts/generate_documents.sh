@@ -89,9 +89,9 @@ Install_Docusaurus() {
   # semver[2] is minor version
   # semver[3] is patch
   if [ -z "${semver[1]}" ]; then
-    if ! npx create-docusaurus@latest "${ARG_BUILD_DIR:?}/devdocs" classic --typescript;
+    if ! npx create-docusaurus@2.3.1 "${ARG_BUILD_DIR:?}/devdocs" classic --typescript;
     then
-      >&2 echo "npx create-docusaurus@latest failed exiting"
+      >&2 echo "npx create-docusaurus@2.3.1 failed exiting"
       exit 1
     fi
     # add another module exit if we can't get into the directory
@@ -105,6 +105,10 @@ Install_Docusaurus() {
     then
       >&2 echo "npm react-select failed exiting"
       exit 1
+    fi
+    if ! npm i --save @docusaurus/plugin-google-tag-manager;
+    then
+      >&2 echo "npm plugin-google-tag-manager failed exiting"
     fi
     popd || exit
   fi

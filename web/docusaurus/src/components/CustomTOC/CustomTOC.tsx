@@ -5,6 +5,7 @@ import { useAllDocsData } from '@docusaurus/plugin-content-docs/client';
 import TOCItems from '@theme/TOCItems';
 import styles from './styles.module.css';
 import { useLocation, useHistory } from '@docusaurus/router';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // Using a custom className
 // This prevents TOCInline/TOCCollapsible getting highlighted by mistake
 
@@ -38,8 +39,23 @@ function useDocsSearchVersionsHelpers() {
 }
 
 const getPathKey = (path) => {
+  // grab main docusarus configuration
+  const {siteConfig} = useDocusaurusContext();
   const pathParts = path.split('/');
+  // look at first directory in URL
+  // simple check for locales matching config entry 'en' 'zh' 'ko'
+  const localeFromUrl = siteConfig.i18n.locales.find(locale => locale === pathParts[1])
+  if (localeFromUrl) {
+    return {
+      localKey: pathParts[1],
+      pluginId: pathParts[2],
+      version: pathParts[3],
+    }
+  }
+  // undefined localeFromURL
+  // get default from config
   return {
+    localKey: siteConfig.i18n.defaultLocale,
     pluginId: pathParts[1],
     version: pathParts[2],
   }
@@ -66,10 +82,10 @@ export default function CustomTOC({ doc, onClick }) {
 
   useEffect(() => {
     Object.keys(allDocsData).forEach((key) => {
-      const { pluginId } = getPathKey(pathname);
+      const { localKey, pluginId } = getPathKey(pathname);
       const currentDoc = allDocsData[pluginId === 'docs' ? 'default' : pluginId.toLowerCase()];
       const { versions } = currentDoc;
-  
+
       if (versions) {
         const versionOptions = versions.map((version) => ({
           value: version.name,
@@ -86,10 +102,16 @@ export default function CustomTOC({ doc, onClick }) {
   }, [allDocsData, pathname]);
 
   const handleOnChange = (selectedOption) => {
+    // grab main docusarus configuration
+    const {siteConfig} = useDocusaurusContext();
     const { path } = selectedOption;
-    const { pluginId, version } = getPathKey(pathname);
-    const newPath = pathname.replace(`/${pluginId}/${version}`, path);
-    
+    const { localKey, pluginId, version } = getPathKey(pathname);
+    let newPath = pathname.replace(`/${pluginId}/${version}`, path);
+    // english is default
+    if (localKey !== siteConfig.i18n.defaultLocale) {
+      newPath = pathname.replace(`/${localKey}/${pluginId}/${version}`, path);
+    }
+
     if (newPath === pathname) {
       return;
     }

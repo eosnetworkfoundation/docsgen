@@ -10,6 +10,10 @@ import { useLocation, useHistory } from '@docusaurus/router';
 // This prevents TOCInline/TOCCollapsible getting highlighted by mistake
 const suggestTitle = '<ENTER A TITLE HERE>';
 
+// duplicate what is in config, react can't access docusarus config from here
+// this must match docusaurus.config.js
+const i18n = { locales: ['en', 'zh', 'ko'], defaultLocale: 'en' }
+
 function useDocsSearchVersionsHelpers() {
   const allDocsData = useAllDocsData();
   // State of the version select menus / algolia facet filters
@@ -39,7 +43,20 @@ function useDocsSearchVersionsHelpers() {
 
 const getPathKey = (path) => {
   const pathParts = path.split('/');
+  // look at first directory in URL
+  // simple check for locales matching config entry 'en' 'zh' 'ko'
+  const localeFromUrl = i18n.locales.find(locale => locale === pathParts[1])
+  if (localeFromUrl) {
+    return {
+      localKey: pathParts[1],
+      pluginId: pathParts[2],
+      version: pathParts[3],
+    }
+  }
+  // undefined localeFromURL
+  // get default from config
   return {
+    localKey: i18n.defaultLocale,
     pluginId: pathParts[1],
     version: pathParts[2],
   }
@@ -67,10 +84,10 @@ export default function TOC({className, ...props}) {
 
   useEffect(() => {
     Object.keys(allDocsData).forEach((key) => {
-      const { pluginId } = getPathKey(pathname);
+      const { localKey, pluginId } = getPathKey(pathname);
       const currentDoc = allDocsData[pluginId === 'docs' ? 'default' : pluginId.toLowerCase()];
       const { versions } = currentDoc;
-  
+
       if (versions) {
         const versionOptions = versions.map((version) => ({
           value: version.name,
@@ -88,9 +105,12 @@ export default function TOC({className, ...props}) {
 
   const handleOnChange = (selectedOption) => {
     const { path } = selectedOption;
-    const { pluginId, version } = getPathKey(pathname);
-    const newPath = pathname.replace(`/${pluginId}/${version}`, path);
-    
+    const { localKey, pluginId, version } = getPathKey(pathname);
+    let newPath = pathname.replace(`/${pluginId}/${version}`, path);
+    if (localKey !== i18n.defaultLocale ) {
+      newPath = pathname.replace(`/${localKey}/${pluginId}/${version}`, path);
+    }
+
     history.push(newPath);
   }
 

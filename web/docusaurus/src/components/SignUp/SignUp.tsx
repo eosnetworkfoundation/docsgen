@@ -15,9 +15,12 @@ export const SignUp = () => {
       <div className={styles.content}>
         <H3 className={styles.title}>{title}</H3>
         <P_XLarge className={styles.subtitle}>{subtitle}</P_XLarge>
-        <form action={action} className={styles.form}>
-          <input className={styles.inputMobile} type="email" placeholder="Enter your email" pattern='' />
-          <input className={styles.inputDesktop} type="email" placeholder="Enter your email" />
+        <form action={action} method="POST" className={styles.form}>
+          <input type="hidden" name="u" value="d65a053d24b3cc087dfb925bb" />
+          <input type="hidden" name="id" value="be3f545626" />
+          <input type="hidden" name="orig-lang" value="1" />
+          <input className={styles.inputMobile} name="MERGE0" id="MERGE0" type="email" placeholder="Enter your email" pattern='' />
+          <input className={styles.inputDesktop} name="MERGE0" id="MERGE1" type="email" placeholder="Enter your email" />
           <Button type="submit">{buttonText}</Button>
         </form>
       </div>

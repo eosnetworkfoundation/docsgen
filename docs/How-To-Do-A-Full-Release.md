@@ -1,6 +1,6 @@
 # How To Do a Full Release
 
-This document goes over how to build a new document repository, staring from nothing.
+This document explains how the actual EOS documentation portal is built, starting from scratch.
 
 ## Overview of Steps
 

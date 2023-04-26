@@ -25,6 +25,7 @@ const config = {
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
+  // --> NOTE: Update src/theme/TOC/index.js to match defaultLocal and locales <--
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'zh', 'ko'],
@@ -74,6 +75,9 @@ const config = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        googleTagManager: {
+          containerId: 'GTM-T4SWD2V'
         },
       }),
     ],
@@ -127,7 +131,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsCdt.js'),
         versions: {
           current: {
-             label: '3.0',
+             label: '3.1',
              path: 'latest',
           },
         },
@@ -179,7 +183,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsDUNE.js'),
         versions: {
           current: {
-             label: '1.0',
+             label: '1.1',
              path: 'latest',
           },
         },
@@ -235,47 +239,46 @@ const config = {
           position: 'left',
           items: [
             {
-              label: 'Getting started', // This label is used for mobile view
-              title: 'Getting started',
-              subtitle: 'Get started with EOS',
+              label: 'Smart Contracts', // This label is used for mobile view
+              title: 'Smart Contracts',
+              subtitle: 'Learn to develop EOS smart contracts',
               icon: '/icons/brief-case-icon.svg', //replace with required icon
-              href: '/docs/latest/getting-started/',
+              href: '/docs/latest/smart-contracts/',
             },
             {
-              label: 'Core concepts',
-              title: 'Core concepts',
+              label: 'Node Operation',
+              title: 'Node Operation',
+              subtitle: 'Learn how to operate an EOS node',
               icon: '/icons/db-icon.svg',
-              subtitle: 'Learn EOS basics',
-              href: '/docs/latest/overview/core_concepts',
+              href: '/docs/latest/node-operation/',
             },
             {
-              label: 'Tutorials',
-              title: 'Tutorials',
+              label: 'Web Development',
+              title: 'Web Development',
+              subtitle: 'Learn to integrate EOS into your web app',
+              icon: '/icons/globe-icon.svg',
+              href: '/docs/latest/web-applications/',
+            },
+            {
+              label: 'EOS EVM',
+              title: 'EOS EVM',
+              subtitle: 'Learn to develop on EOS EVM',
               icon: '/icons/box-icon.svg',
-              subtitle: 'Discover tutorials',
-              href: '/docs/latest/tutorials/',
-            },
-            {
-              label: 'Protocol',
-              title: 'Protocol',
-              icon: '/icons/globe-icon.svg',
-              subtitle: 'Look under the hood',
-              href: '/docs/latest/protocol/',
-            },
-            {
-              label: 'Glossary',
-              title: 'Glossary',
-              icon: '/icons/globe-icon.svg',
-              subtitle: 'Learn the lingo',
-              href: '/docs/latest/glossary',
-            },
+              href: '/docs/latest/eos-evm/',
+            }
           ],
         },
+        // {
+        //   docId: 'api-listing',
+        //   position: 'left',
+        //   label: 'APIs',
+        //   to: '/docs/latest/api-listing/',
+        // },
         {
-          docId: 'api-listing',
+          docId: 'courses',
           position: 'left',
-          label: 'APIs',
-          to: '/docs/latest/api-listing/',
+          label: 'Courses',
+          to: 'https://learn.eosnetwork.com/',
         },
         // hidden as per task description
         // {
@@ -323,16 +326,16 @@ const config = {
     main: {
       firstCards: [
         {
-          icon: 'icons/emerald-icon.svg', // docs
-          title: 'Core concepts',
-          subtitle: 'Learn the very basics of the EOS blockchain',
-          link: '/docs/latest/overview/core_concepts',
+          icon: 'icons/ethereum-logo.svg', // docs
+          title: 'EOS EVM',
+          subtitle: 'Take advantage of the world\'s fastest EVM',
+          link: '/docs/latest/eos-evm/',
         },
         {
           icon: '/icons/docs-icon.svg',
-          title: 'Run EOS in Docker',
-          subtitle: 'Find out how you can run an EOS node for development using Docker',
-          link: '/docs/latest/getting-started/try-antelope-in-dune',
+          title: 'Try EOS in DUNE',
+          subtitle: 'Get started with smart contract development using DUNE',
+          link: '/docs/latest/smart-contracts/getting-started/dune-guide/',
         }
       ],
       secondCards: [
@@ -340,14 +343,14 @@ const config = {
           icon: 'icons/molecules-icon.svg',
           title: 'Go deeper',
           subtitle: 'Take a look under the hood',
-          link: '/docs/latest/protocol/',
+          link: '/docs/latest/resources/protocol/',
           color: 'yellow',
         },
         {
           icon: '/icons/chat-icon.svg',
           title: 'Tic-tac-toe',
           subtitle: 'Learn how to make Tic-tac-toe fully on-chain!',
-          link: '/docs/latest/tutorials/tic-tac-toe-game-smart-contract-single-node',
+          link: '/docs/latest/smart-contracts/tutorials/tic-tac-toe-game-contract',
           color: 'yellow',
         },
         {
@@ -364,10 +367,10 @@ const config = {
         }
       ],
       wideCard: {
-        title: 'Smart Contract Development',
-        subtitle: 'Learn about how to get started developing Smart Contracts on EOS',
-        icon: '/icons/docs-icon.svg',
-        href: '/docs/latest/getting-started/smart-contract-development/',
+        title: 'Smart Contracts',
+        subtitle: 'Learn how to build Smart Contracts on EOS',
+        icon: '/icons/emerald-icon.svg',
+        href: '/docs/latest/smart-contracts/',
       },
       signUp: {
         title: 'Sign up for developer alerts',
