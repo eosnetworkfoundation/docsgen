@@ -19,8 +19,8 @@ jobs:
 
       - name: Build and Archive
         run: |
-          ./scripts/clean_rebuild.sh -s -d ~/build/
-          tar -czvf artifacts.tar.gz ~/build/
+          ./scripts/clean_rebuild.sh -y -s -d ~/build/
+          tar -czvf artifacts.tar.gz ~/build/devdocs/build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
