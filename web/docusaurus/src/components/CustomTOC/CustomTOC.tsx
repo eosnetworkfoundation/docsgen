@@ -38,9 +38,8 @@ function useDocsSearchVersionsHelpers() {
   };
 }
 
-const getPathKey = (path) => {
+const getPathKey = (path, siteConfig) => {
   // grab main docusarus configuration
-  const {siteConfig} = useDocusaurusContext();
   const pathParts = path.split('/');
   // look at first directory in URL
   // simple check for locales matching config entry 'en' 'zh' 'ko'
@@ -80,9 +79,11 @@ export default function CustomTOC({ doc, onClick }) {
   File: [${suggestLink}](https://github.com/${suggestLink})
   `);
 
+  const {siteConfig} = useDocusaurusContext();
+
   useEffect(() => {
     Object.keys(allDocsData).forEach((key) => {
-      const { localKey, pluginId } = getPathKey(pathname);
+      const { localKey, pluginId } = getPathKey(pathname, siteConfig);
       const currentDoc = allDocsData[pluginId === 'docs' ? 'default' : pluginId.toLowerCase()];
       const { versions } = currentDoc;
 
