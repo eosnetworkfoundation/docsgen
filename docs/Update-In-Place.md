@@ -66,7 +66,9 @@ fi
 ## RUN The Update
 ```
 # create 3.2 version
+pushd ~/eosnetworkfoundation/build_root/devdocs
 npm run docusaurus docs:version:leap 3.2
+popd 
 # move the config we want into place
 cp config/docusaurus.config.js.new ~/eosnetworkfoundation/build_root/devdocs/docusaurus.config.js
 # copy in files for new version, and build static html/css/js
