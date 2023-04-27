@@ -59,7 +59,7 @@ The code expects the standard release branch of `release/M.m`. If you use a bran
 For example with `devrel#123-4.0` we would add the following:
 ```
 if [[ "$TAG" == devrel#* ]]; then
-  VERSION="${TAG#devrel#[0-9*]-}"
+  VERSION="${TAG#devrel#[0-9]*-}"
 fi
 ```
 
