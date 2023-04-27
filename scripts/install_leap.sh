@@ -9,6 +9,9 @@ OpenAPIVersion() {
   if [[ "$TAG" == release* ]]; then
     VERSION="${TAG#release/}"
   fi
+  if [[ "$TAG" == "ehp/GH-1094-fix-swagger-component-path" ]]; then 
+    VERSION="4.0"
+  fi
   if [ -z "$VERSION" ]; then
      VERSION="default"
   fi
