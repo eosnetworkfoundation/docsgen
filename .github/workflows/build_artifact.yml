@@ -2,14 +2,15 @@ name: Build and Archive
 
 on:
   workflow_dispatch:
+    inputs:
+      staging:
+        description: 'Whether to enable staging mode'
+        required: false
+        default: 'false'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        stage: [ '', '-s' ]
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -23,7 +24,11 @@ jobs:
 
       - name: Build and Archive
         run: |
-          ./scripts/clean_rebuild.sh -y ${{ matrix.stage }} -d ~/build/
+          if [ "${{ github.event.inputs.staging }}" == "true" ]; then
+            ./scripts/clean_rebuild.sh -y -s -d ~/build/
+          else
+            ./scripts/clean_rebuild.sh -y -d ~/build/
+          fi
           tar -czvf artifacts.tar.gz ~/build/devdocs/build
 
       - name: Upload Artifact
