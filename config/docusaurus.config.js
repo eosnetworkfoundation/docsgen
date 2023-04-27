@@ -165,7 +165,7 @@ const config = {
         sidebarPath: require.resolve('./sidebarsLeap.js'),
         versions: {
           current: {
-            label: '3.1',
+            label: '3.2',
             path: 'latest',
             banner: 'none',
           },
