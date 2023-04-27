@@ -1,0 +1,29 @@
+name: Build and Archive
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Environment
+        run: |
+          sudo apt-get update
+          sudo apt remove -y default-jre openjdk-11-jre default-jre-headless openjdk-11-jre-headless
+          sudo apt autoremove
+          sudo apt-get install -y m4 python3 openjdk-8-jdk doxygen
+
+      - name: Build and Archive
+        run: |
+          ./scripts/clean_rebuild.sh -s -d ~/build/
+          tar -czvf artifacts.tar.gz ~/build/
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: artifacts.tar.gz
