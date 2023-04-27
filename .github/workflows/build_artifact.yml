@@ -6,6 +6,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        stage: [ '', '-s' ]
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -19,7 +23,7 @@ jobs:
 
       - name: Build and Archive
         run: |
-          ./scripts/clean_rebuild.sh -y -s -d ~/build/
+          ./scripts/clean_rebuild.sh -y ${{ matrix.stage }} -d ~/build/
           tar -czvf artifacts.tar.gz ~/build/devdocs/build
 
       - name: Upload Artifact
