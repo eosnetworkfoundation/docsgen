@@ -14,11 +14,9 @@ import {
   usePluralForm,
   isRegexpStringMatch,
   useEvent,
+  useSearchQueryString,
 } from '@docusaurus/theme-common';
-import {
-  useTitleFormatter,
-  useSearchPage,
-} from '@docusaurus/theme-common/internal';
+import {useTitleFormatter} from '@docusaurus/theme-common/internal';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useAllDocsData } from '@docusaurus/plugin-content-docs/client';
 import Translate, { translate } from '@docusaurus/Translate';
@@ -227,7 +225,7 @@ function SearchPageContent() {
   } = themeConfig;
   const documentsFoundPlural = useDocumentsFoundPlural();
   const docsSearchVersionsHelpers = useDocsSearchVersionsHelpers();
-  const { searchQuery, setSearchQuery } = useSearchPage();
+  const [searchQuery, setSearchQuery] = useSearchQueryString();
   const initialSearchResultState = {
     items: [],
     query: null,
@@ -463,7 +461,7 @@ function SearchPageContent() {
 
         <div className={styles.containerSearchPage}>
           {/* <div className={styles.searchSidebar}>
-          
+
         </div> */}
 
           <div className={styles.resultsContainer}>

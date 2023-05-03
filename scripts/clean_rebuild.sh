@@ -140,7 +140,7 @@ do
     branch=${DOCS_BRANCH:-main}
   fi
   if [ "${gitrepo}" == "AntelopeIO/leap" ]; then
-    branch="release/3.1"
+    branch="release/3.2"
   fi
   if [ "${gitrepo}" == "AntelopeIO/cdt" ]; then
     branch="release/3.1"
@@ -163,7 +163,7 @@ done
 ##
 # CREATE VERSIONS: docusaurus copy content to versioned directories
 pushd "$ARG_BUILD_DIR"/devdocs || exit
-if ! npm run docusaurus docs:version:leap 3.1;
+if ! npm run docusaurus docs:version:leap 3.2;
 then
   >&2 echo "FATAL: npm run build failed exiting"
   exit 1
@@ -175,7 +175,7 @@ popd || exit
 # update config for v3.1
 # Configure version paths and banners
 mv "${SCRIPT_DIR}"/../config/docusaurus.config.js.next "${SCRIPT_DIR}"/../config/docusaurus.config.js.new
-"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "release/3.2" "$CMD_FLAGS"
+"${SCRIPT_DIR:?}"/generate_documents.sh -d "$ARG_BUILD_DIR" -r "AntelopeIO/leap" -b "release/4.0" "$CMD_FLAGS"
 
 pushd "$ARG_BUILD_DIR"/devdocs || exit
 # explict build
