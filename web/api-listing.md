@@ -2,7 +2,7 @@
 
 ## Nodeos API Reference ##
 
-### `Latest`
+### `Latest (4.0)`
 https API references for working with **Nodeos**
 - [Nodeos Chain API](/leap-plugins/latest/chain.api/): Provides access to the blockchain information and interaction with the blockchain
 - [Nodeos Producer API](/leap-plugins/latest/producer.api/): Provides access to a producer node
