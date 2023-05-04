@@ -28,7 +28,7 @@ const config = {
   // --> NOTE: Update src/theme/TOC/index.js to match defaultLocal and locales <--
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'zh', 'ko'],
+    locales: ['en'], // , 'zh', 'ko'
     path: 'i18n',
     localeConfigs: {
       en: {
