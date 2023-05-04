@@ -345,16 +345,16 @@ const config = {
       secondCards: [
         {
           icon: 'icons/molecules-icon.svg',
-          title: 'Go deeper',
-          subtitle: 'Take a look under the hood',
-          link: '/docs/latest/resources/protocol/',
+          title: 'Create a Token',
+          subtitle: 'Learn how to develop fungible tokens',
+          link: '/docs/latest/smart-contracts/tutorials/create-a-token',
           color: 'yellow',
         },
         {
           icon: '/icons/chat-icon.svg',
-          title: 'Tic-tac-toe',
-          subtitle: 'Learn how to make Tic-tac-toe fully on-chain!',
-          link: '/docs/latest/smart-contracts/tutorials/tic-tac-toe-game-contract',
+          title: 'Create an NFT',
+          subtitle: 'Learn how to develop non-fungible tokens',
+          link: '/docs/latest/smart-contracts/tutorials/create-an-nft',
           color: 'yellow',
         },
         {
