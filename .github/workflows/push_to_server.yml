@@ -1,0 +1,26 @@
+name: Push to server
+
+on:
+  workflow_dispatch:
+    inputs:
+      staging:
+        description: 'Whether to enable staging mode'
+        required: false
+        default: 'false'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            if [ "${{ github.event.inputs.staging }}" == "true" ]; then
+              ./ENF-Staging-Rebuild.sh
+            else
+              ./ENF-Production-Rebuild.sh
+            fi
