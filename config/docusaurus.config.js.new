@@ -337,9 +337,9 @@ const config = {
         },
         {
           icon: '/icons/docs-icon.svg',
-          title: 'Try EOS in DUNE',
-          subtitle: 'Get started with smart contract development using DUNE',
-          link: '/docs/latest/smart-contracts/getting-started/dune-guide/',
+          title: 'Learn blockchain basics',
+          subtitle: 'Are you new to blockchain? Start here',
+          link: '/docs/latest/blockchain-basics/',
         }
       ],
       secondCards: [
