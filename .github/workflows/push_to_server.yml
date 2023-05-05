@@ -6,7 +6,7 @@ on:
       staging:
         description: 'Whether to enable staging mode'
         required: false
-        default: 'false'
+        default: 'true'
 
 jobs:
   build:
