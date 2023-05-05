@@ -1392,3 +1392,7 @@ aside {
     flex-basis: unset !important;
   }
 }
+
+.sidebarhidden {
+  display: none !important;
+}
