@@ -1,5 +1,9 @@
 # DocsGen
 
+> ⚠ **Deprecated**
+>  
+> Please see [Docs UI](https://github.com/eosnetworkfoundation/docs-ui) for the updated docs.eosnetwork.com user interface
+
 DocsGen is the tool used to build the EOS documentation. It consists of a set of scripts and configuration files to generate the EOS Web Documentation Portal. The goal of this project is to create a single web portal linking together documentation across the EOS Network code repositories. This portal will make an effort to make it easy to build and maintain EOS projects, according to the following objectives:
 * Single place EOS documentation
 * Unified presentation of documentation
