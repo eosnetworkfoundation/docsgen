@@ -1,0 +1,20 @@
+type: array
+description: Array that has as first element the version of the authority json objects and then the objects themselves.
+items:
+  type: object
+  properties:
+    threshold:
+      type: integer
+      description: The threshold value for the producer's authority.
+    keys:
+      type: array
+      description: An array of producers keys definition.
+      items:
+        type: object
+        properties:
+          key:
+            type: string
+            description: The public key associated with the producer.
+          weight:
+            type: integer
+            description: The weight of the key in the producer's authority.
