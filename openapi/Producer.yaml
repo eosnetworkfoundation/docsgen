@@ -1,0 +1,17 @@
+type: object
+description: A json object that describes a producer.
+properties:
+  owner:
+    type: string
+    description: The name of the producer.
+  producer_authority:
+      $ref: "ProducerAuthorityList.yaml"
+  url:
+    type: string
+    description: The URL of the producer.
+  total_votes:
+    type: string
+    description: The total number of votes this producer has.
+  producer_key:
+    type: string
+    description: The producer public key registered with the EOS blockchain.

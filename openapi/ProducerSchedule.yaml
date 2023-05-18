@@ -1,15 +1,17 @@
-type: "object"
-additionalProperties: false
-minProperties: 2
-required:
-  - "version"
-  - "producers"
+type: object
+description: A json object that encapsulates the list of producers schedule and its version.
 properties:
   version:
-    type: "integer"
+    type: integer
+    description: The version of the producers schedule list. Version is an integer subsequently incremented.
   producers:
-    type: "array"
+    type: array
+    description: The list of producers.
     items:
-      $ref: "ProducerSigningKey.yaml"
-title: "ProducerSchedule"
-nullable: true
+      type: object
+      properties:
+        producer_name:
+          type: string
+          description: The name of the producer.
+        authority:
+          $ref: "ProducerAuthorityList.yaml"
